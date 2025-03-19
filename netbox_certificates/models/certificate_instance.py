@@ -4,7 +4,7 @@ from utilities.choices import ChoiceSet
 from django.contrib.postgres.fields import ArrayField
 from django.urls import reverse
 
-from .certificate import Certificate
+import models
 
 class CertificateInstanceStatusChoices(ChoiceSet):
     """Certificate Instance State"""

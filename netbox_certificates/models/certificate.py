@@ -4,7 +4,7 @@ from utilities.choices import ChoiceSet
 from django.contrib.postgres.fields import ArrayField
 from django.urls import reverse
 
-from .certificate_instance import CertificateInstance
+import models
 
 # Choices - extendable by key in configuration
 class CertificateStatusChoices(ChoiceSet):
