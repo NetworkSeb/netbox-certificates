@@ -80,7 +80,7 @@ class Certificate(NetBoxModel):
         related_name='certificate'
     )
     ca = models.ForeignKey(
-        to=CA,
+        to=CertificateAuthority,
         on_delete=models.PROTECT,
         related_name='certificates'
     )
