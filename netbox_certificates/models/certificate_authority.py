@@ -4,8 +4,6 @@ from utilities.choices import ChoiceSet
 from django.contrib.postgres.fields import ArrayField
 from django.urls import reverse
 
-import models
-
 class CertificateAuthorityStatusChoice(ChoiceSet):
     """CertificateAuthority Statuses"""
     key = 'CertificateAuthority.status'
