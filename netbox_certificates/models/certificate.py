@@ -4,8 +4,6 @@ from utilities.choices import ChoiceSet
 from django.contrib.postgres.fields import ArrayField
 from django.urls import reverse
 
-import models
-
 # Choices - extendable by key in configuration
 class CertificateStatusChoices(ChoiceSet):
     """Certificate Statuses"""
@@ -74,12 +72,12 @@ class Certificate(NetBoxModel):
         help_text='Device(s) with certificate installed'
     )
     instances = models.ForeignKey(
-        to=CertificateInstance,
+        to=certificate_instance.CertificateInstance,
         on_delete=models.PROTECT,
         related_name='certificate'
     )
     ca = models.ForeignKey(
-        to=CertificateAuthority,
+        to=certificate_authority.CertificateAuthority,
         on_delete=models.PROTECT,
         related_name='certificates'
     )

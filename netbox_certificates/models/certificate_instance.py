@@ -4,8 +4,6 @@ from utilities.choices import ChoiceSet
 from django.contrib.postgres.fields import ArrayField
 from django.urls import reverse
 
-import models
-
 class CertificateInstanceStatusChoices(ChoiceSet):
     """Certificate Instance State"""
     key = 'CertificateInstance.status'
@@ -22,7 +20,7 @@ class CertificateInstanceStatusChoices(ChoiceSet):
 class CertificateInstance(NetBoxModel):
     ca_reference = models.CharField(max_length=100, primary_key=True, verbose_name="CA Order Number")
     cert_reference = models.ForeignKey(
-        to=Certificate,
+        to=certificate.Certificate,
         on_delete=models.PROTECT,
         related_name='certificate'
     )
