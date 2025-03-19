@@ -20,7 +20,7 @@ class CertificateInstanceStatusChoices(ChoiceSet):
 class CertificateInstance(NetBoxModel):
     ca_reference = models.CharField(max_length=100, primary_key=True, verbose_name="CA Order Number")
     cert_reference = models.ForeignKey(
-        to=certificate.Certificate,
+        to="Certificate",
         on_delete=models.PROTECT,
         related_name='certificate'
     )

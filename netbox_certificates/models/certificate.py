@@ -72,12 +72,12 @@ class Certificate(NetBoxModel):
         help_text='Device(s) with certificate installed'
     )
     instances = models.ForeignKey(
-        to=certificate_instance.CertificateInstance,
+        to="CertificateInstance",
         on_delete=models.PROTECT,
         related_name='certificate'
     )
     ca = models.ForeignKey(
-        to=certificate_authority.CertificateAuthority,
+        to="CertificateAuthority",
         on_delete=models.PROTECT,
         related_name='certificates'
     )
