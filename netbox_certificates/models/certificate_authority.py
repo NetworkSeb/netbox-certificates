@@ -4,8 +4,8 @@ from utilities.choices import ChoiceSet
 from django.contrib.postgres.fields import ArrayField
 from django.urls import reverse
 
-from .certificate import *
-from .certificate_instance import *
+from .certificate import Certificate
+from .certificate_instance import CertificateInstance
 
 class CertificateAuthorityStatusChoice(ChoiceSet):
     """CertificateAuthority Statuses"""
