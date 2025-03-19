@@ -3,6 +3,8 @@ from netbox.models import NetBoxModel
 from utilities.choices import ChoiceSet
 from django.contrib.postgres.fields import ArrayField
 from django.urls import reverse
+from .certificate_authority import *
+from .certificate_instance import *
 
 
 # Choices - extendable by key in configuration
