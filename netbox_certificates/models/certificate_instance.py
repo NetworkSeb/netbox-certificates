@@ -4,6 +4,8 @@ from utilities.choices import ChoiceSet
 from django.contrib.postgres.fields import ArrayField
 from django.urls import reverse
 
+from .certificate import Certificate
+
 class CertificateInstanceStatusChoices(ChoiceSet):
     """Certificate Instance State"""
     key = 'CertificateInstance.status'
