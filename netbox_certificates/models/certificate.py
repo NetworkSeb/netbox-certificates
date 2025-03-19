@@ -1,10 +1,8 @@
 from django.db import models
-from dcim.models import Device
 from netbox.models import NetBoxModel
 from utilities.choices import ChoiceSet
 from django.contrib.postgres.fields import ArrayField
 from django.urls import reverse
-from models import CertificateInstance, CA
 
 
 # Choices - extendable by key in configuration
@@ -164,7 +162,7 @@ class Certificate(NetBoxModel):
     class Meta:
         """Meta class"""
 
-        ordering = ["cn"]
+        ordering = ('cn',)
 
     def __str__(self):
         return str(self.cn)

@@ -1,10 +1,8 @@
 from django.db import models
-from dcim.models import Device
 from netbox.models import NetBoxModel
 from utilities.choices import ChoiceSet
 from django.contrib.postgres.fields import ArrayField
 from django.urls import reverse
-from models import Certificate
 
 class CertificateInstanceStatusChoices(ChoiceSet):
     """Certificate Instance State"""
@@ -19,7 +17,7 @@ class CertificateInstanceStatusChoices(ChoiceSet):
         ("expired", "Expired", "red")
     ]
 
-class CertificateInstance(models.Model):
+class CertificateInstance(NetBoxModel):
     ca_reference = models.CharField(max_length=100, primary_key=True, verbose_name="CA Order Number")
     serial_number = models.CharField(
         max_length=100,
@@ -59,3 +57,11 @@ class CertificateInstance(models.Model):
     # Colour choices
     def get_status_color(self):
         return CertificateInstanceStatusChoices.colors.get(self.status)
+    
+    class Meta:
+        """Meta class"""
+
+        ordering = ('ca_reference',)
+
+    def __str__(self):
+        return self.ca_reference
