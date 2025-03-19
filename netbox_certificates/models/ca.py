@@ -1,0 +1,46 @@
+from django.db import models
+from dcim.models import Device
+from netbox.models import NetBoxModel
+from utilities.choices import ChoiceSet
+from django.contrib.postgres.fields import ArrayField
+from django.urls import reverse
+
+class CAStatusChoice(ChoiceSet):
+    """CA Statuses"""
+    key = 'CA.status'
+
+    DEFAULT_VALUE = "planned"
+
+    CHOICES = [
+        ("active", "Active", "green"),
+        ("planned", "Planned", "blue"),
+        ("retired", "Retired", "red")
+    ]
+
+
+class CA(NetBoxModel):
+    name = models.CharField(
+        max_length=256,
+        blank=False,
+        verbose_name="CA Name",
+        unique=True,
+        help_text="Certificate Authority Name",
+    )
+    acme_url = models.URLField(
+        max_length=256,
+        null=True,
+        blank=True,
+        verbose_name="ACME URL",
+    )
+    admin_url = models.URLField(
+        max_length=256,
+        null=False,
+        blank=False,
+        verbose_name="Administrative URL",
+    )
+    status = models.CharField(
+        max_length=32,
+        default=CAStatusChoice.DEFAULT_VALUE,
+        blank=False,
+        verbose_name="CA Status",
+    )
