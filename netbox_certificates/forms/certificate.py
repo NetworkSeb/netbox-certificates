@@ -1,9 +1,8 @@
 from netbox.forms import NetBoxModelForm
 from dcim.models import Device
 from utilities.forms.fields import CommentField, DynamicModelChoiceField, DynamicModelMultipleChoiceField
-from .certificate import Certificate
-from .certificate_instance import CertificateInstance
-from .certificate_authority import CertificateAuthority
+
+from . import models
 
 
 class CertificateForm(NetBoxModelForm):
@@ -13,17 +12,17 @@ class CertificateForm(NetBoxModelForm):
     )
 
     instances = DynamicModelChoiceField(
-        queryset=CertificateInstance.objects.all()
+        queryset=models.CertificateInstance.objects.all()
     )
 
     ca = DynamicModelChoiceField(
-        queryset=CertificateAuthority.objects.all()
+        queryset=models.CertificateAuthority.objects.all()
     )
 
     comments = CommentField()
 
     class Meta:
-        model = Certificate
+        model = models.Certificate
         fields = (
             'cn', 
             'san', 
