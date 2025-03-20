@@ -14,6 +14,7 @@ class CertificateTable(NetBoxTable):
     ca_id = tables.Column(
         linkify=True
     )
+    instance_count = tables.Column()
 
     class Meta(NetBoxTable.Meta):
         model = Certificate

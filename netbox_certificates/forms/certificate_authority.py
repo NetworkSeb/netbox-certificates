@@ -3,7 +3,7 @@ from utilities.forms.fields import CommentField
 from .certificate import Certificate
 
 
-class CertificateForm(NetBoxModelForm):
+class CertificateAuthorityForm(NetBoxModelForm):
 
     comments = CommentField()
 
