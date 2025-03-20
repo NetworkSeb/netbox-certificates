@@ -43,6 +43,9 @@ class CertificateAuthority(NetBoxModel):
         blank=False,
         verbose_name="Certificate Authority Status"
     )
+    comments = models.TextField(
+        blank=True
+    )
     
     class Meta():
         ordering = ('name',)

@@ -144,6 +144,9 @@ class Certificate(NetBoxModel):
         default=False,
         null=True
     )
+    comments = models.TextField(
+        blank=True
+    )
     # Need a field here for Service when it becomes available
 
     

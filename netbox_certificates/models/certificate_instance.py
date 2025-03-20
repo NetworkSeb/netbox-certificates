@@ -53,6 +53,9 @@ class CertificateInstance(NetBoxModel):
         blank=True,
         verbose_name="Certificate PEM",
     )
+    comments = models.TextField(
+        blank=True
+    )
 
     # Colour choices
     def get_status_color(self):
