@@ -1,6 +1,9 @@
 from django.urls import path
 from netbox.views.generic import ObjectChangeLogView
 
+from netbox_certificates.views import *
+from netbox_certificates.models import *
+
 urlpatterns = (
 
     # Certificates
@@ -22,7 +25,7 @@ urlpatterns = (
     # Certificate Authorities
     path('certificate-authority/', CertificateAuthorityListView.as_view(), name='certificate_authority_list'),
     path('certificate-authority/add/', CertificateAuthorityEditView.as_view(), name='certificate_authority_add'),
-    path('certificate-authority/<int:pk>/', CertificateVAuthorityiew.as_view(), name='certificate_authority'),
+    path('certificate-authority/<int:pk>/', CertificateAuthorityView.as_view(), name='certificate_authority'),
     path('certificate-authority/<int:pk>/edit/', CertificateAuthorityEditView.as_view(), name='certificate_authority_edit'),
     path('certificate-authority/<int:pk>/delete/', CertificateAuthorityDeleteView.as_view(), name='certificate_authority_delete'),
     path('certificate-authority/<int:pk>/changelog/', ObjectChangeLogView.as_view(), name='certificate_authority_changelog', kwargs={'model': CertificateAuthority}),
