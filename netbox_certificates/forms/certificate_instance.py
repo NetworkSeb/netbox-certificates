@@ -19,6 +19,6 @@ class CertificateInstanceForm(NetBoxModelForm):
             'csr',
             'key',
             'pem',
-            'comments'
+            'comments',
             'tags'    
         )

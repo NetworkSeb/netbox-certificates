@@ -15,6 +15,6 @@ class CertificateAuthorityForm(NetBoxModelForm):
             'acme_url',
             'admin_url',
             'status',
-            'comments'
+            'comments',
             'tags'    
         )
