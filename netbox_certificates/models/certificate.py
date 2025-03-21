@@ -74,7 +74,7 @@ class Certificate(NetBoxModel):
     )
     ca = models.ManyToManyField(
         to="CertificateAuthority",
-        on_delete=models.PROTECT,
+        verbose_name='Certificate Authority',
         related_name='certificates'
     )
     status = models.CharField(
