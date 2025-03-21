@@ -13,6 +13,7 @@ class CertificateInstanceTable(NetBoxTable):
         model = CertificateInstance
         fields = (
             'pk',
+            'cn',
             'ca_reference',
             'serial_number',
             'issue_date',

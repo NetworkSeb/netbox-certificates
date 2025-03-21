@@ -12,6 +12,7 @@ class CertificateInstanceForm(NetBoxModelForm):
         model = CertificateInstance
         fields = (
             'ca_reference',
+            'cn',
             'serial_number',
             'issue_date',
             'expiry_date',
