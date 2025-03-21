@@ -31,7 +31,6 @@ class CertificateForm(NetBoxModelForm):
             'install_type', 
             'fs_cert_location', 
             'fs_key_location', 
-            'last_updated',
             'vault_url',
             'service_commands',
             'service_check',
