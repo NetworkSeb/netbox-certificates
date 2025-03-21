@@ -1,6 +1,7 @@
 from netbox.forms import NetBoxModelForm
 from utilities.forms.fields import CommentField
-from . import models
+
+from netbox_certificates.models.certificate_instance import *
 
 
 class CertificateInstanceForm(NetBoxModelForm):
@@ -8,7 +9,7 @@ class CertificateInstanceForm(NetBoxModelForm):
     comments = CommentField()
 
     class Meta:
-        model = models.Certificate
+        model = CertificateInstance
         fields = (
             'ca_reference',
             'serial_number',

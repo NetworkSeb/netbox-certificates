@@ -2,7 +2,7 @@ from netbox.forms import NetBoxModelForm
 from dcim.models import Device
 from utilities.forms.fields import CommentField, DynamicModelChoiceField, DynamicModelMultipleChoiceField
 
-from . import models
+from netbox_certificates.models.certificate import *
 
 
 class CertificateForm(NetBoxModelForm):
@@ -22,7 +22,7 @@ class CertificateForm(NetBoxModelForm):
     comments = CommentField()
 
     class Meta:
-        model = models.Certificate
+        model = Certificate
         fields = (
             'cn', 
             'san', 
