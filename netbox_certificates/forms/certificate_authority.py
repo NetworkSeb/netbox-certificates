@@ -1,7 +1,7 @@
 from netbox.forms import NetBoxModelForm
 from utilities.forms.fields import CommentField
 
-from netbox_certificates.models.certificate_authority import *
+from netbox_certificates.models import CertificateAuthority
 
 
 class CertificateAuthorityForm(NetBoxModelForm):
