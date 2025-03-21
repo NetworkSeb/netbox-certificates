@@ -3,10 +3,18 @@ from django.db.models import Count
 
 from netbox_certificates.models import CertificateAuthority
 from netbox_certificates.forms import CertificateAuthorityForm
-from netbox_certificates.tables import CertificateAuthorityTable
+from netbox_certificates.tables import CertificateAuthorityTable, CertificateTable
 
 class CertificateAuthorityView(generic.ObjectView):
     queryset = CertificateAuthority.objects.all()
+
+    def get_extra_context(self, request, instance):
+        table = CertificateTable(instance.certificate.all())
+        table.configure(request)
+
+        return {
+            'certificate_table': table
+        }
 
 class CertificateAuthorityListView(generic.ObjectListView):
     queryset = CertificateAuthority.objects.annotate(
