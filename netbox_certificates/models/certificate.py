@@ -55,8 +55,7 @@ class Certificate(NetBoxModel):
         blank=False,
         verbose_name="Common Name",
         unique=True,
-        help_text="Unique Common Name",
-        primary_key=True
+        help_text="Unique Common Name"
     )
     # Could this point to a DNS record?
     san = ArrayField(
