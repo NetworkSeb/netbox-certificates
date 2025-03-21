@@ -1,8 +1,9 @@
 from django.db import models
 from netbox.models import NetBoxModel
 from utilities.choices import ChoiceSet
-from django.contrib.postgres.fields import ArrayField
 from django.urls import reverse
+
+from netbox_certificates.models import Certificate, CertificateAuthority
 
 class CertificateInstanceStatusChoices(ChoiceSet):
     """Certificate Instance State"""
@@ -19,8 +20,15 @@ class CertificateInstanceStatusChoices(ChoiceSet):
 
 class CertificateInstance(NetBoxModel):
     ca_reference = models.CharField(max_length=100, primary_key=True, verbose_name="CA Order Number")
-    cn = models.CharField(
-        max_length=256
+    ca = models.ForeignKey(
+        to=CertificateAuthority,
+        on_delete=models.PROTECT,
+        related_name='certificate_instances'
+    )
+    certificate = models.ForeignKey(
+        to=Certificate,
+        on_delete=models.CASCADE,
+        related_name='instances'
     )
     serial_number = models.CharField(
         max_length=100,

@@ -56,6 +56,7 @@ class Certificate(NetBoxModel):
         verbose_name="Common Name",
         unique=True,
         help_text="Unique Common Name",
+        primary_key=True
     )
     # Could this point to a DNS record?
     san = ArrayField(
@@ -71,12 +72,7 @@ class Certificate(NetBoxModel):
         verbose_name='Device',
         help_text='Device(s) with certificate installed'
     )
-    instances = models.ForeignKey(
-        to="CertificateInstance",
-        on_delete=models.PROTECT,
-        related_name='certificate'
-    )
-    ca = models.ForeignKey(
+    ca = models.ManyToManyField(
         to="CertificateAuthority",
         on_delete=models.PROTECT,
         related_name='certificates'
