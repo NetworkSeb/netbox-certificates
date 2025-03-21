@@ -23,12 +23,14 @@ class CertificateInstance(NetBoxModel):
     ca = models.ForeignKey(
         to=CertificateAuthority,
         on_delete=models.PROTECT,
-        related_name='certificate_instances'
+        related_name='certificate_instances',
+        null=True
     )
     certificate = models.ForeignKey(
         to=Certificate,
         on_delete=models.CASCADE,
-        related_name='instances'
+        related_name='instances',
+        null=True
     )
     serial_number = models.CharField(
         max_length=100,
