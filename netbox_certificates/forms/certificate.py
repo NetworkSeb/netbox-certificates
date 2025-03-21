@@ -36,6 +36,6 @@ class CertificateForm(NetBoxModelForm):
             'service_check',
             'service_lb',
             'ca_id',
-            'comments'
+            'comments',
             'tags'    
         )
