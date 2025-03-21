@@ -1,0 +1,68 @@
+{% extends 'generic/object.html' %}
+
+{% block content %}
+  <div class="row mb-3">
+    <div class="col col-md-6">
+      <div class="card">
+        <h5 class="card-header">Certificate</h5>
+        <div class="card-body">
+          <table class="table table-hover attr-table">
+            <tr>
+              <th scope="row">Common Name</th>
+              <td>{{ object.cn }}</td>
+            </tr>
+            <tr>
+              <th scope="row">SANs</th>
+              <td>{{ object.san }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Status</th>
+              <td>{{ object.status}}</td>
+            </tr>
+            <tr>
+                <th scope="row">Type</th>
+                <td>{{ object.type}}</td>
+            </tr>
+            <tr>
+                <th scope="row">Install Type</th>
+                <td>{{ object.install_type}}</td>
+            </tr>
+            <tr>
+                <th scope="row">Certificate File System Location</th>
+                <td>{{ object.fs_cert_location}}</td>
+            </tr>
+            <tr>
+                <th scope="row">Key File System Location</th>
+                <td>{{ object.fs_key_location}}</td>
+            </tr>
+            <tr>
+                <th scope="row">Vault URL</th>
+                <td>{{ object.vault_url}}</td>
+            </tr>
+            <tr>
+                <th scope="row">Service Commands</th>
+                <td>{{ object.service_commands}}</td>
+            </tr>
+            <tr>
+                <th scope="row">Service Check</th>
+                <td>{{ object.service_check}}</td>
+            </tr>
+            <tr>
+                <th scope="row">Service Loadbalanced?</th>
+                <td>{{ object.service_lb}}</td>
+            </tr>
+            <tr>
+                <th scope="row">Certificate Authority</th>
+                <td>{{ object.ca_id}}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      {% include 'inc/panels/custom_fields.html' %}
+    </div>
+    <div class="col col-md-6">
+      {% include 'inc/panels/tags.html' %}
+      {% include 'inc/panels/comments.html' %}
+    </div>
+  </div>
+{% endblock content %}
