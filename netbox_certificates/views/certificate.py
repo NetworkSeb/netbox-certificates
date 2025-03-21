@@ -1,7 +1,6 @@
 from netbox.views import generic
 from django.db.models import Count
 
-from django.shortcuts import render, get_object_or_404
 from netbox_certificates.models import Certificate
 from netbox_certificates.forms import CertificateForm
 from netbox_certificates.tables import CertificateTable, CertificateInstanceTable

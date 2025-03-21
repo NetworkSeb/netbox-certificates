@@ -13,7 +13,8 @@ class CertificateInstanceTable(NetBoxTable):
         model = CertificateInstance
         fields = (
             'pk',
-            'cn',
+            'certificate',
+            'ca',
             'ca_reference',
             'serial_number',
             'issue_date',
@@ -26,6 +27,7 @@ class CertificateInstanceTable(NetBoxTable):
         )
         default_columns = (
             'ca_reference',
+            'certificate',
             'serial_number',
             'status',
             'issue_date',

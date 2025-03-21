@@ -25,7 +25,8 @@ class CertificateForm(NetBoxModelForm):
         model = Certificate
         fields = (
             'cn', 
-            'san', 
+            'san',
+            'device',
             'status', 
             'type', 
             'install_type', 
@@ -36,6 +37,7 @@ class CertificateForm(NetBoxModelForm):
             'service_check',
             'service_lb',
             'ca',
+            'content',
             'comments',
             'tags'    
         )

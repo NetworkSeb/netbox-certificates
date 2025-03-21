@@ -23,7 +23,8 @@ class CertificateTable(NetBoxTable):
             'id', 
             'cn', 
             'san', 
-            'status', 
+            'status',
+            'device', 
             'type', 
             'install_type', 
             'fs_cert_location', 
@@ -41,6 +42,7 @@ class CertificateTable(NetBoxTable):
             'cn',
             'san',
             'status',
+            'device',
             'type',
             'install_type'
         )
