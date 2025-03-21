@@ -1,8 +1,8 @@
 from django.urls import path
 from netbox.views.generic import ObjectChangeLogView
 
-from netbox_certificates.views import *
-from netbox_certificates.models import *
+from netbox_certificates.views import CertificateListView, CertificateEditView, CertificateView, CertificateDeleteView, CertificateInstanceListView, CertificateInstanceEditView, CertificateInstanceView, CertificateInstanceDeleteView, CertificateAuthorityListView, CertificateAuthorityEditView, CertificateAuthorityView, CertificateAuthorityDeleteView
+from netbox_certificates.models import Certificate, CertificateInstance, CertificateAuthority
 
 urlpatterns = (
 
