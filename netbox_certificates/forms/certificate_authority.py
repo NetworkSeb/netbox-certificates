@@ -1,7 +1,7 @@
-from netbox.forms import NetBoxModelForm
+from netbox.forms import NetBoxModelForm, NetBoxModelFilterSetForm
 from utilities.forms.fields import CommentField
 
-from netbox_certificates.models import CertificateAuthority
+from netbox_certificates.models import CertificateAuthority, CertificateAuthorityStatusChoice, Certificate
 
 
 class CertificateAuthorityForm(NetBoxModelForm):
@@ -18,3 +18,16 @@ class CertificateAuthorityForm(NetBoxModelForm):
             'comments',
             'tags'    
         )
+
+class CertificateAuthorityFilterForm(NetBoxModelFilterSetForm):
+    model = CertificateAuthority
+
+    certificates = forms.ModelMultipleChoiceField(
+        queryset=Certificate.objects.all(),
+        required=False
+    )
+
+    status = forms.MultipleChoiceField(
+        choices=CertificateAuthorityStatusChoice,
+        required=False
+    )

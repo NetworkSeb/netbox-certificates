@@ -1,8 +1,8 @@
-from netbox.forms import NetBoxModelForm
+from netbox.forms import NetBoxModelForm, NetBoxModelFilterSetForm
 from dcim.models import Device
 from utilities.forms.fields import CommentField, DynamicModelChoiceField, DynamicModelMultipleChoiceField
 
-from netbox_certificates.models import Certificate, CertificateAuthority, CertificateInstance
+from netbox_certificates.models import Certificate, CertificateAuthority, CertificateInstance, CertificateInstallChoices, CertificateStatusChoices, CertificateTypeChoices
 
 
 class CertificateForm(NetBoxModelForm):
@@ -41,3 +41,30 @@ class CertificateForm(NetBoxModelForm):
             'comments',
             'tags'    
         )
+
+class CertificateFilterForm(NetBoxModelFilterSetForm):
+    model = Certificate
+
+    certificates = forms.ModelMultipleChoiceField(
+        queryset=Certificate.objects.all(),
+        required=False
+    )
+
+    device = forms.ModelMultipleChoiceField(
+        queryset=Device.objects.all()
+    )
+
+    status = forms.MultipleChoiceField(
+        choices=CertificateStatusChoices,
+        required=False
+    )
+
+    type = forms.MultipleChoiceField(
+        choices=CertificateTypeChoices,
+        required=False
+    )
+
+    install_type = forms.MultipleChoiceField(
+        choices=CertificateInstallChoices,
+        required=False
+    )
