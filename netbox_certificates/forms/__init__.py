@@ -1,3 +1,3 @@
-from .certificate import CertificateForm
-from .certificate_authority import CertificateAuthorityForm
-from .certificate_instance import CertificateInstanceForm
+from .certificate import *
+from .certificate_authority import *
+from .certificate_instance import *
