@@ -3,6 +3,7 @@ from django.db import models
 import django_filters
 from django import forms
 from django.contrib.postgres.fields import ArrayField
+from taggit.managers import TaggableManager
 
 from netbox_certificates.models import Certificate
 
@@ -41,6 +42,9 @@ class CertificateFilterSet(NetBoxModelFilterSet):
                      'widget': forms.CheckboxInput,
                  },
              },
+            TaggableManager: {
+                'filter_class': django_filters.CharFilter
+            }
         }
 
     def search(self, queryset, name, value):
