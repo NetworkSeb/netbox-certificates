@@ -53,6 +53,7 @@ class CertificateFilterForm(NetBoxModelFilterSetForm):
 
     device = forms.ModelMultipleChoiceField(
         queryset=Device.objects.all()
+        required=False
     )
 
     status = forms.MultipleChoiceField(
