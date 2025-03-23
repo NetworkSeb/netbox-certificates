@@ -1,6 +1,8 @@
 from netbox.forms import NetBoxModelForm, NetBoxModelFilterSetForm
 from utilities.forms.fields import CommentField
 
+from django import forms
+
 from netbox_certificates.models import CertificateInstance, CertificateInstanceStatusChoices, Certificate, CertificateAuthority
 
 
@@ -49,13 +51,13 @@ class CertificateInstanceFilterForm(NetBoxModelFilterSetForm):
     expiry = forms.DateTimeField(
         required=False
     )
-    
+
     status = forms.MultipleChoiceField(
         choices=CertificateInstanceStatusChoices,
         required=False
     )
 
     status = forms.MultipleChoiceField(
-        choices=CertificateStatusChoices,
+        choices=CertificateInstanceStatusChoices,
         required=False
     )

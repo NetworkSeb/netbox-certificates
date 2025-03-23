@@ -1,6 +1,8 @@
 from netbox.forms import NetBoxModelForm, NetBoxModelFilterSetForm
 from utilities.forms.fields import CommentField
 
+from django import forms
+
 from netbox_certificates.models import CertificateAuthority, CertificateAuthorityStatusChoice, Certificate
 
 
