@@ -2,6 +2,7 @@ from netbox.filtersets import NetBoxModelFilterSet
 from django.db import models
 import django_filters
 from django import forms
+from django.contrib.postgres.fields import ArrayField
 
 from netbox_certificates.models import Certificate
 
@@ -28,7 +29,7 @@ class CertificateFilterSet(NetBoxModelFilterSet):
             'tags'
         )
         filter_overrides= {
-            models.ArrayField: {
+            ArrayField: {
                 'filter_class': django_filters.CharFilter,
                 'extra': lambda f: {
                     'lookup_expr': 'icontains',
