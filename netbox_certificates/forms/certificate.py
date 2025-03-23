@@ -1,6 +1,6 @@
 from netbox.forms import NetBoxModelForm, NetBoxModelFilterSetForm
 from dcim.models import Device
-from utilities.forms.fields import CommentField, DynamicModelChoiceField, DynamicModelMultipleChoiceField, ModelMultipleChoiceField
+from utilities.forms.fields import CommentField, DynamicModelChoiceField, DynamicModelMultipleChoiceField
 from django import forms
 
 from netbox_certificates.models import Certificate, CertificateAuthority, CertificateInstance, CertificateInstallChoices, CertificateStatusChoices, CertificateTypeChoices
