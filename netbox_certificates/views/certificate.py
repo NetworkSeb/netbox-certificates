@@ -2,8 +2,9 @@ from netbox.views import generic
 from django.db.models import Count
 
 from netbox_certificates.models import Certificate
-from netbox_certificates.forms import CertificateForm
+from netbox_certificates.forms import CertificateForm, CertificateFilterForm
 from netbox_certificates.tables import CertificateTable, CertificateInstanceTable
+from netbox_certificates.filtersets import CertificateFilterSet
 
 class CertificateView(generic.ObjectView):
     queryset = Certificate.objects.all()
@@ -21,6 +22,8 @@ class CertificateListView(generic.ObjectListView):
         instance_count = Count('instances')
     )
     table = CertificateTable
+    filterset=CertificateFilterSet
+    filterset_form = CertificateFilterForm
 
 class CertificateEditView(generic.ObjectEditView):
     queryset = Certificate.objects.all()
