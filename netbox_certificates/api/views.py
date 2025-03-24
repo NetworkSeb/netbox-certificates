@@ -11,7 +11,7 @@ class CertificateViewSet(NetBoxModelViewSet):
         instance_count=Count('instances')
     )
     serializer_class = CertificateSerializer
-    filterset_class = CertificateFilterSet
+    #filterset_class = CertificateFilterSet
 
 class CertificateInstanceViewSet(NetBoxModelViewSet):
     queryset = CertificateInstance.objects.prefetch_releated('id','certificate','ca','tags')
@@ -23,4 +23,4 @@ class CertificateAuthorityViewSet(NetBoxModelViewSet):
         certificate_count=Count('certificates')
     )
     serializer_class = CertificateAuthoritySerializer
-    filterset_class = CertificateAuthorityFilterSet
+    #filterset_class = CertificateAuthorityFilterSet
