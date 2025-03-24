@@ -41,7 +41,8 @@ class CertificateAuthority(NetBoxModel):
         max_length=32,
         default=CertificateAuthorityStatusChoice.DEFAULT_VALUE,
         blank=False,
-        verbose_name="Certificate Authority Status"
+        verbose_name="Certificate Authority Status",
+        choices=CertificateAuthorityStatusChoice
     )
     comments = models.TextField(
         blank=True
