@@ -9,4 +9,4 @@ router.register('certificates', CertificateViewSet)
 router.register('certificateinstance', CertificateInstanceViewSet)
 router.register('certificateauthority', CertificateAuthorityViewSet)
 
-urlpatterns = router.urls
+urlpatterns=router.urls
