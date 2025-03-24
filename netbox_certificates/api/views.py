@@ -3,7 +3,7 @@ from django.db.models import Count
 
 from netbox_certificates.filtersets import *
 from netbox_certificates.models import *
-from netbox_certificates.api.serializers_ import *
+from netbox_certificates.api.serializers_ import CertificateSerializer, CertificateInstanceSerializer, CertificateAuthoritySerializer
 
 class CertificateViewSet(NetBoxModelViewSet):
     queryset = Certificate.objects.prefetch_releated('id','cn', 'san','tags').annotate(
