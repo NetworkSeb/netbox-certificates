@@ -7,19 +7,19 @@ from netbox_certificates.api.serializers_ import CertificateSerializer, Certific
 
 
 class CertificateViewSet(NetBoxModelViewSet):
-    queryset = Certificate.objects.prefetch_releated('id','cn', 'san','tags').annotate(
+    queryset = Certificate.objects.prefetch_related('id','cn', 'san','tags').annotate(
         instance_count=Count('instances')
     )
     serializer_class = CertificateSerializer
     filterset_class = CertificateFilterSet
 
 class CertificateInstanceViewSet(NetBoxModelViewSet):
-    queryset = CertificateInstance.objects.prefetch_releated('id','certificate','ca','tags')
+    queryset = CertificateInstance.objects.prefetch_related('id','certificate','ca','tags')
     serializer_class = CertificateInstanceSerializer
     filterset_class=CertificateInstanceFilterSet
 
 class CertificateAuthorityViewSet(NetBoxModelViewSet):
-    queryset = CertificateAuthority.objects.prefetch_releated('id','name','tags').annotate(
+    queryset = CertificateAuthority.objects.prefetch_related('id','name','tags').annotate(
         certificate_count=Count('certificates')
     )
     serializer_class = CertificateAuthoritySerializer
