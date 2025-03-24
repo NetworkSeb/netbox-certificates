@@ -1,3 +1,3 @@
-from .serializers_.certificate import *
-from .serializers_.certificate_instance import *
-from .serializers_.certificate_authority import *
+from .certificate import *
+from .certificate_instance import *
+from .certificate_authority import *
