@@ -3,9 +3,7 @@ from django.db.models import Count
 
 from netbox_certificates.filtersets import *
 from netbox_certificates.models import *
-from netbox_certificates.api.serializers_.certificate import CertificateSerializer
-from netbox_certificates.api.serializers_.certificate_instance import CertificateInstanceSerializer
-from netbox_certificates.api.serializers_.certificate_authority import CertificateAuthoritySerializer
+from netbox_certificates.api.serializers_ import *
 
 
 class CertificateViewSet(NetBoxModelViewSet):
