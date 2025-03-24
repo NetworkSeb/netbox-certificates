@@ -4,7 +4,7 @@ from netbox.api.serializers import NetBoxModelSerializer
 from dcim.api.serializers import NestedDeviceSerializer
 
 from netbox_certificates.models import Certificate
-from netbox_certificates.api.serializers_ import NestedCertificateAuthoritySerializer, NestedCertificateInstanceSerializer
+from netbox_certificates.api.nested_serializers import NestedCertificateAuthoritySerializer, NestedCertificateInstanceSerializer
 
 class CertificateSerializer(NetBoxModelSerializer):
 

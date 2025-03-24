@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from netbox.api.serializers import NetBoxModelSerializer, WritableNestedSerializer
+from netbox.api.serializers import NetBoxModelSerializer
 
 from netbox_certificates.models import CertificateAuthority
 
