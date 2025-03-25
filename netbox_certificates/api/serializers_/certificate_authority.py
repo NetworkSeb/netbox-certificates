@@ -30,3 +30,9 @@ class CertificateAuthoritySerializer(NetBoxModelSerializer):
             'comments',
             'tags'
         )
+
+        brief_fields = (
+            'name',
+            'status',
+            'admin_url'
+        )

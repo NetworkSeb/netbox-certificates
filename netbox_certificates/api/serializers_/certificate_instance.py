@@ -37,3 +37,10 @@ class CertificateInstanceSerializer(NetBoxModelSerializer):
             'comments',
             'tags'
         )
+
+        brief_fields = (
+            'certificate',
+            'status',
+            'serial_number',
+            'ca',
+        )

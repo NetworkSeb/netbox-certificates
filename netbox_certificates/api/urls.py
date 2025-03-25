@@ -6,7 +6,7 @@ app_name = 'netbox_certificates'
 
 router = NetBoxRouter()
 router.register('certificates', CertificateViewSet)
-router.register('certificateinstance', CertificateInstanceViewSet)
-router.register('certificateauthority', CertificateAuthorityViewSet)
+router.register('certificate-instance', CertificateInstanceViewSet)
+router.register('certificate-authority', CertificateAuthorityViewSet)
 
 urlpatterns=router.urls
