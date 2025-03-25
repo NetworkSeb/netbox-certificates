@@ -15,18 +15,18 @@ urlpatterns = (
     path('certificates/<int:pk>/changelog/', ObjectChangeLogView.as_view(), name='certificate_changelog', kwargs={'model': Certificate}),
 
     # Certificate Instances
-    path('certificate-instance/', CertificateInstanceListView.as_view(), name='certificate_instance_list'),
-    path('certificate-instance/add/', CertificateInstanceEditView.as_view(), name='certificate_instance_add'),
-    path('certificate-instance/<int:pk>/', CertificateInstanceView.as_view(), name='certificate_instance'),
-    path('certificate-instance/<int:pk>/edit/', CertificateInstanceEditView.as_view(), name='certificate_instance_edit'),
-    path('certificate-instance/<int:pk>/delete/', CertificateInstanceDeleteView.as_view(), name='certificate_instance_delete'),
-    path('certificate-instance/<int:pk>/changelog/', ObjectChangeLogView.as_view(), name='certificate_instance_changelog', kwargs={'model': CertificateInstance}),
+    path('certificate-instance/', CertificateInstanceListView.as_view(), name='certificateinstance_list'),
+    path('certificate-instance/add/', CertificateInstanceEditView.as_view(), name='certificateinstance_add'),
+    path('certificate-instance/<int:pk>/', CertificateInstanceView.as_view(), name='certificateinstance'),
+    path('certificate-instance/<int:pk>/edit/', CertificateInstanceEditView.as_view(), name='certificateinstance_edit'),
+    path('certificate-instance/<int:pk>/delete/', CertificateInstanceDeleteView.as_view(), name='certificateinstance_delete'),
+    path('certificate-instance/<int:pk>/changelog/', ObjectChangeLogView.as_view(), name='certificateinstance_changelog', kwargs={'model': CertificateInstance}),
 
     # Certificate Authorities
-    path('certificate-authority/', CertificateAuthorityListView.as_view(), name='certificate_authority_list'),
-    path('certificate-authority/add/', CertificateAuthorityEditView.as_view(), name='certificate_authority_add'),
-    path('certificate-authority/<int:pk>/', CertificateAuthorityView.as_view(), name='certificate_authority'),
+    path('certificate-authority/', CertificateAuthorityListView.as_view(), name='certificateauthority_list'),
+    path('certificate-authority/add/', CertificateAuthorityEditView.as_view(), name='certificateauthority_add'),
+    path('certificate-authority/<int:pk>/', CertificateAuthorityView.as_view(), name='certificateauthority'),
     path('certificate-authority/<int:pk>/edit/', CertificateAuthorityEditView.as_view(), name='certificateauthority_edit'),
-    path('certificate-authority/<int:pk>/delete/', CertificateAuthorityDeleteView.as_view(), name='certificate_authority_delete'),
+    path('certificate-authority/<int:pk>/delete/', CertificateAuthorityDeleteView.as_view(), name='certificateauthority_delete'),
     path('certificate-authority/<int:pk>/changelog/', ObjectChangeLogView.as_view(), name='certificate_authority_changelog', kwargs={'model': CertificateAuthority}),
 )
