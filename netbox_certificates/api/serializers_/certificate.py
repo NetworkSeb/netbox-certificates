@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from netbox.api.serializers import NetBoxModelSerializer
-from dcim.api.serializers import NestedDeviceSerializer
+from dcim.api.serializers import DeviceSerializer
 
 from netbox_certificates.models import Certificate
 from netbox_certificates.api.nested_serializers import NestedCertificateAuthoritySerializer, NestedCertificateInstanceSerializer
@@ -17,7 +17,7 @@ class CertificateSerializer(NetBoxModelSerializer):
     class Meta:
         model = Certificate
         ca = NestedCertificateAuthoritySerializer()
-        device = NestedDeviceSerializer()
+        device = DeviceSerializer(nested=True)
         instance = NestedCertificateInstanceSerializer()
 
         fields = (
