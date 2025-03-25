@@ -27,7 +27,7 @@ class CertificateAuthoritySerializer(NetBoxModelSerializer):
             'acme_url',
             'admin_url',
             'status',
-            'actions'
+            'actions',
             'comments',
             'tags'
         )
