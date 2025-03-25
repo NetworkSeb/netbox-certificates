@@ -1,5 +1,4 @@
 from netbox.plugins import PluginMenuButton, PluginMenuItem, PluginMenu
-from utilities.choices import ButtonColorChoices
 
 # Buttons
 
@@ -8,7 +7,6 @@ certificate_buttons = [
         link='plugins:netbox_certificates:certificate_add',
         title='Add',
         icon_class='mdi mdi-plus-thick',
-        color=ButtonColorChoices.GREEN
     )
 ]
 
@@ -17,7 +15,6 @@ certificate_authority_buttons = [
         link='plugins:netbox_certificates:certificate_authority_add',
         title='Add',
         icon_class='mdi mdi-plus-thick',
-        color=ButtonColorChoices.GREEN
     )
 ]
 
@@ -26,7 +23,6 @@ certificate_instance_buttons = [
         link='plugins:netbox_certificates:certificate_instance_add',
         title='Add',
         icon_class='mdi mdi-plus-thick',
-        color=ButtonColorChoices.GREEN
     )
 ]
 
