@@ -68,6 +68,7 @@ class Certificate(NetBoxModel):
     device = models.ManyToManyField(
         to='dcim.Device',
         blank=True,
+        allow_null=True
         verbose_name='Device',
         help_text='Device(s) with certificate installed'
     )
