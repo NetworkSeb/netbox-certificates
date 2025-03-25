@@ -17,7 +17,7 @@ class CertificateSerializer(NetBoxModelSerializer):
     class Meta:
         model = Certificate
         ca = NestedCertificateAuthoritySerializer()
-        device = DeviceSerializer(nested=True)
+        device = DeviceSerializer(nested=True, allow_null=True)
         instance = NestedCertificateInstanceSerializer()
 
         fields = (
