@@ -41,7 +41,7 @@ class CertificateSerializer(NetBoxModelSerializer):
             'url',
             'san',
             'device',
-            'vm.name',
+            'vm',
             'status', 
             'type', 
             'install_type', 
@@ -69,6 +69,6 @@ class CertificateSerializer(NetBoxModelSerializer):
             'san',
             'status',
             'type',
-            'vm.name',
+            'vm',
             'device'
         )
