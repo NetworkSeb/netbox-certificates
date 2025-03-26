@@ -2,6 +2,7 @@ from rest_framework import serializers
 
 from netbox.api.serializers import NetBoxModelSerializer
 from dcim.api.serializers import DeviceSerializer
+from tenancy.api.serializers import ContactSerializer, ContactGroupSerializer
 from virtualization.api.serializers import VirtualMachineSerializer
 
 from netbox_certificates.models import Certificate
@@ -19,6 +20,8 @@ class CertificateSerializer(NetBoxModelSerializer):
         model = Certificate
         device = DeviceSerializer(nested=True, allow_null=True)
         vm = VirtualMachineSerializer(nested=True, allow_null=True)
+        technical_owner, business_contact, infrastructure_contact = ContactSerializer(nested=True, allow_null=True)
+        technical_group, business_group, infrastructure_group = ContactGroupSerializer(nested=True, allow_null=True)
         instance = NestedCertificateInstanceSerializer()
 
         fields = (
