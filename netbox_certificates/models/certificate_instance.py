@@ -51,6 +51,7 @@ class CertificateInstance(NetBoxModel):
         default=CertificateInstanceStatusChoices.DEFAULT_VALUE,
         blank=False,
         verbose_name="Installation Status",
+        choices=CertificateInstanceStatusChoices
     )
     csr = models.TextField (
         max_length=32000,
