@@ -51,6 +51,7 @@ class CertificateSerializer(NetBoxModelSerializer):
             'service_commands',
             'service_check',
             'service_lb',
+            'automated',
             'technical_owner',
             'technical_group',
             'business_contact',

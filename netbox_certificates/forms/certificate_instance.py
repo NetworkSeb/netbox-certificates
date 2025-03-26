@@ -1,4 +1,5 @@
 from netbox.forms import NetBoxModelForm, NetBoxModelFilterSetForm
+from tenancy.models import Contact
 from utilities.forms.fields import CommentField
 
 from django import forms
@@ -23,6 +24,7 @@ class CertificateInstanceForm(NetBoxModelForm):
             'csr',
             'key',
             'pem',
+            'infrastructure_installer',
             'comments',
             'tags'    
         )
@@ -55,5 +57,10 @@ class CertificateInstanceFilterForm(NetBoxModelFilterSetForm):
 
     status = forms.MultipleChoiceField(
         choices=CertificateInstanceStatusChoices,
+        required=False
+    )
+
+    infrastructure_installer = forms.ModelMultipleChoiceField(
+        queryset=Contact.objects.all(),
         required=False
     )

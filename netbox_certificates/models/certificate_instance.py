@@ -71,6 +71,13 @@ class CertificateInstance(NetBoxModel):
         blank=True,
         verbose_name="Certificate PEM",
     )
+    infrastructure_installer = models.ManyToManyField(
+        to='tenancy.Contact',
+        blank=True,
+        verbose_name='Infrastructure Installer',
+        help_text='Who installed the certificate?',
+        related_name="infrastructure_installer"
+    )
     comments = models.TextField(
         blank=True
     )

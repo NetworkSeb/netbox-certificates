@@ -22,6 +22,7 @@ class CertificateInstanceFilterSet(NetBoxModelFilterSet):
             'csr',
             'key',
             'pem',
+            'infrastructure_installer',
             'comments',
             'tags'
         )

@@ -15,6 +15,7 @@ class CertificateInstanceSerializer(NetBoxModelSerializer):
         model = CertificateInstance
         certificate = NestedCertificateSerializer()
         ca = NestedCertificateAuthoritySerializer()
+        infrastructure_installer = ContactSerializer(nested=True, allow_null=True)
 
         fields = (
             'id',
@@ -34,6 +35,7 @@ class CertificateInstanceSerializer(NetBoxModelSerializer):
             'csr',
             'key',
             'pem',
+            'infrastructure_installer',
             'comments',
             'tags'
         )

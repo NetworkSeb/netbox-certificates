@@ -140,6 +140,12 @@ class Certificate(NetBoxModel):
         default=False,
         null=True
     )
+    automated = models.BooleanField(
+        verbose_name="Automated?",
+        default=False,
+        null=True,
+        help_text=("Is the installation of this certificate automated?")
+    )
     technical_owner = models.ManyToManyField(
         to='tenancy.Contact',
         blank=True,
