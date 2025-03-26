@@ -12,7 +12,7 @@ certificate_buttons = [
 
 certificate_authority_buttons = [
     PluginMenuButton(
-        link='plugins:netbox_certificates:certificate-authority_add',
+        link='plugins:netbox_certificates:certificateauthority_add',
         title='Add',
         icon_class='mdi mdi-plus-thick',
     )
@@ -20,7 +20,7 @@ certificate_authority_buttons = [
 
 certificate_instance_buttons = [
     PluginMenuButton(
-        link='plugins:netbox_certificates:certificate_instance_add',
+        link='plugins:netbox_certificates:certificateinstance_add',
         title='Add',
         icon_class='mdi mdi-plus-thick',
     )
@@ -34,12 +34,12 @@ menu_items = (
         buttons=certificate_buttons
     ),
     PluginMenuItem(
-        link='plugins:netbox_certificates:certificate-authority_list',
+        link='plugins:netbox_certificates:certificateauthority_list',
         link_text='Certificate Authorities',
         buttons=certificate_authority_buttons
     ),
     PluginMenuItem(
-        link='plugins:netbox_certificates:certificate_instance_list',
+        link='plugins:netbox_certificates:certificateinstance_list',
         link_text='Certificate Instances',
         buttons=certificate_instance_buttons
     ),
