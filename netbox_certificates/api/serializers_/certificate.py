@@ -2,6 +2,7 @@ from rest_framework import serializers
 
 from netbox.api.serializers import NetBoxModelSerializer
 from dcim.api.serializers import DeviceSerializer
+from virtualization.api.serializers import VirtualMachineSerializer
 
 from netbox_certificates.models import Certificate
 from netbox_certificates.api.nested_serializers import NestedCertificateAuthoritySerializer, NestedCertificateInstanceSerializer
@@ -16,8 +17,8 @@ class CertificateSerializer(NetBoxModelSerializer):
 
     class Meta:
         model = Certificate
-        ca = NestedCertificateAuthoritySerializer()
         device = DeviceSerializer(nested=True, allow_null=True)
+        vm = VirtualMachineSerializer(nested=True, allow_null=True)
         instance = NestedCertificateInstanceSerializer()
 
         fields = (
@@ -29,6 +30,7 @@ class CertificateSerializer(NetBoxModelSerializer):
             'url',
             'san',
             'device',
+            'vm',
             'status', 
             'type', 
             'install_type', 

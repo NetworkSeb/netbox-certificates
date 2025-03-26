@@ -24,7 +24,8 @@ class CertificateTable(NetBoxTable):
             'cn', 
             'san', 
             'status',
-            'device', 
+            'device',
+            'vm',
             'type', 
             'install_type', 
             'fs_cert_location', 
@@ -42,6 +43,7 @@ class CertificateTable(NetBoxTable):
             'san',
             'status',
             'device',
+            'vm',
             'type',
             'install_type'
         )

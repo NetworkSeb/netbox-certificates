@@ -71,6 +71,12 @@ class Certificate(NetBoxModel):
         verbose_name='Device',
         help_text='Device(s) with certificate installed'
     )
+    vm = models.ManyToManyField(
+        to='virtualization.VirtualMachine',
+        blank=True,
+        verbose_name='Virtual Machine',
+        help_text='VM(s) with certificate installed'
+    )
     status = models.CharField(
         max_length=32,
         default=CertificateStatusChoices.DEFAULT_VALUE,

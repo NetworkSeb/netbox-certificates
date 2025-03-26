@@ -28,6 +28,7 @@ class CertificateForm(NetBoxModelForm):
             'cn', 
             'san',
             'device',
+            'vm',
             'status', 
             'type', 
             'install_type', 
