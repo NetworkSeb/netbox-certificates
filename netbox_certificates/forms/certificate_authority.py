@@ -12,6 +12,7 @@ class CertificateAuthorityForm(NetBoxModelForm):
 
     class Meta:
         model = CertificateAuthority
+        verbose_name_plural = "Certificate Authorities"
         fields = (
             'name',
             'acme_url',
