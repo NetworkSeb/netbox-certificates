@@ -10,12 +10,12 @@ from netbox_certificates.models import Certificate, CertificateAuthority, Certif
 class CertificateForm(NetBoxModelForm):
 
     device = DynamicModelMultipleChoiceField(
-        queryset=Device.objects.all()
+        queryset=Device.objects.all(),
         required=False
     )
 
     instances = DynamicModelChoiceField(
-        queryset=CertificateInstance.objects.all()
+        queryset=CertificateInstance.objects.all(),
         required=False
     )
 
