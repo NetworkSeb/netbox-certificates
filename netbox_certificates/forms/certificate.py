@@ -1,5 +1,6 @@
 from netbox.forms import NetBoxModelForm, NetBoxModelFilterSetForm
 from dcim.models import Device
+from tenancy.models import Contact, ContactGroup
 from utilities.forms.fields import CommentField, DynamicModelChoiceField, DynamicModelMultipleChoiceField
 from django import forms
 
@@ -38,6 +39,12 @@ class CertificateForm(NetBoxModelForm):
             'service_commands',
             'service_check',
             'service_lb',
+            'technical_owner',
+            'technical_group',
+            'business_contact',
+            'business_group',
+            'infrastructure_contact',
+            'infrastructure_group',
             'content',
             'comments',
             'tags'    
@@ -68,5 +75,35 @@ class CertificateFilterForm(NetBoxModelFilterSetForm):
 
     install_type = forms.MultipleChoiceField(
         choices=CertificateInstallChoices,
+        required=False
+    )
+
+    technical_owner = forms.ModelMultipleChoiceField(
+        queryset=Contact.objects.all(),
+        required=False
+    )
+
+    business_contact = forms.ModelMultipleChoiceField(
+        queryset=Contact.objects.all(),
+        required=False
+    )
+
+    infrastructure_contact = forms.ModelMultipleChoiceField(
+        queryset=Contact.objects.all(),
+        required=False
+    )
+
+    technical_group = forms.ModelMultipleChoiceField(
+        queryset=ContactGroup.objects.all(),
+        required=False
+    )
+
+    business_group = forms.ModelMultipleChoiceField(
+        queryset=ContactGroup.objects.all(),
+        required=False
+    )
+
+    infrastructure_group = forms.ModelMultipleChoiceField(
+        queryset=ContactGroup.objects.all(),
         required=False
     )

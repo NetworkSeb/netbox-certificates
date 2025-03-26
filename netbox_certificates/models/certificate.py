@@ -140,6 +140,48 @@ class Certificate(NetBoxModel):
         default=False,
         null=True
     )
+    technical_owner = models.ManyToManyField(
+        to='tenancy.Contact',
+        blank=True,
+        verbose_name='Technical (product) Owner',
+        help_text='Escalation point outside of Infrastructure, within IT Services'
+    )
+
+    technical_group = models.ManyToManyField(
+        to='tenancy.ContactGroup',
+        blank=True,
+        verbose_name='Technical (product) Owner (Group)',
+        help_text='Escalation point outside of Infrastructure, within IT Services'
+    )
+
+    business_contact = models.ManyToManyField(
+        to='tenancy.Contact',
+        blank=True,
+        verbose_name='Virtual Machine',
+        help_text='Contacts within the business (outside of IT Services)'
+    )
+
+    business_group = models.ManyToManyField(
+        to='tenancy.ContactGroup',
+        blank=True,
+        verbose_name='Business Owner (Group)',
+        help_text='Escalation point outside in business'
+    )
+
+    infrastructure_contact = models.ManyToManyField(
+        to='tenancy.Contact',
+        blank=True,
+        verbose_name='Infrastructure Contact',
+        help_text='Escalation point within Infrastructure'
+    )
+
+    infrastructure_group = models.ManyToManyField(
+        to='tenancy.ContactGroup',
+        blank=True,
+        verbose_name='Infrastructure Owner (Group)',
+        help_text='Escalation group within Infrastructure'
+    )
+    
     comments = models.TextField(
         blank=True
     )

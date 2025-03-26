@@ -25,6 +25,12 @@ class CertificateFilterSet(NetBoxModelFilterSet):
             'service_commands',
             'service_check',
             'service_lb',
+            'technical_owner',
+            'technical_group',
+            'business_contact',
+            'business_group',
+            'infrastructure_contact',
+            'infrastructure_group',
             'content',
             'comments',
             'tags'

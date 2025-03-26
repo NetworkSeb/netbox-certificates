@@ -27,6 +27,7 @@ class CertificateInstance(NetBoxModel):
         to=CertificateAuthority,
         on_delete=models.PROTECT,
         related_name='certificates',
+        verbose_name='Certificate Authority',
         null=True
     )
     certificate = models.ForeignKey(
