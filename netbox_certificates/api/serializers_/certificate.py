@@ -38,7 +38,6 @@ class CertificateSerializer(NetBoxModelSerializer):
             'service_commands',
             'service_check',
             'service_lb',
-            'ca',
             'content',
             'created',
             'last_updated',
@@ -51,5 +50,4 @@ class CertificateSerializer(NetBoxModelSerializer):
             'san',
             'status',
             'type',
-            'ca',
         )

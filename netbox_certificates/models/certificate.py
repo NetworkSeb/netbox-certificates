@@ -71,11 +71,6 @@ class Certificate(NetBoxModel):
         verbose_name='Device',
         help_text='Device(s) with certificate installed'
     )
-    ca = models.ManyToManyField(
-        to="CertificateAuthority",
-        verbose_name='Certificate Authority',
-        related_name='certificates'
-    )
     status = models.CharField(
         max_length=32,
         default=CertificateStatusChoices.DEFAULT_VALUE,

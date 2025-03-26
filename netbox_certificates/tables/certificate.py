@@ -35,7 +35,6 @@ class CertificateTable(NetBoxTable):
             'service_commands',
             'service_check',
             'service_lb',
-            'ca_id',
             'actions'
         )
         default_columns = (
