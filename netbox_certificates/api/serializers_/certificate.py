@@ -18,10 +18,18 @@ class CertificateSerializer(NetBoxModelSerializer):
 
     class Meta:
         model = Certificate
+
         device = DeviceSerializer(nested=True, allow_null=True)
         vm = VirtualMachineSerializer(nested=True, allow_null=True)
-        technical_owner, business_contact, infrastructure_contact = ContactSerializer(nested=True, allow_null=True)
-        technical_group, business_group, infrastructure_group = ContactGroupSerializer(nested=True, allow_null=True)
+        
+        technical_owner = ContactSerializer(nested=True, allow_null=True)
+        business_contact = ContactSerializer(nested=True, allow_null=True)
+        infrastructure_contact = ContactSerializer(nested=True, allow_null=True)
+        
+        technical_group = ContactGroupSerializer(nested=True, allow_null=True)
+        business_group = ContactGroupSerializer(nested=True, allow_null=True)
+        infrastructure_group = ContactGroupSerializer(nested=True, allow_null=True)
+        
         instance = NestedCertificateInstanceSerializer()
 
         fields = (
