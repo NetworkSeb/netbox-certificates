@@ -144,42 +144,48 @@ class Certificate(NetBoxModel):
         to='tenancy.Contact',
         blank=True,
         verbose_name='Technical (product) Owner',
-        help_text='Escalation point outside of Infrastructure, within IT Services'
+        help_text='Escalation point outside of Infrastructure, within IT Services',
+        related_name="technical_contact"
     )
 
     technical_group = models.ManyToManyField(
         to='tenancy.ContactGroup',
         blank=True,
         verbose_name='Technical (product) Owner (Group)',
-        help_text='Escalation point outside of Infrastructure, within IT Services'
+        help_text='Escalation point outside of Infrastructure, within IT Services',
+        related_name="technical_owner"
     )
 
     business_contact = models.ManyToManyField(
         to='tenancy.Contact',
         blank=True,
-        verbose_name='Virtual Machine',
-        help_text='Contacts within the business (outside of IT Services)'
+        verbose_name='Business Contact',
+        help_text='Contacts within the business (outside of IT Services)',
+        related_name="business_contact"
     )
 
     business_group = models.ManyToManyField(
         to='tenancy.ContactGroup',
         blank=True,
         verbose_name='Business Owner (Group)',
-        help_text='Escalation point outside in business'
+        help_text='Escalation point outside in business',
+        related_name="business_group"
     )
 
     infrastructure_contact = models.ManyToManyField(
         to='tenancy.Contact',
         blank=True,
         verbose_name='Infrastructure Contact',
-        help_text='Escalation point within Infrastructure'
+        help_text='Escalation point within Infrastructure',
+        related_name="infrastructure_contact"
     )
 
     infrastructure_group = models.ManyToManyField(
         to='tenancy.ContactGroup',
         blank=True,
         verbose_name='Infrastructure Owner (Group)',
-        help_text='Escalation group within Infrastructure'
+        help_text='Escalation group within Infrastructure',
+        related_name="infrastructure_group"
     )
     
     comments = models.TextField(
