@@ -69,4 +69,6 @@ class CertificateSerializer(NetBoxModelSerializer):
             'san',
             'status',
             'type',
+            'vm',
+            'device'
         )
