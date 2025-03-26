@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
 from netbox.api.serializers import NetBoxModelSerializer
+from tenancy.api.serializers import ContactSerializer
 
 from netbox_certificates.models import CertificateInstance
 from ..nested_serializers import NestedCertificateSerializer, NestedCertificateAuthoritySerializer
