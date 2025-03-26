@@ -21,7 +21,7 @@ class CertificateAuthority(NetBoxModel):
     name = models.CharField(
         max_length=256,
         blank=False,
-        verbose_name="Certificate Authority Name",
+        verbose_name="Certificate Authority",
         unique=True,
         help_text="Certificate Authority Name"
     )
@@ -56,4 +56,4 @@ class CertificateAuthority(NetBoxModel):
     
     def get_absolute_url(self):
         """override"""
-        return reverse("plugins:netbox_certificates:certificate-authority", args=[self.pk])
+        return reverse("plugins:netbox_certificates:certificateauthority", args=[self.pk])
