@@ -19,7 +19,7 @@ class CertificateInstanceViewSet(NetBoxModelViewSet):
     filterset_class=CertificateInstanceFilterSet
 
 class CertificateAuthorityViewSet(NetBoxModelViewSet):
-    queryset = CertificateAuthority.objects.all.annotate(
+    queryset = CertificateAuthority.objects.all().annotate(
         certificate_count=Count('certificates')
     )
     serializer_class = CertificateAuthoritySerializer
