@@ -10,7 +10,7 @@ class CertificateView(generic.ObjectView):
     queryset = Certificate.objects.all()
 
     def get_extra_context(self, request, instance):
-        table = CertificateInstanceTable(instance.certificate.all())
+        table = CertificateInstanceTable(instance.instances.all())
         table.configure(request)
 
         return {
