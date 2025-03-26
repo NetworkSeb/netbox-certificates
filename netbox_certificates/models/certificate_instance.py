@@ -84,4 +84,4 @@ class CertificateInstance(NetBoxModel):
     
     def get_absolute_url(self):
         """override"""
-        return reverse("plugins:netbox_certificates:certificate_instance", args=[self.pk])
+        return reverse("plugins:netbox_certificates:certificateinstance", args=[self.pk])
