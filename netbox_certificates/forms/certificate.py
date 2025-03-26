@@ -11,14 +11,12 @@ class CertificateForm(NetBoxModelForm):
 
     device = DynamicModelMultipleChoiceField(
         queryset=Device.objects.all()
+        required=False
     )
 
     instances = DynamicModelChoiceField(
         queryset=CertificateInstance.objects.all()
-    )
-
-    ca = DynamicModelChoiceField(
-        queryset=CertificateAuthority.objects.all()
+        required=False
     )
 
     comments = CommentField()
