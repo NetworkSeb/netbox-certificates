@@ -56,8 +56,3 @@ class CertificateInstanceFilterForm(NetBoxModelFilterSetForm):
         choices=CertificateInstanceStatusChoices,
         required=False
     )
-
-    status = forms.MultipleChoiceField(
-        choices=CertificateInstanceStatusChoices,
-        required=False
-    )
