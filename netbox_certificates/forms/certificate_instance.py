@@ -36,7 +36,8 @@ class CertificateInstanceFilterForm(NetBoxModelFilterSetForm):
     )
 
     certificate = forms.ModelMultipleChoiceField(
-        queryset=Certificate.objects.all()
+        queryset=Certificate.objects.all(),
+        required=False
     )
 
     ca = forms.ModelMultipleChoiceField(
