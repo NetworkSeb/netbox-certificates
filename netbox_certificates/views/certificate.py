@@ -1,5 +1,6 @@
 from netbox.views import generic
 from django.db.models import Count
+from utilities.views import register_model_view
 
 from netbox_certificates.models import Certificate
 from netbox_certificates.forms import CertificateForm, CertificateFilterForm
@@ -31,3 +32,10 @@ class CertificateEditView(generic.ObjectEditView):
 
 class CertificateDeleteView(generic.ObjectDeleteView):
     queryset = Certificate.objects.all()
+
+@register_model_view(Certificate, "bulk_import", detail=False)
+class CertificateBulkImportView(generic.BulkImportView):
+    queryset = Certificate.objets.all()
+    model_form = CertificateBulkImportView
+    table = CertificateTable
+    default_return_url = "plugins:netbox_certificates:certificate_list"
