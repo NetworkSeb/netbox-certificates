@@ -14,7 +14,7 @@ urlpatterns = (
     path('certificates/<int:pk>/edit/', CertificateEditView.as_view(), name='certificate_edit'),
     path('certificates/<int:pk>/delete/', CertificateDeleteView.as_view(), name='certificate_delete'),
     path('certificates/<int:pk>/changelog/', ObjectChangeLogView.as_view(), name='certificate_changelog', kwargs={'model': Certificate}),
-    path("certificates/bulk_import/", CertificateBulkImportView.as_view(), name='certificate_bulk_import'),
+    path("certificates/bulk_import/", CertificateBulkImportView.as_view(), name='certificate_bulkimport'),
 
     # Certificate Instances
     path('certificateinstance/', CertificateInstanceListView.as_view(), name='certificateinstance_list'),
