@@ -1,4 +1,4 @@
-from netbox.forms import NetBoxModelForm, NetBoxModelFilterSetForm
+from netbox.forms import NetBoxModelForm, NetBoxModelFilterSetForm, NetBoxModelImportForm
 from dcim.models import Device
 from tenancy.models import Contact, ContactGroup
 from utilities.forms.fields import CommentField, DynamicModelChoiceField, DynamicModelMultipleChoiceField
@@ -106,3 +106,36 @@ class CertificateFilterForm(NetBoxModelFilterSetForm):
         queryset=ContactGroup.objects.all(),
         required=False
     )
+
+class CertificateImportFrom(NetBoxModelImportForm):
+    cn = forms.CharField(
+        label=("Common Name")
+    )
+
+    class Meta:
+        model = Certificate
+        fields = (
+            'cn', 
+            'san',
+            'device',
+            'vm',
+            'status', 
+            'type', 
+            'install_type', 
+            'fs_cert_location', 
+            'fs_key_location', 
+            'vault_url',
+            'service_commands',
+            'service_check',
+            'service_lb',
+            'automated',
+            'technical_owner',
+            'technical_group',
+            'business_contact',
+            'business_group',
+            'infrastructure_contact',
+            'infrastructure_group',
+            'content',
+            'comments',
+            'tags'    
+        )
