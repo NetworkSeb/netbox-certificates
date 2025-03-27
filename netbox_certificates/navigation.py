@@ -9,9 +9,9 @@ certificate_buttons = [
         icon_class='mdi mdi-plus-thick',
     ),
     PluginMenuButton(
-            "plugins:netbox_certificates:certificate_bulkimport",
-            _("Import"),
-            "mdi mdi-upload",
+            link="plugins:netbox_certificates:certificate_bulkimport",
+            title=("Import"),
+            icon_class="mdi mdi-upload",
         ),
 ]
 
