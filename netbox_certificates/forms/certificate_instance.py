@@ -1,6 +1,7 @@
 from netbox.forms import NetBoxModelForm, NetBoxModelFilterSetForm
 from tenancy.models import Contact
 from utilities.forms.fields import CommentField
+from utilities.forms.widgets import DateTimePicker
 
 from django import forms
 
@@ -48,11 +49,13 @@ class CertificateInstanceFilterForm(NetBoxModelFilterSetForm):
     )
 
     issued = forms.DateTimeField(
-        required=False
+        required=False,
+        widget=DateTimePicker()
     )
 
     expiry = forms.DateTimeField(
-        required=False
+        required=False,
+        widget=DateTimePicker()
     )
 
     status = forms.MultipleChoiceField(
