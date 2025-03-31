@@ -58,12 +58,12 @@ class Certificate(NetBoxModel):
         help_text="Unique Common Name"
     )
     # Could this point to a DNS record?
-    san = ArrayField(
-        base_field=models.CharField(max_length=256),
+    san = models.CharField(
+        max_length=512,
         null=True,
         blank=True,
         verbose_name="Subject Alternative Names",
-        help_text="Comma separated list of fqdns to add into the CSR.",
+        help_text="Comma separated list of FQDN(s) to add into the CSR",
     )
     device = models.ManyToManyField(
         to='dcim.Device',
