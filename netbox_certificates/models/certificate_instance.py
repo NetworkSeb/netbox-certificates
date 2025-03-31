@@ -30,6 +30,30 @@ class CertificateInstance(NetBoxModel):
         verbose_name='Certificate Authority',
         null=True
     )
+    issuer = models.CharField(
+        max_length=256,
+        null=True,
+        blank=True
+    )
+    pubkey_algorithm = models.CharField(
+        null=True,
+        blank=True,
+        max_length=100
+    )
+    pubkey_size = models.CharField(
+        null=True,
+        blank=True,
+        max_length=100
+    )
+    pubkey_sha1 = models.CharField(
+        null=True,
+        blank=True,
+        max_length=100
+    )
+    term = models.IntegerField(
+        null=True,
+        blank=True,
+    )
     certificate = models.ForeignKey(
         to=Certificate,
         on_delete=models.CASCADE,

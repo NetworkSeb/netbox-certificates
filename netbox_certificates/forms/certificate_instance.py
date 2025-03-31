@@ -25,6 +25,11 @@ class CertificateInstanceForm(NetBoxModelForm):
             'csr',
             'key',
             'pem',
+            'issuer',
+            'pubkey_algorithm',
+            'pubkey_size',
+            'pubkey_sha1',
+            'term',
             'infrastructure_installer',
             'comments',
             'tags'    
