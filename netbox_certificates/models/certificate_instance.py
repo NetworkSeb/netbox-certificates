@@ -64,10 +64,10 @@ class CertificateInstance(NetBoxModel):
         max_length=100,
         unique=True
         )
-    issue_date = models.DateField(
+    issue_date = models.DateTimeField(
         blank=True, null=True, verbose_name="Not valid before"
     )
-    expiry_date = models.DateField(
+    expiry_date = models.DateTimeField(
         blank=True, null=True, verbose_name="Expiration date"
     )
     status = models.CharField(
