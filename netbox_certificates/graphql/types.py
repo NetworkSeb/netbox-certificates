@@ -1,0 +1,72 @@
+from typing import Annotated, List
+
+import strawberry
+import strawberry_django
+
+from netbox.graphql.types import NetBoxObjectType
+from tenancy.graphql.types import TenantType, ContactType, ContactGroupType
+from dcim.graphql.types import DeviceType
+from virtualization.graphql.types import VirtualMachineType
+
+from netbox_certificates.models import (
+    Certificate,
+    CertificateAuthority,
+    CertificateInstance
+)
+
+from .filters import (
+    NetBoxCertificateFilter,
+    NetBoxCertificateInstanceFilter,
+    NetboxCertificateAuthorityFilter,
+)
+
+@strawberry_django.type(Certificate, fields="__all__", filters=NetBoxCertificateFilter)
+class NetBoxCertificateType(NetBoxObjectType):
+    cn: str
+    san: str
+    device: Annotated["DeviceType", strawberry.lazy("dcim.graphql.types")] | None
+    vm: Annotated["VirtualMachineType", strawberry.lazy("virtualization.graphql.types")] | None
+    status: str
+    type: str
+    content: str
+    vault_url: str
+    fs_cert_location: str
+    fs_key_location: str
+    install_type: str
+    service_commands: str
+    service_check: str
+    service_lb: bool
+    automated: bool
+    technical_owner: Annotated["ContactType", strawberry.lazy("tenancy.graphql.types")] | None
+    technical_group: Annotated["ContactGroupType", strawberry.lazy("tenancy.graphql.types")] | None
+    business_contact: Annotated["ContactType", strawberry.lazy("tenancy.graphql.types")] | None
+    business_group: Annotated["ContactGroupType", strawberry.lazy("tenancy.graphql.types")] | None
+    infrastructure_contact: Annotated["ContactType", strawberry.lazy("tenancy.graphql.types")] | None
+    infrastructure_group: Annotated["ContactGroupType", strawberry.lazy("tenancy.graphql.types")] | None
+
+@strawberry_django.type(CertificateInstance, fields="__all__", filters=NetBoxCertificateInstanceFilter)
+class NetBoxCertificateInstanceType(NetBoxObjectType):
+    ca_reference: str
+    ca: Annotated["CertificateAuthorityType", strawberry.lazy("netbox_certificates.graphql.types")]
+    issuer: str
+    pubkey_algorithm: str
+    pubkey_size: str
+    pubkey_sha1: str
+    term: int
+    certificate: Annotated["CertificateType", strawberry.lazy("netbox_certificates.graphql.types")]
+    serial_number: str
+    issue_date: str
+    expiry_date: str
+    status: str
+    csr: str
+    key: str
+    pem: str
+    infrastructure_installer: Annotated["ContactType", strawberry.lazy("tenancy.graphql.types")] | None
+
+@strawberry_django.type(CertificateInstance, fields="__all__", filters=NetBoxCertificateInstanceFilter)
+class NetBoxCertificateInstanceType(NetBoxObjectType):
+    name = str
+    acme_url = str
+    admin_url = str
+    status = str
+    
