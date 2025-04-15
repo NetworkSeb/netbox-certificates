@@ -56,7 +56,7 @@ class CertificateInstance(NetBoxModel):
     )
     certificate = models.ForeignKey(
         to=Certificate,
-        to_field="cn",
+#        to_field="cn",
         on_delete=models.CASCADE,
         related_name='instances',
         null=True
