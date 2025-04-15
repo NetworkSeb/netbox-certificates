@@ -106,6 +106,12 @@ class CertificateInstance(NetBoxModel):
         blank=True
     )
 
+    search_fields = (
+        ('ca_reference', 100),
+        ('serial_number', 100),
+        ('comments', 5000),
+    )
+
     # Colour choices
     def get_status_color(self):
         return CertificateInstanceStatusChoices.colors.get(self.status)
