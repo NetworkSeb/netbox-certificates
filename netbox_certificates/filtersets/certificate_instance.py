@@ -1,7 +1,6 @@
 from netbox.filtersets import NetBoxModelFilterSet
 from django.db import models
 import django_filters
-from django_filters import CharFilter
 from django import forms
 from django.contrib.postgres.fields import ArrayField
 from taggit.managers import TaggableManager
@@ -9,8 +8,6 @@ from taggit.managers import TaggableManager
 from netbox_certificates.models import CertificateInstance
 
 class CertificateInstanceFilterSet(NetBoxModelFilterSet):
-
-    certificate = CharFilter(lookup_expr="icontains", label="Certificate")
 
     class Meta:
         model = CertificateInstance
@@ -53,4 +50,4 @@ class CertificateInstanceFilterSet(NetBoxModelFilterSet):
         }
 
     def search(self, queryset, name, value):
-        return queryset.filter(certificate__icontains=value)
+        return queryset.filter(ca_reference__icontains=value)
