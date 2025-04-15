@@ -9,6 +9,8 @@ from netbox_certificates.models import CertificateInstance
 
 class CertificateInstanceFilterSet(NetBoxModelFilterSet):
 
+    certificate = CharFilter(lookup_expr="icontains", label="Certificate")
+
     class Meta:
         model = CertificateInstance
         fields = (
