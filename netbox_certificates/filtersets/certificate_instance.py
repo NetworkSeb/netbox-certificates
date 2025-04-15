@@ -1,6 +1,7 @@
 from netbox.filtersets import NetBoxModelFilterSet
 from django.db import models
 import django_filters
+from django_filters import CharFilter
 from django import forms
 from django.contrib.postgres.fields import ArrayField
 from taggit.managers import TaggableManager
