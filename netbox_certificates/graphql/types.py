@@ -17,7 +17,7 @@ from netbox_certificates.models import (
 from .filters import (
     NetBoxCertificateFilter,
     NetBoxCertificateInstanceFilter,
-    NetboxCertificateAuthorityFilter,
+    NetBoxCertificateAuthorityFilter,
 )
 
 @strawberry_django.type(Certificate, fields="__all__", filters=NetBoxCertificateFilter)
@@ -63,8 +63,8 @@ class NetBoxCertificateInstanceType(NetBoxObjectType):
     pem: str
     infrastructure_installer: Annotated["ContactType", strawberry.lazy("tenancy.graphql.types")] | None
 
-@strawberry_django.type(CertificateInstance, fields="__all__", filters=NetBoxCertificateInstanceFilter)
-class NetBoxCertificateInstanceType(NetBoxObjectType):
+@strawberry_django.type(CertificateAuthority, fields="__all__", filters=NetBoxCertificateAuthorityFilter)
+class NetBoxCertificateAuthorityType(NetBoxObjectType):
     name = str
     acme_url = str
     admin_url = str
