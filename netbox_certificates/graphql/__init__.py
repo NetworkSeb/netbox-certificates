@@ -1,11 +1,11 @@
 from .schema import (
     NetBoxCertificateQuery,
     NetBoxCertificateInstanceQuery,
-    NetboxCertificateAuthorityQuery,
+    NetBoxCertificateAuthorityQuery,
 )
 
 schema = [
     NetBoxCertificateQuery,
     NetBoxCertificateInstanceQuery,
-    NetboxCertificateAuthorityQuery,
+    NetBoxCertificateAuthorityQuery,
 ]

@@ -6,7 +6,7 @@ import strawberry_django
 from .types import (
     NetBoxCertificateType,
     NetBoxCertificateInstanceType,
-    NetboxCertificateAuthorityType,
+    NetBoxCertificateAuthorityType,
 )
 
 @strawberry.type(name="Query")
