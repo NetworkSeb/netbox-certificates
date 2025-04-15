@@ -47,13 +47,13 @@ class NetBoxCertificateType(NetBoxObjectType):
 @strawberry_django.type(CertificateInstance, fields="__all__", filters=NetBoxCertificateInstanceFilter)
 class NetBoxCertificateInstanceType(NetBoxObjectType):
     ca_reference: str
-    ca: Annotated["CertificateAuthorityType", strawberry.lazy("netbox_certificates.graphql.types")]
+    ca: Annotated["NetBoxCertificateAuthorityType", strawberry.lazy("netbox_certificates.graphql.types")]
     issuer: str
     pubkey_algorithm: str
     pubkey_size: str
     pubkey_sha1: str
     term: int
-    certificate: Annotated["CertificateType", strawberry.lazy("netbox_certificates.graphql.types")]
+    certificate: Annotated["NetBoxCertificateType", strawberry.lazy("netbox_certificates.graphql.types")]
     serial_number: str
     issue_date: str
     expiry_date: str
