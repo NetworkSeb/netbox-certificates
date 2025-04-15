@@ -50,4 +50,4 @@ class CertificateInstanceFilterSet(NetBoxModelFilterSet):
         }
 
     def search(self, queryset, name, value):
-        return queryset.filter(certificate__icontains=value)
+        return queryset.filter(ca_reference__icontains=value)
