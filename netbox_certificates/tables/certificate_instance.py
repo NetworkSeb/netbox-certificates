@@ -7,6 +7,12 @@ class CertificateInstanceTable(NetBoxTable):
     ca_reference = tables.Column(
         linkify=True
     )
+    ca = tables.Column(
+        linkify=True
+    )
+    certificate = tables.Column(
+        linkify=True
+    )
     status = ChoiceFieldColumn()
 
     class Meta(NetBoxTable.Meta):

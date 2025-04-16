@@ -4,7 +4,7 @@ from netbox.tables import NetBoxTable, ChoiceFieldColumn
 from netbox_certificates.models import CertificateAuthority
 
 class CertificateAuthorityTable(NetBoxTable):
-    ca_reference = tables.Column(
+    name = tables.Column(
         linkify=True
     )
     status = ChoiceFieldColumn()

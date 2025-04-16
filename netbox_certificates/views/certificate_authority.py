@@ -3,14 +3,14 @@ from django.db.models import Count
 
 from netbox_certificates.models import CertificateAuthority
 from netbox_certificates.forms import CertificateAuthorityForm, CertificateAuthorityFilterForm
-from netbox_certificates.tables import CertificateAuthorityTable, CertificateTable
+from netbox_certificates.tables import CertificateAuthorityTable, CertificateInstanceTable
 from netbox_certificates.filtersets import CertificateAuthorityFilterSet
 
 class CertificateAuthorityView(generic.ObjectView):
     queryset = CertificateAuthority.objects.all()
 
     def get_extra_context(self, request, instance):
-        table = CertificateTable(instance.certificates.all())
+        table = CertificateInstanceTable(instance.certificates.all())
         table.configure(request)
 
         return {
