@@ -1,5 +1,6 @@
 from netbox.forms import NetBoxModelForm, NetBoxModelFilterSetForm, NetBoxModelImportForm
 from dcim.models import Device
+from virtualization.models import VirtualMachine
 from tenancy.models import Contact, ContactGroup
 from utilities.forms.fields import CommentField, DynamicModelChoiceField, DynamicModelMultipleChoiceField
 from django import forms
@@ -11,6 +12,11 @@ class CertificateForm(NetBoxModelForm):
 
     device = DynamicModelMultipleChoiceField(
         queryset=Device.objects.all(),
+        required=False
+    )
+
+    vm = DynamicModelMultipleChoiceField(
+        queryset=VirtualMachine.objects.all(),
         required=False
     )
 
