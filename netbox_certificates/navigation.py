@@ -12,7 +12,7 @@ certificate_buttons = [
             link="plugins:netbox_certificates:certificate_bulkimport",
             title=("Import"),
             icon_class="mdi mdi-upload",
-        ),
+    ),
 ]
 
 certificate_authority_buttons = [
@@ -28,7 +28,12 @@ certificate_instance_buttons = [
         link='plugins:netbox_certificates:certificateinstance_add',
         title='Add',
         icon_class='mdi mdi-plus-thick',
-    )
+    ),
+    PluginMenuButton(
+            link="plugins:netbox_certificates:certificateinstance_bulkimport",
+            title=("Import"),
+            icon_class="mdi mdi-upload",
+    ),
 ]
 
 

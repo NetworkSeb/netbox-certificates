@@ -23,6 +23,7 @@ urlpatterns = (
     path('certificateinstance/<int:pk>/edit/', CertificateInstanceEditView.as_view(), name='certificateinstance_edit'),
     path('certificateinstance/<int:pk>/delete/', CertificateInstanceDeleteView.as_view(), name='certificateinstance_delete'),
     path('certificateinstance/<int:pk>/changelog/', ObjectChangeLogView.as_view(), name='certificateinstance_changelog', kwargs={'model': CertificateInstance}),
+    path("certificatesinstance/bulk_import/", CertificateInstanceBulkImportView.as_view(), name='certificateinstance_bulkimport'),
 
     # Certificate Authorities
     path('certificateauthority/', CertificateAuthorityListView.as_view(), name='certificateauthority_list'),

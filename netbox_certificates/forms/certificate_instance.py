@@ -1,4 +1,4 @@
-from netbox.forms import NetBoxModelForm, NetBoxModelFilterSetForm
+from netbox.forms import NetBoxModelForm, NetBoxModelFilterSetForm, NetBoxModelImportForm
 from tenancy.models import Contact
 from utilities.forms.fields import CommentField
 from utilities.forms.widgets import DateTimePicker
@@ -72,3 +72,31 @@ class CertificateInstanceFilterForm(NetBoxModelFilterSetForm):
         queryset=Contact.objects.all(),
         required=False
     )
+
+class CertificateInstanceImportFrom(NetBoxModelImportForm):
+    ca_reference = forms.CharField(
+        label=("Certificate Authority Reference (order number)")
+    )
+
+    class Meta:
+        model = CertificateInstance
+        fields = (
+            'ca_reference',
+            'certificate',
+            'ca',
+            'serial_number',
+            'issue_date',
+            'expiry_date',
+            'status',
+            'csr',
+            'key',
+            'pem',
+            'issuer',
+            'pubkey_algorithm',
+            'pubkey_size',
+            'pubkey_sha1',
+            'term',
+            'infrastructure_installer',
+            'comments',
+            'tags'    
+        )
