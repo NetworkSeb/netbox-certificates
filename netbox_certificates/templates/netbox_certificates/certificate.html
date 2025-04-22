@@ -49,23 +49,43 @@
             </tr>
             <tr>
               <th scope="row">Technical Group (IT Services)</th>
-              <td>{{ object.technical_group}}</td>
+              <td>
+                {% for group in object.technical_group.all %}
+                  {{ group }}{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+              </td>
             </tr>
             <tr>
               <th scope="row">Business Contact</th>
-              <td>{{ object.business_contact}}</td>
+              <td>
+                {% for contact in object.business_contact.all %}
+                  {{ contact }}{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+              </td>
             </tr>
             <tr>
               <th scope="row">Business Group</th>
-              <td>{{ object.business_group}}</td>
+              <td>
+                {% for group in object.business_group.all %}
+                  {{ group }}{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+              </td>
             </tr>
             <tr>
               <th scope="row">Infrastructure Contanct</th>
-              <td>{{ object.infrastructure_contact}}</td>
+              <td>
+                {% for contact in object.infrastructure_contact.all %}
+                  {{ contact }}{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+              </td>
             </tr>
             <tr>
               <th scope="row">Infrastructure Group</th>
-              <td>{{ object.infrastructure_group}}</td>
+              <td>
+                {% for group in object.infrastructure_group.all %}
+                  {{ group }}{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+              </td>
             </tr>
           </table>
         </div>
