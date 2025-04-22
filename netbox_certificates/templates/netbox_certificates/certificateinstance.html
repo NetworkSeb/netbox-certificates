@@ -10,7 +10,7 @@
             <tr>
               <th scope="row">Certificate Authority</th>
               <td>
-                {% for ca in object.certificate_authority.all %}
+                {% for ca in object.ca.all %}
                   {{ ca }}{% if not forloop.last %}, {% endif %}
                 {% endfor %}
               </td>
