@@ -5,7 +5,7 @@ from tenancy.models import Contact, ContactGroup
 from utilities.forms.fields import CommentField, DynamicModelChoiceField, DynamicModelMultipleChoiceField
 from django import forms
 
-from netbox_certificates.models import Certificate, CertificateAuthority, CertificateInstance, CertificateInstallChoices, CertificateStatusChoices, CertificateTypeChoices
+from netbox_certificates.models import Certificate, CertificateAuthority, CertificateInstance, CertificateInstallChoices, CertificateStatusChoices, CertificateTypeChoices, CertificateTermChoices
 
 
 class CertificateForm(NetBoxModelForm):
@@ -35,7 +35,8 @@ class CertificateForm(NetBoxModelForm):
             'device',
             'vm',
             'status', 
-            'type', 
+            'type',
+            'term',
             'install_type', 
             'fs_cert_location', 
             'fs_key_location', 
@@ -75,6 +76,11 @@ class CertificateFilterForm(NetBoxModelFilterSetForm):
 
     type = forms.MultipleChoiceField(
         choices=CertificateTypeChoices,
+        required=False
+    )
+
+    term = forms.MultipleChoiceField(
+        choices=CertificateTermChoices,
         required=False
     )
 
