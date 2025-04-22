@@ -32,6 +32,9 @@ class CertificateEditView(generic.ObjectEditView):
 
 class CertificateDeleteView(generic.ObjectDeleteView):
     queryset = Certificate.objects.all()
+    model = Certificate
+    success_url = "plugins:netbox_certificates:certificate_list"
+    default_return_url = "plugins:netbox_certificates:certificate_list"
 
 #@register_model_view(Certificate, "bulk_import", detail=False)
 class CertificateBulkImportView(generic.BulkImportView):

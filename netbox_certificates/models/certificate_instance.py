@@ -1,5 +1,6 @@
 from django.db import models
 from netbox.models import NetBoxModel
+from netbox.models.features import ContactsMixin
 from utilities.choices import ChoiceSet
 from django.urls import reverse
 
@@ -18,7 +19,7 @@ class CertificateInstanceStatusChoices(ChoiceSet):
         ("expired", "Expired", "red")
     ]
 
-class CertificateInstance(NetBoxModel):
+class CertificateInstance(ContactsMixin, NetBoxModel):
     ca_reference = models.CharField(
         max_length=100, 
         verbose_name="CA Order Number"

@@ -1,5 +1,6 @@
 from django.db import models
 from netbox.models import NetBoxModel
+from netbox.models.features import ContactsMixin
 from utilities.choices import ChoiceSet
 from django.contrib.postgres.fields import ArrayField
 from django.urls import reverse
@@ -47,7 +48,21 @@ class CertificateInstallChoices(ChoiceSet):
         ("pfx", "Windows, PFX", "red")
     ]
 
-class Certificate(NetBoxModel):
+# A 'choice' to represent the term all certificate instances from this cert should have
+class CertificateTermChoices(ChoiceSet):
+    """Certificate Term"""
+    key = 'Certificate.term'
+
+    DEFAULT_VALUE = "398"
+
+    CHOICES = [
+        ("47", "47 Days", "green"),
+        ("100", "100 Days", "blue"),
+        ("200", "200 Days", "orange"),
+        ("398", "398 Days", "red")
+    ]
+
+class Certificate(ContactsMixin, NetBoxModel):
     """Certificate definition class"""
 
     cn = models.CharField(
@@ -64,6 +79,14 @@ class Certificate(NetBoxModel):
         blank=True,
         verbose_name="Subject Alternative Names",
         help_text="Comma separated list of FQDN(s) to add into the CSR",
+    )
+    term = models.CharField(
+        choices=CertificateTermChoices,
+        max_length=32,
+        default=CertificateTermChoices.DEFAULT_VALUE,
+        blank=False,
+        verbose_name='Certificate Term (days)',
+        help_text='Certificate validity period (days)'
     )
     device = models.ManyToManyField(
         to='dcim.Device',
