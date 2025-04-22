@@ -43,7 +43,8 @@ class CertificateSerializer(NetBoxModelSerializer):
             'device',
             'vm',
             'status', 
-            'type', 
+            'type',
+            'term',
             'install_type', 
             'fs_cert_location', 
             'fs_key_location', 
@@ -70,6 +71,7 @@ class CertificateSerializer(NetBoxModelSerializer):
             'san',
             'status',
             'type',
+            'term',
             'vm',
             'device'
         )

@@ -9,6 +9,7 @@ class CertificateTable(NetBoxTable):
     )
     status = ChoiceFieldColumn()
     type = ChoiceFieldColumn()
+    term = ChoiceFieldColumn()
     install_type = ChoiceFieldColumn()
     instances = tables.Column()
     ca_id = tables.Column(
@@ -26,7 +27,8 @@ class CertificateTable(NetBoxTable):
             'status',
             'device',
             'vm',
-            'type', 
+            'type',
+            'term',
             'install_type', 
             'fs_cert_location', 
             'fs_key_location', 
@@ -51,5 +53,6 @@ class CertificateTable(NetBoxTable):
             'device',
             'vm',
             'type',
+            'term',
             'install_type'
         )

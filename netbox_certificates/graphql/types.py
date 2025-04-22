@@ -28,6 +28,7 @@ class NetBoxCertificateType(NetBoxObjectType):
     vm: Annotated["VirtualMachineType", strawberry.lazy("virtualization.graphql.types")] | None
     status: str
     type: str
+    term: str
     content: str
     vault_url: str
     fs_cert_location: str
