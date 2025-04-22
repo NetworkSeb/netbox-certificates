@@ -41,7 +41,9 @@
           <table class="table table-hover attr-table">
             <tr>
               <th scope="row">Technical Owner (IT Services)</th>
-              <td>{{ object.technical_owner.all }}</td>
+              <td> {% for contact in object.technical_owner.all %}
+                {{ contact }}{% if not forloop.last %}, {% endif %}
+              </td>
             </tr>
             <tr>
               <th scope="row">Technical Group (IT Services)</th>
