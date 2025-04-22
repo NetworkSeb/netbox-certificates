@@ -25,9 +25,56 @@
                 <th scope="row">Type</th>
                 <td>{{ object.type}}</td>
             </tr>
+          </table>
+        </div>
+      </div>
+      {% include 'inc/panels/custom_fields.html' %}
+    </div>
+    <div class="col col-md-6">
+      <div class="card">
+        <h5 class="card-header">Contacts</h5>
+        <div class="card-body">
+          <table class="table table-hover attr-table">
             <tr>
-                <th scope="row">Install Type</th>
-                <td>{{ object.install_type}}</td>
+              <th scope="row">Technical Owner (IT Services)</th>
+              <td>{{ object.technical_owner}}</td>
+            </tr>
+            <tr>
+              <th scope="row">Technical Group (IT Services)</th>
+              <td>{{ object.technical_group}}</td>
+            </tr>
+            <tr>
+              <th scope="row">Business Contact</th>
+              <td>{{ object.business_contact}}</td>
+            </tr>
+            <tr>
+              <th scope="row">Business Group</th>
+              <td>{{ object.business_group}}</td>
+            </tr>
+            <tr>
+              <th scope="row">Infrastructure Contanct</th>
+              <td>{{ object.infrastructure_contact}}</td>
+            </tr>
+            <tr>
+              <th scope="row">Infrastructure Group</th>
+              <td>{{ object.infrastructure_group}}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="col col-md-6">
+      <div class="card">
+        <h5 class="card-header">Details</h5>
+        <div class="card-body">
+          <table class="table table-hover attr-table">
+            <tr>
+              <th scope="row">Install Type</th>
+              <td>{{ object.install_type}}</td>
+            </tr>
+            <tr>
+              <th scope="row">Installed on</th>
+              <td>{{ object.device}} {{object.vm}}</td>
             </tr>
             <tr>
                 <th scope="row">Certificate File System Location</th>
@@ -53,10 +100,13 @@
                 <th scope="row">Service Loadbalanced?</th>
                 <td>{{ object.service_lb}}</td>
             </tr>
+            <tr>
+              <th scope="row">Install Automated?</th>
+              <td>{{ object.automated}}</td>
+            </tr>
           </table>
         </div>
       </div>
-      {% include 'inc/panels/custom_fields.html' %}
     </div>
     <div class="col col-md-6">
       {% include 'inc/panels/tags.html' %}
