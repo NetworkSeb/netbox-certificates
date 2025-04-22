@@ -8,27 +8,40 @@
         <div class="card-body">
           <table class="table table-hover attr-table">
             <tr>
-              <th scope="row">Name</th>
-              <td>{{ object.cn }}</td>
+              <th scope="row">Certificate Authority</th>
+              <td>
+                {% for ca in object.certificate_authority.all %}
+                  {{ ca }}{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+              </td>
             </tr>
             <tr>
               <th scope="row">Status</th>
               <td>{{ object.get_status_display }}</td>
             </tr>
-          </table>
-        </div>
-      </div>
-      {% include 'inc/panels/custom_fields.html' %}
-      {% include 'inc/panels/tags.html' %}
-    </div>
-    <div class="col col-md-6">
-      <div class="card">
-        <h5 class="card-header">Details</h5>
-        <div class="card-body">
-          <table class="table table-hover attr-table">
             <tr>
               <th scope="row">CA Reference</th>
               <td>{{ object.ca_reference }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Issuer</th>
+              <td>{{ object.issuer }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Public Key Algorithm</th>
+              <td>{{ object.pubkey_algorithm }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Public Key Size</th>
+              <td>{{ object.pubkey_size }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Public Key sha1</th>
+              <td>{{ object.pubkey_sha1 }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Term</th>
+              <td>{{ object.term }}</td>
             </tr>
             <tr>
                 <th scope="row">Serial</th>
@@ -54,9 +67,20 @@
                 <th scope="row">Certificate</th>
                 <td>{{ object.pem }}</td>
             </tr>
+            <tr>
+              <th scope="row">Infrastructure Installer</th>
+              <td>
+                {% for contact in object.infrastructure_installer.all %}
+                  {{ contact }}{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+              </td>
+          </tr>
           </table>
         </div>
       </div>
+      {% include 'inc/panels/custom_fields.html' %}
+      {% include 'inc/panels/tags.html' %}
+      {% include 'inc/panels/comments.html' %}
     </div>
   </div>
 {% endblock content %}
