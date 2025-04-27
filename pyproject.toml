@@ -14,9 +14,9 @@ classifiers = [
 requires-python = ">=3.11"
 
 [project.urls]
-Homepage = "https://github.com/netboxseb/netbox-certificates
-Repository = "https://github.com/netboxseb/netbox-certificates"
-Issues = "https://github.com/netboxseb/netbox-certificates/issues"
+Homepage = "https://github.com/networkseb/netbox-certificates"
+Repository = "https://github.com/networkseb/netbox-certificates"
+Issues = "https://github.com/networkseb/netbox-certificates/issues"
 
 [build-system]
 requires = ['setuptools']
