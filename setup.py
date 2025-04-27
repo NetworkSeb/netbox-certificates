@@ -1,21 +1,14 @@
 from setuptools import setup, find_packages
 
-version = '0.0.2'
-
-with open('README.md', encoding='utf-8') as f:
-    long_description = f.read()
-
 setup(
     name='netbox-certificates',
-    version=version,
+    version='0.0.2',
     description='A plugin to help manage SSL Certificates',
-    long_description=long_description,
-    long_description_content_type='text/markdown',
-    license='GPL 3.0',
     author='Seb Harrington',
-    author_email='seb@cdal.co.uk',
+    author_email='seb+netbox@cdal.co.uk',
     url='https://github.com/NetworkSeb/netbox-certificates',
     download_url='https://github.com/NetworkSeb/netbox-certificates/archive/v{}.zip'.format(version),
+    install_requires=[],
     python_requires='>3.11',
     classifiers=[
         'Environment :: Plugins',

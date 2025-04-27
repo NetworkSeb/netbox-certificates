@@ -26,4 +26,4 @@ build-backend = 'setuptools.build_meta'
 exclude = ["examples*", "media*", "*.tests*"]
 
 [tool.setuptools.package-data]
-"netbox_certificates" = ["templates/**/*.html",]
+"netbox_certificates" = ["templates/**/*.html"]
