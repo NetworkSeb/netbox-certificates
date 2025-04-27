@@ -1,8 +1,10 @@
 from setuptools import setup, find_packages
 
+version='0.0.2'
+
 setup(
     name='netbox-certificates',
-    version='0.0.2',
+    version=version,
     description='A plugin to help manage SSL Certificates',
     author='Seb Harrington',
     author_email='seb+netbox@cdal.co.uk',
