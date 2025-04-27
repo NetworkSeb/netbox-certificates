@@ -16,7 +16,7 @@ setup(
     author_email='seb@cdal.co.uk',
     url='https://github.com/NetworkSeb/netbox-certificates',
     download_url='https://github.com/NetworkSeb/netbox-certificates/archive/v{}.zip'.format(version),
-    python_requires='>3.9',
+    python_requires='>3.11',
     classifiers=[
         'Environment :: Plugins',
         'Environment :: Web Environment',
