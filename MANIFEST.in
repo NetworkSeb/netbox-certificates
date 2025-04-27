@@ -1,0 +1,1 @@
+include netbox_certificates/templates/netbox_certificates/*.html
