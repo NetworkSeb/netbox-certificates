@@ -1,0 +1,29 @@
+[project]
+name = "netbox-certificates"
+version = "0.0.2"
+description = "NetBox certificatesis a NetBox plugin for managing certificates"
+authors = [
+    {name="Seb Harrington", email="seb+netbox@cdal.co.uk"},
+]
+license = {file="LICENCE"}
+readme = "README.md"
+keywords = ["netbox", "netbox-plugin", "certificates"]
+classifiers = [
+    "Development Status :: 1 - Alpha"
+]
+requires-python = ">=3.11"
+
+[project.urls]
+Homepage = "https://github.com/netboxseb/netbox-certificates
+Repository = "https://github.com/netboxseb/netbox-certificates"
+Issues = "https://github.com/netboxseb/netbox-certificates/issues"
+
+[build-system]
+requires = ['setuptools']
+build-backend = 'setuptools.build_meta'
+
+[tool.setuptools.packages.find]
+exclude = ["examples*", "media*", "*.tests*"]
+
+[tool.setuptools.package-data]
+"netbox_certificates" = ["templates/**/*.html",]
