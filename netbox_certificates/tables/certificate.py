@@ -57,5 +57,7 @@ class CertificateTable(NetBoxTable):
             'vm',
             'type',
             'term',
-            'install_type'
+            'install_type',
+            'automated',
+            'service_lb'
         )
