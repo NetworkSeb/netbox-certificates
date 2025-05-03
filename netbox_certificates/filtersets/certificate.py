@@ -38,18 +38,6 @@ class CertificateFilterSet(NetBoxModelFilterSet):
             'tags'
         )
         filter_overrides= {
-        #     ArrayField: {
-        #         'filter_class': django_filters.CharFilter,
-        #         'extra': lambda f: {
-        #             'lookup_expr': 'icontains',
-        #         },
-        #     },
-        #     models.BooleanField: {
-        #          'filter_class': django_filters.BooleanFilter,
-        #          'extra': lambda f: {
-        #              'widget': forms.CheckboxInput,
-        #          },
-        #      },
             TaggableManager: {
                 'filter_class': django_filters.CharFilter
             }
