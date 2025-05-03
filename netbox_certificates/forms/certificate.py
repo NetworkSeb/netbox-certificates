@@ -3,6 +3,7 @@ from dcim.models import Device
 from virtualization.models import VirtualMachine
 from tenancy.models import Contact, ContactGroup
 from utilities.forms.fields import CommentField, DynamicModelChoiceField, DynamicModelMultipleChoiceField
+from utilities.forms import BOOLEAN_WITH_BLANK_CHOICES
 from django import forms
 
 from netbox_certificates.models import Certificate, CertificateAuthority, CertificateInstance, CertificateInstallChoices, CertificateStatusChoices, CertificateTypeChoices, CertificateTermChoices
@@ -87,6 +88,16 @@ class CertificateFilterForm(NetBoxModelFilterSetForm):
     install_type = forms.MultipleChoiceField(
         choices=CertificateInstallChoices,
         required=False
+    )
+
+    service_lb = forms.NullBooleanField(
+        required=False,
+        widget=forms.Select(choices=BOOLEAN_WITH_BLANK_CHOICES)
+    )
+
+    automated = forms.NullBooleanField(
+        required=False,
+        widget=forms.Select(choices=BOOLEAN_WITH_BLANK_CHOICES)
     )
 
     technical_owner = forms.ModelMultipleChoiceField(
