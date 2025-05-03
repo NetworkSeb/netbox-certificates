@@ -2,7 +2,6 @@ from django.db import models
 from netbox.models import NetBoxModel
 from netbox.models.features import ContactsMixin
 from utilities.choices import ChoiceSet
-from django.contrib.postgres.fields import ArrayField
 from django.urls import reverse
 
 # Choices - extendable by key in configuration

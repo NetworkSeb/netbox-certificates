@@ -10,6 +10,8 @@ class CertificateTable(NetBoxTable):
     status = ChoiceFieldColumn()
     type = ChoiceFieldColumn()
     term = ChoiceFieldColumn()
+    automated = ChoiceFieldColumn()
+    service_lb = ChoiceFieldColumn()
     install_type = ChoiceFieldColumn()
     instances = tables.Column()
     ca_id = tables.Column(
@@ -38,6 +40,7 @@ class CertificateTable(NetBoxTable):
             'service_commands',
             'service_check',
             'service_lb',
+            'automated',
             'technical_owner',
             'technical_group',
             'business_contact',
