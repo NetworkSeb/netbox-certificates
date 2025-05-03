@@ -37,7 +37,7 @@ class CertificateFilterSet(NetBoxModelFilterSet):
             'comments',
             'tags'
         )
-        # filter_overrides= {
+        filter_overrides= {
         #     ArrayField: {
         #         'filter_class': django_filters.CharFilter,
         #         'extra': lambda f: {
@@ -50,10 +50,10 @@ class CertificateFilterSet(NetBoxModelFilterSet):
         #              'widget': forms.CheckboxInput,
         #          },
         #      },
-        #     TaggableManager: {
-        #         'filter_class': django_filters.CharFilter
-        #     }
-        # }
+            TaggableManager: {
+                'filter_class': django_filters.CharFilter
+            }
+        }
 
     def search(self, queryset, name, value):
         return queryset.filter(cn__icontains=value)
