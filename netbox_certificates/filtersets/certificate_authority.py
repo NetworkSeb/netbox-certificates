@@ -13,6 +13,9 @@ class CertificateAuthorityFilterSet(NetBoxModelFilterSet):
         model = CertificateAuthority
         fields = (
             'name',
+            'org_id',
+            'cert_profile_ev_id',
+            'cert_profile_ov_id',
             'acme_url',
             'admin_url',
             'status',

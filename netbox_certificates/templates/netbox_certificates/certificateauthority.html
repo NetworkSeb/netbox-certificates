@@ -30,13 +30,25 @@
         <div class="card-body">
           <table class="table table-hover attr-table">
             <tr>
+              <th scope="row">CA Organisation ID</th>
+              <td>{{ object.org_id }}</td>
+            </tr>
+            <tr>
               <th scope="row">ACME URL</th>
               <td>{{ object.acme_url }}</td>
             </tr>
             <tr>
                 <th scope="row">Admin URL</th>
                 <td>{{ object.admin_url }}</td>
-              </tr>
+            </tr>
+            <tr>
+              <th scope="row">CA EV certificate profile ID</th>
+              <td>{{ object.cert_profile_ev_id }}</td>
+            </tr>
+            <tr>
+              <th scope="row">CA OV certificate profile ID</th>
+              <td>{{ object.cert_profile_ov_id }}</td>
+            </tr>
           </table>
         </div>
       </div>

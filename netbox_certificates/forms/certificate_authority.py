@@ -15,6 +15,9 @@ class CertificateAuthorityForm(NetBoxModelForm):
         verbose_name_plural = "Certificate Authorities"
         fields = (
             'name',
+            'org_id',
+            'cert_profile_ev_id',
+            'cert_profile_ov_id',
             'acme_url',
             'admin_url',
             'status',
