@@ -25,6 +25,24 @@ class CertificateAuthority(NetBoxModel):
         unique=True,
         help_text="Certificate Authority Name"
     )
+    org_id = models.IntegerField(
+        blank=True,
+        null=True,
+        verbose_name="Certificate Organisation ID",
+        help_text="The organisation ID assigned by the CA"
+    )
+    cert_profile_ev_id = models.IntegerField(
+        blank=True,
+        null=True,
+        verbose_name="Certificate Profile ID (EV)",
+        help_text="The CA certificate profile ID for EV certificates"
+    )
+    cert_profile_ov_id = models.IntegerField(
+        blank=True,
+        null=True,
+        verbose_name="Certificate Profile ID (OV)",
+        help_text="The CA certificate profile ID for OV certificates"
+    )
     acme_url = models.URLField(
         max_length=256,
         null=True,
