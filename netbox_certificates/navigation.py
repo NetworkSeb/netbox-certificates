@@ -37,12 +37,12 @@ certificate_instance_buttons = [
 ]
 
 menu = PluginMenu(
-    label = 'Certificates',
-    icon_class = "mdi mdi-certificate-outline",
-    groups = (
+    label='Certificates',
+    icon_class="mdi mdi-certificate-outline",
+    groups=(
         ('CERTIFICATES',
             (
-                    PluginMenuItem(
+                PluginMenuItem(
                     link='plugins:netbox_certificates:certificate_list',
                     link_text='Certificates',
                     buttons=certificate_buttons
@@ -58,6 +58,6 @@ menu = PluginMenu(
                     buttons=certificate_instance_buttons
                 ),
             )
-         )
+        )
     )
 )
