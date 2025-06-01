@@ -1,6 +1,6 @@
 import strawberry_django
 
-from netbox.graphql.filter_mixins import autotype_decorator, NetBoxModelFilterMixin
+from netbox.graphql.filter_mixins import NetBoxModelFilterMixin
 
 from netbox_certificates.models import (
     Certificate,
