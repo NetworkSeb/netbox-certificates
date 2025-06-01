@@ -1,6 +1,6 @@
 import strawberry_django
 
-from netbox.graphql.filter_mixins import NetBoxModelFilterMixin
+from netbox.graphql.filter_mixins import BaseFilterMixin
 
 from netbox_certificates.models import (
     Certificate,
@@ -16,15 +16,15 @@ from netbox_certificates.filtersets import (
 
 @strawberry_django.filter_type(Certificate, lookups=True)
 #@autotype_decorator(CertificateFilterSet)
-class NetBoxCertificateFilter(NetBoxModelFilterMixin):
+class NetBoxCertificateFilter(BaseFilterMixin):
     pass
 
 @strawberry_django.filter_type(CertificateInstance, lookups=True)
 #@autotype_decorator(CertificateInstanceFilterSet)
-class NetBoxCertificateInstanceFilter(NetBoxModelFilterMixin):
+class NetBoxCertificateInstanceFilter(BaseFilterMixin):
     pass
 
 @strawberry_django.filter_type(CertificateAuthority, lookups=True)
 #@autotype_decorator(CertificateAuthorityFilterSet)
-class NetBoxCertificateAuthorityFilter(NetBoxModelFilterMixin):
+class NetBoxCertificateAuthorityFilter(BaseFilterMixin):
     pass
