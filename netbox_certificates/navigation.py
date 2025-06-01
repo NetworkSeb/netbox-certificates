@@ -36,21 +36,28 @@ certificate_instance_buttons = [
     ),
 ]
 
-
-menu_items = (
-    PluginMenuItem(
-        link='plugins:netbox_certificates:certificate_list',
-        link_text='Certificates',
-        buttons=certificate_buttons
-    ),
-    PluginMenuItem(
-        link='plugins:netbox_certificates:certificateauthority_list',
-        link_text='Certificate Authorities',
-        buttons=certificate_authority_buttons
-    ),
-    PluginMenuItem(
-        link='plugins:netbox_certificates:certificateinstance_list',
-        link_text='Certificate Instances',
-        buttons=certificate_instance_buttons
-    ),
+menu = PluginMenu(
+    label = 'Certificates',
+    icon_class = "mdi mdi-certificate-outline",
+    groups = (
+        ('CERTIFICATES',
+            (
+                    PluginMenuItem(
+                    link='plugins:netbox_certificates:certificate_list',
+                    link_text='Certificates',
+                    buttons=certificate_buttons
+                ),
+                PluginMenuItem(
+                    link='plugins:netbox_certificates:certificateauthority_list',
+                    link_text='Certificate Authorities',
+                    buttons=certificate_authority_buttons
+                ),
+                PluginMenuItem(
+                    link='plugins:netbox_certificates:certificateinstance_list',
+                    link_text='Certificate Instances',
+                    buttons=certificate_instance_buttons
+                ),
+            )
+         )
+    )
 )
