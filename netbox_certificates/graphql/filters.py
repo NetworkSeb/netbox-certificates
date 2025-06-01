@@ -14,17 +14,17 @@ from netbox_certificates.filtersets import (
     CertificateAuthorityFilterSet
 )
 
-@strawberry_django.filter(Certificate, lookups=True)
-#@autotype_decorator(CertificateFilterSet)
+@strawberry_django.filter_type(Certificate, lookups=True)
+@autotype_decorator(CertificateFilterSet)
 class NetBoxCertificateFilter(BaseFilterMixin):
     pass
 
-@strawberry_django.filter(CertificateInstance, lookups=True)
-#@autotype_decorator(CertificateInstanceFilterSet)
+@strawberry_django.filter_type(CertificateInstance, lookups=True)
+@autotype_decorator(CertificateInstanceFilterSet)
 class NetBoxCertificateInstanceFilter(BaseFilterMixin):
     pass
 
-@strawberry_django.filter(CertificateAuthority, lookups=True)
-#@autotype_decorator(CertificateAuthorityFilterSet)
+@strawberry_django.filter_type(CertificateAuthority, lookups=True)
+@autotype_decorator(CertificateAuthorityFilterSet)
 class NetBoxCertificateAuthorityFilter(BaseFilterMixin):
     pass
