@@ -56,8 +56,8 @@ menu = PluginMenu(
                     link_text='Certificate Instances',
                     buttons=certificate_instance_buttons
                 ),
-            )
-        )
+            ),
+        ),
     ),
     icon_class="mdi mdi-certificate-outline",
 )
