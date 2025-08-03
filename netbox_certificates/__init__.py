@@ -11,3 +11,5 @@ class NetBoxCertificatesConfig(PluginConfig):
     required_settings = []
     min_version = '4.2.0'
     features = ['journaling', 'contact_assignments']
+
+config = NetBoxCertificatesConfig
