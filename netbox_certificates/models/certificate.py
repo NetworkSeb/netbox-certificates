@@ -4,6 +4,9 @@ from netbox.models.features import ContactsMixin
 from utilities.choices import ChoiceSet
 from django.urls import reverse
 
+from django.contrib.contenttypes.fields import GenericRelation
+from extras.models import JournalEntry, ContactAssignment
+
 # Choices - extendable by key in configuration
 class CertificateStatusChoices(ChoiceSet):
     """Certificate Statuses"""
@@ -216,6 +219,9 @@ class Certificate(ContactsMixin, NetBoxModel):
         related_name="infrastructure_group"
     )
     
+    journal_entries = GenericRelation(JournalEntry)
+    contacts = GenericRelation(ContactAssignment)
+
     comments = models.TextField(
         blank=True
     )

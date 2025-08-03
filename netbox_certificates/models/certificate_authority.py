@@ -4,6 +4,9 @@ from utilities.choices import ChoiceSet
 from django.contrib.postgres.fields import ArrayField
 from django.urls import reverse
 
+from django.contrib.contenttypes.fields import GenericRelation
+from extras.models import JournalEntry, ContactAssignment
+
 class CertificateAuthorityStatusChoice(ChoiceSet):
     """CertificateAuthority Statuses"""
     key = 'CertificateAuthority.status'
@@ -62,6 +65,10 @@ class CertificateAuthority(NetBoxModel):
         verbose_name="Certificate Authority Status",
         choices=CertificateAuthorityStatusChoice
     )
+
+    journal_entries = GenericRelation(JournalEntry)
+    contacts = GenericRelation(ContactAssignment)
+    
     comments = models.TextField(
         blank=True
     )
