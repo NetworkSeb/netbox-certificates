@@ -5,7 +5,7 @@ from utilities.choices import ChoiceSet
 from django.urls import reverse
 
 from django.contrib.contenttypes.fields import GenericRelation
-from extras.models import JournalEntry, ContactAssignment
+from extras.models import JournalEntry, Contact
 
 from netbox_certificates.models import Certificate, CertificateAuthority
 
@@ -112,7 +112,7 @@ class CertificateInstance(ContactsMixin, NetBoxModel):
     )
 
     journal_entries = GenericRelation(JournalEntry)
-    contacts = GenericRelation(ContactAssignment)
+    contacts = GenericRelation(Contact)
 
     search_fields = (
         ('ca_reference', 100),

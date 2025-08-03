@@ -5,7 +5,7 @@ from utilities.choices import ChoiceSet
 from django.urls import reverse
 
 from django.contrib.contenttypes.fields import GenericRelation
-from extras.models import JournalEntry, ContactAssignment
+from extras.models import JournalEntry, Contact
 
 # Choices - extendable by key in configuration
 class CertificateStatusChoices(ChoiceSet):
@@ -220,7 +220,7 @@ class Certificate(ContactsMixin, NetBoxModel):
     )
     
     journal_entries = GenericRelation(JournalEntry)
-    contacts = GenericRelation(ContactAssignment)
+    contacts = GenericRelation(Contact)
 
     comments = models.TextField(
         blank=True
