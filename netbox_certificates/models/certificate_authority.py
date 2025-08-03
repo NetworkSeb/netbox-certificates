@@ -5,7 +5,7 @@ from django.contrib.postgres.fields import ArrayField
 from django.urls import reverse
 
 from django.contrib.contenttypes.fields import GenericRelation
-from extras.models import JournalEntry, ContactAssignment
+from extras.models import JournalEntry, Contact
 
 class CertificateAuthorityStatusChoice(ChoiceSet):
     """CertificateAuthority Statuses"""
@@ -67,8 +67,8 @@ class CertificateAuthority(NetBoxModel):
     )
 
     journal_entries = GenericRelation(JournalEntry)
-    contacts = GenericRelation(ContactAssignment)
-    
+    contacts = GenericRelation(Contact)
+
     comments = models.TextField(
         blank=True
     )
