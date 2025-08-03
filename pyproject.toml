@@ -3,13 +3,17 @@ name = "netbox-certificates"
 version = "0.0.2"
 description = "NetBox certificatesis a NetBox plugin for managing certificates"
 authors = [
-    {name="Seb Harrington", email="seb+netbox@cdal.co.uk"},
+    {name="Network Seb", email="netbox-certificates@cdal.co.uk"},
 ]
-license = {file="LICENCE"}
 readme = "README.md"
 keywords = ["netbox", "netbox-plugin", "certificates"]
 classifiers = [
-    "Development Status :: 1 - Alpha"
+    'Development Status :: 3 - Alpha',
+    'Intended Audience :: Developers',
+    'Natural Language :: English',
+    "Programming Language :: Python :: 3 :: Only",
+    'Programming Language :: Python :: 3.11',
+    'Programming Language :: Python :: 3.12',
 ]
 requires-python = ">=3.11"
 
