@@ -34,6 +34,7 @@ class CertificateInstanceTable(NetBoxTable):
             'pubkey_algorithm',
             'pubkey_size',
             'pubkey_sha1',
+            'infrastructure_installer',
             'term',
             'actions'
         )
