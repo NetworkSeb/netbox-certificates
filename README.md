@@ -67,16 +67,18 @@ This plugin is supposed to be used as a central repository for all certificate r
 To install this plugin:
 
 Activate your virtual env and install via pip:
-
+```
 pip install git+https://github.com/NetworkSeb/netbox-certificates.git
+```
 
 ```no-highlight
 # echo git+https://github.com/NetworkSeb/netbox-certificates.git >> local_requirements.txt
 ```
 
 If installing for Netbox version 4.0 - 4.2.x:
-
+```
 pip install git+https://github.com/NetworkSeb/netbox-certificates.git@v4.2
+```
 
 ```no-highlight
 # echo git+https://github.com/NetworkSeb/netbox-certificates.git@v4.2 >> local_requirements.txt
