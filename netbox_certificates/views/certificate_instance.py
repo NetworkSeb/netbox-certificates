@@ -3,7 +3,7 @@ from django.db.models import Count
 from utilities.views import register_model_view
 
 from netbox_certificates.models import CertificateInstance
-from netbox_certificates.forms import CertificateInstanceForm, CertificateInstanceFilterForm, CertificateInstanceImportFrom
+from netbox_certificates.forms import CertificateInstanceForm, CertificateInstanceFilterForm, CertificateInstanceImportFrom, CertificateInstanceBulkEditForm
 from netbox_certificates.tables import CertificateInstanceTable
 from netbox_certificates.filtersets import CertificateInstanceFilterSet
 
@@ -43,6 +43,13 @@ class CertificateInstanceBulkImportView(generic.BulkImportView):
     model_form = CertificateInstanceImportFrom
     table = CertificateInstanceTable
     default_return_url = "plugins:netbox_certificates:certificateinstance_list"
+
+@register_model_view(CertificateInstance, "bulk_edit", path="edit", detail=False)
+class CertificateInstanceBulkEditView(generic.BulkEditView):
+    queryset = CertificateInstance.objects.all()
+    filterset = CertificateInstanceFilterSet
+    table = CertificateInstanceTable
+    form = CertificateInstanceBulkEditForm
 
 @register_model_view(CertificateInstance, "bulk_delete", path="delete", detail=False)
 class CertificateInstanceBulkDeleteView(generic.BulkDeleteView):

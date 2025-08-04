@@ -1,5 +1,6 @@
-from netbox.forms import NetBoxModelForm, NetBoxModelFilterSetForm
+from netbox.forms import NetBoxModelForm, NetBoxModelFilterSetForm, NetBoxModelBulkEditForm
 from utilities.forms.fields import CommentField
+from utilities.forms.rendering import FieldSet
 
 from django import forms
 
@@ -28,6 +29,19 @@ class CertificateAuthorityForm(NetBoxModelForm):
 class CertificateAuthorityFilterForm(NetBoxModelFilterSetForm):
     model = CertificateAuthority
 
+    certificates = forms.ModelMultipleChoiceField(
+        queryset=Certificate.objects.all(),
+        required=False
+    )
+
+    status = forms.MultipleChoiceField(
+        choices=CertificateAuthorityStatusChoice,
+        required=False
+    )
+
+class CertificateAuthorityBulkEditForm(NetBoxModelBulkEditForm):
+    model = CertificateAuthority
+    
     certificates = forms.ModelMultipleChoiceField(
         queryset=Certificate.objects.all(),
         required=False

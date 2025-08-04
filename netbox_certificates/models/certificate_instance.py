@@ -19,7 +19,7 @@ class CertificateInstanceStatusChoices(ChoiceSet):
         ("expired", "Expired", "red")
     ]
 
-class CertificateInstance(ContactsMixin, NetBoxModel):
+class CertificateInstance(NetBoxModel):
     ca_reference = models.CharField(
         max_length=100, 
         verbose_name="CA Order Number"

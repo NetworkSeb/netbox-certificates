@@ -15,6 +15,7 @@ class CertificateInstanceTable(NetBoxTable):
     )
     status = ChoiceFieldColumn()
 
+    #TODO: Update below so we can see infrastructure_installer in table view.
     class Meta(NetBoxTable.Meta):
         model = CertificateInstance
         fields = (
@@ -33,6 +34,7 @@ class CertificateInstanceTable(NetBoxTable):
             'pubkey_algorithm',
             'pubkey_size',
             'pubkey_sha1',
+            'infrastructure_installer',
             'term',
             'actions'
         )
