@@ -47,7 +47,10 @@ class CertificateInstanceBulkImportView(generic.BulkImportView):
     default_return_url = "plugins:netbox_certificates:certificateinstance_list"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
+=======
+>>>>>>> 6c678d1 (Add bulk edit functionality to all models)
 @register_model_view(CertificateInstance, "bulk_edit", path="edit", detail=False)
 class CertificateInstanceBulkEditView(generic.BulkEditView):
     queryset = CertificateInstance.objects.all()
@@ -55,8 +58,11 @@ class CertificateInstanceBulkEditView(generic.BulkEditView):
     table = CertificateInstanceTable
     form = CertificateInstanceBulkEditForm
 
+<<<<<<< HEAD
 =======
 >>>>>>> aca42ab (Rewrite URLs to use the @register_model_view)
+=======
+>>>>>>> 6c678d1 (Add bulk edit functionality to all models)
 @register_model_view(CertificateInstance, "bulk_delete", path="delete", detail=False)
 class CertificateInstanceBulkDeleteView(generic.BulkDeleteView):
     queryset = CertificateInstance.objects.all()
