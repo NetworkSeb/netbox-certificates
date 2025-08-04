@@ -3,7 +3,7 @@ from django.db.models import Count
 from utilities.views import register_model_view
 
 from netbox_certificates.models import CertificateInstance
-from netbox_certificates.forms import CertificateInstanceForm, CertificateInstanceFilterForm, CertificateInstanceImportFrom
+from netbox_certificates.forms import CertificateInstanceForm, CertificateInstanceFilterForm, CertificateInstanceImportFrom, CertificateInstanceBulkEditForm
 from netbox_certificates.tables import CertificateInstanceTable
 from netbox_certificates.filtersets import CertificateInstanceFilterSet
 
@@ -49,7 +49,7 @@ class CertificateInstanceBulkEditView(generic.BulkEditView):
     queryset = CertificateInstance.objects.all()
     filterset = CertificateInstanceFilterSet
     table = CertificateInstanceTable
-    form = CertificateInstanceForm
+    form = CertificateInstanceBulkEditForm
 
 @register_model_view(CertificateInstance, "bulk_delete", path="delete", detail=False)
 class CertificateInstanceBulkDeleteView(generic.BulkDeleteView):

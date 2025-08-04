@@ -1,4 +1,4 @@
-from netbox.forms import NetBoxModelForm, NetBoxModelFilterSetForm, NetBoxModelImportForm
+from netbox.forms import NetBoxModelForm, NetBoxModelFilterSetForm, NetBoxModelImportForm, NetboxBulkEditForm
 from tenancy.models import Contact
 from utilities.forms.fields import CommentField
 from utilities.forms.widgets import DateTimePicker
@@ -100,3 +100,6 @@ class CertificateInstanceImportFrom(NetBoxModelImportForm):
             'comments',
             'tags'    
         )
+
+class CertificateInstanceBulkEditForm(NetboxBulkEditForm):
+    model = CertificateInstance
