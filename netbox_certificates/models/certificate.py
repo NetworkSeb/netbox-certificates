@@ -52,16 +52,16 @@ class CertificateTermChoices(ChoiceSet):
     """Certificate Term"""
     key = 'Certificate.term'
 
-    DEFAULT_VALUE = "398"
+    DEFAULT_VALUE = "365"
 
     CHOICES = [
         ("47", "47 Days", "green"),
         ("100", "100 Days", "blue"),
         ("200", "200 Days", "orange"),
-        ("398", "398 Days", "red")
+        ("365", "365 Days", "red")
     ]
 
-class Certificate(ContactsMixin, NetBoxModel):
+class Certificate(NetBoxModel):
     """Certificate definition class"""
 
     cn = models.CharField(

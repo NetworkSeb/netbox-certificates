@@ -3,7 +3,7 @@ from django.db.models import Count
 from utilities.views import register_model_view
 
 from netbox_certificates.models import CertificateAuthority
-from netbox_certificates.forms import CertificateAuthorityForm, CertificateAuthorityFilterForm
+from netbox_certificates.forms import CertificateAuthorityForm, CertificateAuthorityFilterForm, CertificateAuthorityBulkEditForm
 from netbox_certificates.tables import CertificateAuthorityTable, CertificateInstanceTable
 from netbox_certificates.filtersets import CertificateAuthorityFilterSet
 
@@ -51,6 +51,13 @@ class CertificateAuthorityDeleteView(generic.ObjectDeleteView):
 #     model_form = CertificateAuthorityImportFrom
 #     table = CertificateAuthorityTable
 #     default_return_url = "plugins:netbox_certificates:certificateauthority_list"
+
+@register_model_view(CertificateAuthority, "bulk_edit", path="edit", detail=False)
+class CertificateAuthorityBulkEditView(generic.BulkEditView):
+    queryset = CertificateAuthority.objects.all()
+    filterset = CertificateAuthorityFilterSet
+    table = CertificateAuthorityTable
+    form = CertificateAuthorityBulkEditForm
 
 @register_model_view(CertificateAuthority, "bulk_delete", path="delete", detail=False)
 class CertificateAuthorityBulkDeleteView(generic.BulkDeleteView):

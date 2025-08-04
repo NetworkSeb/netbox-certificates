@@ -1,4 +1,4 @@
-from netbox.forms import NetBoxModelForm, NetBoxModelFilterSetForm, NetBoxModelImportForm
+from netbox.forms import NetBoxModelForm, NetBoxModelFilterSetForm, NetBoxModelImportForm, NetBoxModelBulkEditForm
 from dcim.models import Device
 from virtualization.models import VirtualMachine
 from tenancy.models import Contact, ContactGroup
@@ -163,3 +163,76 @@ class CertificateImportFrom(NetBoxModelImportForm):
             'comments',
             'tags'    
         )
+
+class CertificateBulkEditForm(NetBoxModelBulkEditForm):
+    model = Certificate
+
+    certificates = forms.ModelMultipleChoiceField(
+        queryset=Certificate.objects.all(),
+        required=False
+    )
+
+    device = forms.ModelMultipleChoiceField(
+        queryset=Device.objects.all(),
+        required=False
+    )
+
+    status = forms.MultipleChoiceField(
+        choices=CertificateStatusChoices,
+        required=False
+    )
+
+    type = forms.MultipleChoiceField(
+        choices=CertificateTypeChoices,
+        required=False
+    )
+
+    term = forms.MultipleChoiceField(
+        choices=CertificateTermChoices,
+        required=False
+    )
+
+    install_type = forms.MultipleChoiceField(
+        choices=CertificateInstallChoices,
+        required=False
+    )
+
+    service_lb = forms.NullBooleanField(
+        required=False,
+        widget=forms.Select(choices=BOOLEAN_WITH_BLANK_CHOICES)
+    )
+
+    automated = forms.NullBooleanField(
+        required=False,
+        widget=forms.Select(choices=BOOLEAN_WITH_BLANK_CHOICES)
+    )
+
+    technical_owner = forms.ModelMultipleChoiceField(
+        queryset=Contact.objects.all(),
+        required=False
+    )
+
+    business_contact = forms.ModelMultipleChoiceField(
+        queryset=Contact.objects.all(),
+        required=False
+    )
+
+    infrastructure_contact = forms.ModelMultipleChoiceField(
+        queryset=Contact.objects.all(),
+        required=False
+    )
+
+    technical_group = forms.ModelMultipleChoiceField(
+        queryset=ContactGroup.objects.all(),
+        required=False
+    )
+
+    business_group = forms.ModelMultipleChoiceField(
+        queryset=ContactGroup.objects.all(),
+        required=False
+    )
+
+    infrastructure_group = forms.ModelMultipleChoiceField(
+        queryset=ContactGroup.objects.all(),
+        required=False
+    )
