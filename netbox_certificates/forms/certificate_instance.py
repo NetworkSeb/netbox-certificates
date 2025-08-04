@@ -103,3 +103,38 @@ class CertificateInstanceImportFrom(NetBoxModelImportForm):
 
 class CertificateInstanceBulkEditForm(NetBoxModelBulkEditForm):
     model = CertificateInstance
+    
+    certificate_instance = forms.ModelMultipleChoiceField(
+        queryset=CertificateInstance.objects.all(),
+        required=False
+    )
+
+    certificate = forms.ModelMultipleChoiceField(
+        queryset=Certificate.objects.all(),
+        required=False
+    )
+
+    ca = forms.ModelMultipleChoiceField(
+        queryset=CertificateAuthority.objects.all(),
+        required=False
+    )
+
+    issued = forms.DateTimeField(
+        required=False,
+        widget=DateTimePicker()
+    )
+
+    expiry = forms.DateTimeField(
+        required=False,
+        widget=DateTimePicker()
+    )
+
+    status = forms.MultipleChoiceField(
+        choices=CertificateInstanceStatusChoices,
+        required=False
+    )
+
+    infrastructure_installer = forms.ModelMultipleChoiceField(
+        queryset=Contact.objects.all(),
+        required=False
+    )
