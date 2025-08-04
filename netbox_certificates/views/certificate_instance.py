@@ -46,6 +46,7 @@ class CertificateInstanceBulkImportView(generic.BulkImportView):
     table = CertificateInstanceTable
     default_return_url = "plugins:netbox_certificates:certificateinstance_list"
 
+<<<<<<< HEAD
 
 @register_model_view(CertificateInstance, "bulk_edit", path="edit", detail=False)
 class CertificateInstanceBulkEditView(generic.BulkEditView):
@@ -54,10 +55,13 @@ class CertificateInstanceBulkEditView(generic.BulkEditView):
     table = CertificateInstanceTable
     form = CertificateInstanceBulkEditForm
 
+=======
+>>>>>>> aca42ab (Rewrite URLs to use the @register_model_view)
 @register_model_view(CertificateInstance, "bulk_delete", path="delete", detail=False)
 class CertificateInstanceBulkDeleteView(generic.BulkDeleteView):
     queryset = CertificateInstance.objects.all()
     filterset = CertificateInstanceFilterSet
+<<<<<<< HEAD
     table = CertificateInstanceTable
 
 @register_model_view(CertificateInstance, name="calendar", detail=False)
@@ -71,3 +75,6 @@ class CertificateInstanceCalendarView(TemplateView):
         template_name = "netbox_certificates/certificates.ics"
         certificates = CertificateInstance.objects.order_by('expiry_date').all()
         return render(request, template_name, locals(), content_type='text/calendar')
+=======
+    table = CertificateInstanceTable
+>>>>>>> aca42ab (Rewrite URLs to use the @register_model_view)
