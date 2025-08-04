@@ -52,6 +52,13 @@ class CertificateAuthorityDeleteView(generic.ObjectDeleteView):
 #     table = CertificateAuthorityTable
 #     default_return_url = "plugins:netbox_certificates:certificateauthority_list"
 
+@register_model_view(CertificateAuthority, "bulk_edit", path="edit", details=False)
+class CertificateAuthorityBulkEditView(generic.BulkEditView):
+    queryset = CertificateAuthority.objects.all()
+    filterset = CertificateAuthorityFilterSet
+    table = CertificateAuthorityTable
+    form = CertificateAuthorityForm
+
 @register_model_view(CertificateAuthority, "bulk_delete", path="delete", detail=False)
 class CertificateAuthorityBulkDeleteView(generic.BulkDeleteView):
     queryset = CertificateAuthority.objects.all()
