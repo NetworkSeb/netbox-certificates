@@ -44,6 +44,7 @@ class CertificateInstanceBulkImportView(generic.BulkImportView):
     table = CertificateInstanceTable
     default_return_url = "plugins:netbox_certificates:certificateinstance_list"
 
+
 @register_model_view(CertificateInstance, "bulk_edit", path="edit", detail=False)
 class CertificateInstanceBulkEditView(generic.BulkEditView):
     queryset = CertificateInstance.objects.all()
