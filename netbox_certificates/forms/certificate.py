@@ -1,4 +1,4 @@
-from netbox.forms import NetBoxModelForm, NetBoxModelFilterSetForm, NetBoxModelImportForm
+from netbox.forms import NetBoxModelForm, NetBoxModelFilterSetForm, NetBoxModelImportForm, NetBoxModelBulkEditForm
 from dcim.models import Device
 from virtualization.models import VirtualMachine
 from tenancy.models import Contact, ContactGroup
@@ -163,3 +163,6 @@ class CertificateImportFrom(NetBoxModelImportForm):
             'comments',
             'tags'    
         )
+
+class CertificateBulkEditForm(NetBoxModelBulkEditForm):
+    model = Certificate

@@ -1,4 +1,4 @@
-from netbox.forms import NetBoxModelForm, NetBoxModelFilterSetForm, NetboxBulkEditForm
+from netbox.forms import NetBoxModelForm, NetBoxModelFilterSetForm, NetBoxModelBulkEditForm
 from utilities.forms.fields import CommentField
 
 from django import forms
@@ -38,5 +38,5 @@ class CertificateAuthorityFilterForm(NetBoxModelFilterSetForm):
         required=False
     )
 
-class CertificateAuthorityBulkEditForm(NetboxBulkEditForm):
+class CertificateAuthorityBulkEditForm(NetBoxModelBulkEditForm):
     model = CertificateAuthority
