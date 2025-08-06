@@ -57,3 +57,8 @@ class CertificateInstanceBulkDeleteView(generic.BulkDeleteView):
     queryset = CertificateInstance.objects.all()
     filterset = CertificateInstanceFilterSet
     table = CertificateInstanceTable
+
+@register_model_view(CertificateInstance, name="calendar")
+class CertificateInstanceCalendarView(generic.ObjectView):
+    queryset = CertificateInstance.objects.all()
+    template_name = "netbox_certificates/certificates.ics"
