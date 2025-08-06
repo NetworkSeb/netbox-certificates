@@ -69,4 +69,4 @@ class CertificateInstanceCalendarView(View):
         certificates = CertificateInstance.objects.order_by('expiry_date').all()
         template_name = "netbox_certificates/certificates.ics"
 
-        return render(request, template_name, certificates)
+        return render(request, template_name, locals())
