@@ -1,0 +1,11 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:Netbox Certificates - https://github.com/NetworkSeb/netbox-certificates/
+{% for cert in objects %}
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:{{ cert.expiry_date }}
+SUMMARY:{{ cert.certificate.cn }} expires
+UID:{{ cert.ca_reference }}
+END:VEVENT
+{% endfor %}
+END:VCALENDAR
