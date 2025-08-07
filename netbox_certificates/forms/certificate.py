@@ -82,7 +82,6 @@ class CertificateFilterForm(NetBoxModelFilterSetForm):
 
     term = forms.MultipleChoiceField(
         choices=CertificateTermChoices,
-        coerce=int,
         required=False
     )
 
@@ -190,7 +189,6 @@ class CertificateBulkEditForm(NetBoxModelBulkEditForm):
 
     term = forms.MultipleChoiceField(
         choices=CertificateTermChoices,
-        coerce=int,
         required=False
     )
 
