@@ -55,10 +55,10 @@ class CertificateTermChoices(ChoiceSet):
     DEFAULT_VALUE = "365"
 
     CHOICES = [
-        ("47", "47 Days", "green"),
-        ("100", "100 Days", "blue"),
-        ("200", "200 Days", "orange"),
-        ("365", "365 Days", "red")
+        (47, "47 Days", "green"),
+        (100, "100 Days", "blue"),
+        (200, "200 Days", "orange"),
+        (365, "365 Days", "red")
     ]
 
 class Certificate(NetBoxModel):
