@@ -1,5 +1,5 @@
 from netbox.views import generic
-from django.views.generic.base import TemplateResponseMixin
+from django.views.generic.base import TemplateView
 from django.shortcuts import render
 from django.db.models import Count
 from utilities.views import register_model_view
@@ -61,7 +61,8 @@ class CertificateInstanceBulkDeleteView(generic.BulkDeleteView):
     table = CertificateInstanceTable
 
 @register_model_view(CertificateInstance, name="calendar", detail=False)
-class CertificateInstanceCalendarView(TemplateResponseMixin):
+class CertificateInstanceCalendarView(TemplateView):
+    template_name = "netbox_certificates/certificates.ics"
     """
     Render all certificate instances as an iCal feed
     """
@@ -71,3 +72,8 @@ class CertificateInstanceCalendarView(TemplateResponseMixin):
         template_name = "netbox_certificates/certificates.ics"
 
         return render(request, template_name, locals())
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["certificates"] = CertificateInstance.objects.order_by('expiry_date').all()
+        return context
