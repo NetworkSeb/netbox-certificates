@@ -71,10 +71,10 @@ class CertificateInstanceExpiryView(generic.ObjectListView):
     end = timezone.now() + timezone.timedelta(31)
     now = timezone.now()
 
-    current = CertificateInstance.objects.order_by('expiry_date').filter(certificate__status="issued", expiry_date__range=(start,end))
-    old = CertificateInstance.objects.order_by('expiry_date').filter(status="active", expiry_date__lte=now)
-
-    queryset = current.union(old).order_by('expiry_date')
+    queryset = CertificateInstance.objects.order_by('expiry_date').filter(
+        (Q(certificate__status="issued") & Q(expiry_date__range=(start,end))) 
+        | Q(status="active", expiry_date__lte=now)
+        )
     table = CertificateInstanceTable
     filterset=CertificateInstanceFilterSet
     filterset_form = CertificateInstanceFilterForm
