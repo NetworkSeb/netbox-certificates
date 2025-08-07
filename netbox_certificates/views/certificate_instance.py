@@ -60,6 +60,24 @@ class CertificateInstanceBulkDeleteView(generic.BulkDeleteView):
     filterset = CertificateInstanceFilterSet
     table = CertificateInstanceTable
 
+
+@register_model_view(CertificateInstance, "expiry", detail=False)
+class CertificateInstanceExpiryView(generic.ObjectListView):
+    """
+    Render a view of all Certificate Instances expiring over the last 7 days and the next month.
+    """
+    start = timezone.now() - timezone.timedelta(7)
+    end = timezone.now() + timezone.timedelta(31)
+    now = timezone.now()
+
+    current = CertificateInstance.objects.order_by('expiry_date').filter(certificate__status="issued", expiry_date__range=(start,end))
+    old = CertificateInstance.objects.order_by('expiry_date').filter(status="active", expiry_date__lte=now)
+
+    queryset = current.union(old).order_by('expiry_date')
+    table = CertificateInstanceTable
+    filterset=CertificateInstanceFilterSet
+    filterset_form = CertificateInstanceFilterForm
+
 @register_model_view(CertificateInstance, name="calendar", detail=False)
 class CertificateInstanceCalendarView(TemplateView):
     template_name = "netbox_certificates/certificates.ics"
