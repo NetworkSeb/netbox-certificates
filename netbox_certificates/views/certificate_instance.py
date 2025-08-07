@@ -2,7 +2,7 @@ from netbox.views import generic
 from django.views.generic.base import TemplateView
 from django.views.generic import View
 from django.shortcuts import render
-from django.db.models import Count
+from django.db.models import Q
 from utilities.views import register_model_view
 
 from netbox_certificates.models import CertificateInstance
