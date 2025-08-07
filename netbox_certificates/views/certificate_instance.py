@@ -61,7 +61,7 @@ class CertificateInstanceBulkDeleteView(generic.BulkDeleteView):
     table = CertificateInstanceTable
 
 
-@register_model_view(CertificateInstance, "expiry", detail=False)
+@register_model_view(CertificateInstance, "radar", detail=False)
 class CertificateInstanceExpiryView(generic.ObjectListView):
     """
     Render a view of all Certificate Instances expiring over the last 7 days and the next month.
@@ -70,10 +70,12 @@ class CertificateInstanceExpiryView(generic.ObjectListView):
     end = timezone.now() + timezone.timedelta(31)
     now = timezone.now()
 
+    # Get all certs that either expire in the next 31 days or the previous 7 days OR if the cert instance is active and already expired
     queryset = CertificateInstance.objects.order_by('expiry_date').filter(
         (Q(certificate__status="issued") & Q(expiry_date__range=(start,end))) 
         | Q(status="active", expiry_date__lte=now)
         )
+    
     table = CertificateInstanceTable
     filterset=CertificateInstanceFilterSet
     filterset_form = CertificateInstanceFilterForm

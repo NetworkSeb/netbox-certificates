@@ -56,6 +56,10 @@ menu = PluginMenu(
                     link_text='Certificate Instances',
                     buttons=certificate_instance_buttons
                 ),
+                PluginMenuItem(
+                    link='plugins:netbox_certificates:certificateinstance_radar',
+                    link_text='Certificate Radar',
+                ),
             ),
         ),
     ),
