@@ -83,7 +83,6 @@ class CertificateInstanceExpiryView(generic.ObjectListView):
 @register_model_view(CertificateInstance, name="calendar", detail=False)
 class CertificateInstanceCalendarView(TemplateView):
     template_name = "netbox_certificates/certificates.ics"
-class CertificateInstanceCalendarView(View):
     """
     Render all certificate instances as an iCal feed
     """
@@ -92,12 +91,3 @@ class CertificateInstanceCalendarView(View):
         template_name = "netbox_certificates/certificates.ics"
         certificates = CertificateInstance.objects.order_by('expiry_date').all()
         return render(request, template_name, locals(), content_type='text/calendar')
-
-@register_model_view(CertificateInstance, name="calendar")
-class CertificateInstanceCalendarView(generic.ObjectView):
-    queryset = CertificateInstance.objects.all()
-    template_name = "netbox_certificates/certificates.ics"
-    certificates = CertificateInstance.objects.order_by('expiry_date').all()
-    template_name = "netbox_certificates/certificates.ics"
-
-    return render(request, template_name, certificates)
