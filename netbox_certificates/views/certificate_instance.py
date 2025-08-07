@@ -1,6 +1,6 @@
 from netbox.views import generic
 from django.views.generic.base import TemplateView
-from django.views.generic import View
+from django.utils import timezone
 from django.shortcuts import render
 from django.db.models import Q
 from utilities.views import register_model_view
@@ -46,6 +46,7 @@ class CertificateInstanceBulkImportView(generic.BulkImportView):
     model_form = CertificateInstanceImportFrom
     table = CertificateInstanceTable
     default_return_url = "plugins:netbox_certificates:certificateinstance_list"
+
 
 @register_model_view(CertificateInstance, "bulk_edit", path="edit", detail=False)
 class CertificateInstanceBulkEditView(generic.BulkEditView):
