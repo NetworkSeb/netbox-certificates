@@ -55,10 +55,10 @@ class CertificateTermChoices(ChoiceSet):
     DEFAULT_VALUE = 365
 
     CHOICES = [
-        (47, "47 Days", "green"),
-        (100, "100 Days", "blue"),
-        (200, "200 Days", "orange"),
-        (365, "365 Days", "red")
+        (47, "47 Days"),
+        (100, "100 Days"),
+        (200, "200 Days"),
+        (365, "365 Days")
     ]
 
 class Certificate(NetBoxModel):
@@ -81,7 +81,6 @@ class Certificate(NetBoxModel):
     )
     term = models.IntegerField(
         choices=CertificateTermChoices,
-        max_length=32,
         default=CertificateTermChoices.DEFAULT_VALUE,
         blank=False,
         verbose_name='Certificate Term (days)',
