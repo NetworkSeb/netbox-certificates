@@ -69,10 +69,10 @@ class CertificateInstanceCalendarView(TemplateView):
     def get(self, request):
         context = self.get_context_data()
         template_name = "netbox_certificates/certificates.ics"
-
+        certificates = CertificateInstance.objects.order_by('expiry_date').all()
         return render(request, template_name, locals(), content_type='text/calendar')
     
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["certificates"] = CertificateInstance.objects.order_by('expiry_date').all()
-        return context
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     context["certificates"] = CertificateInstance.objects.order_by('expiry_date').all()
+    #     return context
