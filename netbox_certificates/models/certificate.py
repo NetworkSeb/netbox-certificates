@@ -52,7 +52,7 @@ class CertificateTermChoices(ChoiceSet):
     """Certificate Term"""
     key = 'Certificate.term'
 
-    DEFAULT_VALUE = "365"
+    DEFAULT_VALUE = 365
 
     CHOICES = [
         (47, "47 Days", "green"),
