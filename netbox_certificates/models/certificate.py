@@ -79,7 +79,7 @@ class Certificate(NetBoxModel):
         verbose_name="Subject Alternative Names",
         help_text="Comma separated list of FQDN(s) to add into the CSR",
     )
-    term = models.CharField(
+    term = models.IntegerChoices(
         choices=CertificateTermChoices,
         max_length=32,
         default=CertificateTermChoices.DEFAULT_VALUE,
