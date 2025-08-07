@@ -67,11 +67,10 @@ class CertificateInstanceCalendarView(TemplateView):
     Render all certificate instances as an iCal feed
     """
     def get(self, request):
-        content_type='text/calendar'
-        certificates = CertificateInstance.objects.order_by('expiry_date').all()
+        context = self.get_context_data()
         template_name = "netbox_certificates/certificates.ics"
 
-        return render(request, template_name, locals())
+        return render(request, template_name, locals(), content_type='text/calendar')
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
