@@ -89,7 +89,7 @@ class Certificate(NetBoxModel):
     )
 
     # I don't believe the below will work as it's cross table.
-    active_instance = models.GerneratedField(
+    active_instance = models.GeneratedField(
         expression = Q(instances.order_by('-expiry_date').filter(status="active")),
         output_field = CertificateInstance,
         db_persist=True,
