@@ -4,8 +4,6 @@ from netbox.models import NetBoxModel
 from utilities.choices import ChoiceSet
 from django.urls import reverse
 
-from netbox_certificates.models import CertificateInstance
-
 # Choices - extendable by key in configuration
 class CertificateStatusChoices(ChoiceSet):
     """Certificate Statuses"""
@@ -89,6 +87,8 @@ class Certificate(NetBoxModel):
         verbose_name='Certificate Term (days)',
         help_text='Certificate validity period (days)'
     )
+
+    from netbox_certificates.models import CertificateInstance
 
     # I don't believe the below will work as it's cross table.
     active_instance = models.GerneratedField(
