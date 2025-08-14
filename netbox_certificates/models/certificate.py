@@ -88,8 +88,6 @@ class Certificate(NetBoxModel):
         help_text='Certificate validity period (days)'
     )
 
-    from netbox_certificates.models import CertificateInstance
-
     # I don't believe the below will work as it's cross table.
     active_instance = models.GerneratedField(
         expression = Q(instances.order_by('-expiry_date').filter(status="active")),
@@ -264,3 +262,5 @@ class Certificate(NetBoxModel):
     def generate_csr(self):
         # Logic to generate CSR
         pass
+
+    from netbox_certificates.models import CertificateInstance
