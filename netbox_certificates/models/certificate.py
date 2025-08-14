@@ -1,8 +1,10 @@
 from django.db import models
+from django.db.models import Q
 from netbox.models import NetBoxModel
-from netbox.models.features import ContactsMixin
 from utilities.choices import ChoiceSet
 from django.urls import reverse
+
+from netbox_certificates.models import CertificateInstance
 
 # Choices - extendable by key in configuration
 class CertificateStatusChoices(ChoiceSet):
@@ -47,23 +49,24 @@ class CertificateInstallChoices(ChoiceSet):
         ("pfx", "Windows, PFX", "red")
     ]
 
-# A 'choice' to represent the term all certificate instances from this cert should have
-class CertificateTermChoices(ChoiceSet):
-    """Certificate Term"""
-    key = 'Certificate.term'
-
-    DEFAULT_VALUE = 365
-
-    CHOICES = [
-        (47, "47 Days"),
-        (100, "100 Days"),
-        (200, "200 Days"),
-        (365, "365 Days")
-    ]
 
 class Certificate(NetBoxModel):
-    """Certificate definition class"""
 
+    # A 'choice' to represent the term all certificate instances from this cert should have
+    class CertificateTermChoices(ChoiceSet):
+        """Certificate Term"""
+        key = 'Certificate.term'
+
+        DEFAULT_VALUE = 365
+
+        CHOICES = [
+            (47, 47),
+            (100, 100),
+            (200, 200),
+            (365, 365)
+        ]
+
+    """Certificate definition class"""
     cn = models.CharField(
         max_length=256,
         blank=False,
@@ -86,6 +89,20 @@ class Certificate(NetBoxModel):
         verbose_name='Certificate Term (days)',
         help_text='Certificate validity period (days)'
     )
+
+    # I don't believe the below will work as it's cross table.
+    active_instance = models.GerneratedField(
+        expression = Q(instances.order_by('-expiry_date').filter(status="active")),
+        output_field = CertificateInstance,
+        db_persist=True,
+    )
+
+    latest_instance = models.GeneratedField(
+        expression = Q(instances.order_by('-expiry_date').first()),
+        output_field = CertificateInstance,
+        db_persist=True,
+    )
+
     device = models.ManyToManyField(
         to='dcim.Device',
         blank=True,
