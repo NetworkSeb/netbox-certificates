@@ -4,8 +4,6 @@ from netbox.models.features import ContactsMixin
 from utilities.choices import ChoiceSet
 from django.urls import reverse
 
-from netbox_certificates.models import CertificateInstance
-
 # Choices - extendable by key in configuration
 class CertificateStatusChoices(ChoiceSet):
     """Certificate Statuses"""
@@ -89,14 +87,18 @@ class Certificate(NetBoxModel):
         help_text='Certificate validity period (days)'
     )
 
-    active = models.OneToOneField(
-        to=CertificateInstance,
-        on_delete=models.CASCADE,
+    active = models.CharField(
+        max_length=100,
+        null=True,
+        blank=True,
+        verbose_name='The certificate instance ID in operation',
     )
 
-    latest = models.OneToOneField(
-        to=CertificateInstance,
-        on_delete=models.CASCADE,
+    latest = models.models.CharField(
+        max_length=100,
+        null=True,
+        blank=True,
+        verbose_name='The latest certificate instance for this certificate',
     )
 
     device = models.ManyToManyField(
@@ -235,11 +237,11 @@ class Certificate(NetBoxModel):
 
     @property
     def get_active(self):
-        return self.instances.order_by('-expiry_date').filter(status="active").first()
+        return self.instances.order_by('-expiry_date').filter(status="active").first().ca_reference
     
     @property
     def get_latest(self):
-        return self.instances.order_by('-expiry_date').first()
+        return self.instances.order_by('-expiry_date').first().ca_reference
     
     # Colour methods
 
@@ -262,8 +264,10 @@ class Certificate(NetBoxModel):
 
     def get_absolute_url(self):
         """override"""
-        self.active = get_active(self)
-        self.latest = get_latest(self)
+        if get_active(self):
+            self.active = get_active(self)
+        if get_latest(self):
+            self.latest = get_latest(self)
         return reverse("plugins:netbox_certificates:certificate", args=[self.pk])
 
     def generate_csr(self):
