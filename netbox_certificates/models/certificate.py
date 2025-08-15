@@ -94,7 +94,7 @@ class Certificate(NetBoxModel):
         verbose_name='The certificate instance ID in operation',
     )
 
-    latest = models.models.CharField(
+    latest = models.CharField(
         max_length=100,
         null=True,
         blank=True,
