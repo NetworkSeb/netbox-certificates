@@ -88,12 +88,12 @@ class Certificate(NetBoxModel):
     )
 
     active = models.OneToOneField(
-        CertificateInstance,
+        to=CertificateInstance,
         on_delete=models.CASCADE,
     )
 
     latest = models.OneToOneField(
-        CertificateInstance,
+        to=CertificateInstance,
         on_delete=models.CASCADE,
     )
 
