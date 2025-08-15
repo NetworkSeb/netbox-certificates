@@ -4,6 +4,8 @@ from netbox.models.features import ContactsMixin
 from utilities.choices import ChoiceSet
 from django.urls import reverse
 
+from netbox_certificates.models import CertificateInstance
+
 # Choices - extendable by key in configuration
 class CertificateStatusChoices(ChoiceSet):
     """Certificate Statuses"""
@@ -267,5 +269,3 @@ class Certificate(NetBoxModel):
     def generate_csr(self):
         # Logic to generate CSR
         pass
-
-from netbox_certificates.models import CertificateInstance
