@@ -55,10 +55,10 @@ class CertificateTermChoices(ChoiceSet):
     DEFAULT_VALUE = 365
 
     CHOICES = [
-        (47, "47 Days"),
-        (100, "100 Days"),
-        (200, "200 Days"),
-        (365, "365 Days")
+        (47, 47),
+        (100, 100),
+        (200, 200),
+        (365, 365)
     ]
 
 class Certificate(NetBoxModel):
@@ -86,6 +86,17 @@ class Certificate(NetBoxModel):
         verbose_name='Certificate Term (days)',
         help_text='Certificate validity period (days)'
     )
+
+    active = models.OneToOneField(
+        CertificateInstance,
+        on_delete=models.CASCADE,
+    )
+
+    latest = models.OneToOneField(
+        CertificateInstance,
+        on_delete=models.CASCADE,
+    )
+
     device = models.ManyToManyField(
         to='dcim.Device',
         blank=True,
@@ -220,6 +231,13 @@ class Certificate(NetBoxModel):
     )
     # Need a field here for Service when it becomes available
 
+    @property
+    def get_active(self):
+        return self.instances.order_by('-expiry_date').filter(status="active").first()
+    
+    @property
+    def get_latest(self):
+        return self.instances.order_by('-expiry_date').first()
     
     # Colour methods
 
@@ -242,8 +260,12 @@ class Certificate(NetBoxModel):
 
     def get_absolute_url(self):
         """override"""
+        self.active = get_active(self)
+        self.latest = get_latest(self)
         return reverse("plugins:netbox_certificates:certificate", args=[self.pk])
 
     def generate_csr(self):
         # Logic to generate CSR
         pass
+
+from netbox_certificates.models import CertificateInstance
