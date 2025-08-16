@@ -243,6 +243,23 @@ class Certificate(NetBoxModel):
     def get_latest(self):
         return self.instances.order_by('-expiry_date').first().ca_reference
     
+    def get_oustanding_certificates(self):
+
+        # We may restrict by time in the future
+        start = timezone.now() - timezone.timedelta(7)
+        end = timezone.now() + timezone.timedelta(31)
+        now = timezone.now()
+
+        certs = Certificate.objects.order_by('-expiry_date')
+        for cert in certs:
+            active = cert.get_active()
+            latest = cert.get_latest()
+
+            if active == latest:
+                certs.exclude(cert)
+        
+        return certs
+    
     # Colour methods
 
     def get_status_color(self):

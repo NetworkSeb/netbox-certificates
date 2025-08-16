@@ -1,5 +1,5 @@
 from netbox.views import generic
-from django.db.models import Count
+from django.db.models import Count, F, Q
 from utilities.views import register_model_view
 
 from netbox_certificates.models import Certificate
@@ -69,3 +69,14 @@ class CertificateBulkDeleteView(generic.BulkDeleteView):
     queryset = Certificate.objects.all()
     filterset = CertificateFilterSet
     table = CertificateTable
+
+@register_model_view(Certificate, "radar", detail=False)
+class CertificateExpiryView(generic.ObjectListView):
+    """
+    Render a view of all Certificates needing installation.
+    """
+    queryset = Certificate.get_oustanding_certificates()
+    
+    table = CertificateTable
+    filterset=CertificateFilterSet
+    filterset_form = CertificateFilterForm
