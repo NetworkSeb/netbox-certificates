@@ -88,19 +88,19 @@ class Certificate(NetBoxModel):
         help_text='Certificate validity period (days)'
     )
 
-    active = models.CharField(
-        max_length=100,
-        null=True,
-        blank=True,
-        verbose_name='The certificate instance ID in operation',
-    )
+    # active = models.CharField(
+    #     max_length=100,
+    #     null=True,
+    #     blank=True,
+    #     verbose_name='The certificate instance ID in operation',
+    # )
 
-    latest = models.CharField(
-        max_length=100,
-        null=True,
-        blank=True,
-        verbose_name='The latest certificate instance for this certificate',
-    )
+    # latest = models.CharField(
+    #     max_length=100,
+    #     null=True,
+    #     blank=True,
+    #     verbose_name='The latest certificate instance for this certificate',
+    # )
 
     device = models.ManyToManyField(
         to='dcim.Device',
@@ -236,13 +236,13 @@ class Certificate(NetBoxModel):
     )
     # Need a field here for Service when it becomes available
 
-    @property
-    def get_active(self):
-        return self.instances.order_by('-expiry_date').filter(status="active").first().ca_reference
+    # @property
+    # def get_active(self):
+    #     return self.instances.order_by('-expiry_date').filter(status="active").first().ca_reference
     
-    @property
-    def get_latest(self):
-        return self.instances.order_by('-expiry_date').first().ca_reference
+    # @property
+    # def get_latest(self):
+    #     return self.instances.order_by('-expiry_date').first().ca_reference
     
     def get_oustanding_certificates():
 
@@ -253,11 +253,11 @@ class Certificate(NetBoxModel):
 
         certs = Certificate.objects.order_by('cn')
         for cert in certs:
-            active = cert.get_active()
-            latest = cert.get_latest()
+            active = cert.instances.order_by('-expiry_date').filter(status="active").first().ca_reference
+            latest = cert.instances.order_by('-expiry_date').first().ca_reference
 
             if active == latest:
-                certs.exclude(cert)
+                certs.exclude(cn=cert.cn)
         
         return certs
     
@@ -282,10 +282,10 @@ class Certificate(NetBoxModel):
 
     def get_absolute_url(self):
         """override"""
-        if get_active(self):
-            self.active = get_active(self)
-        if get_latest(self):
-            self.latest = get_latest(self)
+        # if get_active(self):
+        #     self.active = get_active(self)
+        # if get_latest(self):
+        #     self.latest = get_latest(self)
         return reverse("plugins:netbox_certificates:certificate", args=[self.pk])
 
     def generate_csr(self):
