@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.db.models import Count, F
 from netbox.models import NetBoxModel
 from netbox.models.features import ContactsMixin
 from utilities.choices import ChoiceSet
@@ -254,14 +255,17 @@ class Certificate(NetBoxModel):
         certs = Certificate.objects.order_by('cn').filter(status="issued")
         for cert in certs:
             try:
-                active = cert.instances.order_by('-expiry_date').filter(status="active").first().ca_reference
-                latest = cert.instances.order_by('-expiry_date').first().ca_reference
+                active = cert.instances.order_by('-expiry_date').filter(status="active").first()
+                latest = cert.instances.order_by('-expiry_date').first()
 
-                if active == latest:
+                if active.ca_reference == latest.ca_reference:
                     certs = certs.exclude(cn=cert.cn)
+                    cert.annotate(
+                        active=active,
+                        latest=latest
+                    )
             except AttributeError:
                 pass
-        
         return certs
     
     # Colour methods
