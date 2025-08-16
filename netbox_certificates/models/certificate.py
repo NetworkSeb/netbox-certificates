@@ -251,7 +251,7 @@ class Certificate(NetBoxModel):
         end = timezone.now() + timezone.timedelta(31)
         now = timezone.now()
 
-        certs = Certificate.objects.order_by('-expiry_date')
+        certs = Certificate.objects.order_by('cn')
         for cert in certs:
             active = cert.get_active()
             latest = cert.get_latest()
