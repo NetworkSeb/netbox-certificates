@@ -258,7 +258,7 @@ class Certificate(NetBoxModel):
                 latest = cert.instances.order_by('-expiry_date').first().ca_reference
 
                 if active == latest:
-                    certs.exclude(cn=cert.cn)
+                    certs = certs.exclude(cn=cert.cn)
             except AttributeError:
                 pass
         
