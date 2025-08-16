@@ -243,7 +243,7 @@ class Certificate(NetBoxModel):
     def get_latest(self):
         return self.instances.order_by('-expiry_date').first().ca_reference
     
-    def get_oustanding_certificates(self):
+    def get_oustanding_certificates():
 
         # We may restrict by time in the future
         start = timezone.now() - timezone.timedelta(7)
