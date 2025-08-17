@@ -64,11 +64,13 @@ class CertificateInstance(NetBoxModel):
     certificate_active = models.OneToOneField(
         to=Certificate,
         related_name='active',
+        on_delete=models.CASCADE,
         null=True
     )
     certificate_latest = models.OneToOneField(
         to=Certificate,
         related_name='latest',
+        on_delete=models.CASCADE,
         null=True
     )
     serial_number = models.CharField(
