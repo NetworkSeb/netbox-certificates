@@ -236,14 +236,6 @@ class Certificate(NetBoxModel):
         blank=True
     )
     # Need a field here for Service when it becomes available
-
-    # @property
-    # def get_active(self):
-    #     return self.instances.order_by('-expiry_date').filter(status="active").first().ca_reference
-    
-    # @property
-    # def get_latest(self):
-    #     return self.instances.order_by('-expiry_date').first().ca_reference
     
     def get_oustanding_certificates():
 
@@ -288,13 +280,21 @@ class Certificate(NetBoxModel):
 
     def __str__(self):
         return str(self.cn)
+    
+    @property
+    def get_active(self):
+        return self.instances.order_by('-expiry_date').filter(status="active").first()
+    
+    @property
+    def get_latest(self):
+        return self.instances.order_by('-expiry_date').first()
 
     def get_absolute_url(self):
         """override"""
-        # if get_active(self):
-        #     self.active = get_active(self)
-        # if get_latest(self):
-        #     self.latest = get_latest(self)
+        if self.get_active(self):
+            self.active = self.get_active(self)
+        if self.get_latest(self):
+            self.latest = self.get_latest(self)
         return reverse("plugins:netbox_certificates:certificate", args=[self.pk])
 
     def generate_csr(self):
