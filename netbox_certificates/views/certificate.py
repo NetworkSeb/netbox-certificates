@@ -4,7 +4,7 @@ from utilities.views import register_model_view
 
 from netbox_certificates.models import Certificate
 from netbox_certificates.forms import CertificateForm, CertificateFilterForm, CertificateImportFrom, CertificateBulkEditForm
-from netbox_certificates.tables import CertificateTable, CertificateInstanceTable
+from netbox_certificates.tables import CertificateTable, CertificateInstanceTable, CertificateExpiryTable
 from netbox_certificates.filtersets import CertificateFilterSet
 
 __all__ = (
@@ -68,7 +68,7 @@ class CertificateBulkEditView(generic.BulkEditView):
 class CertificateBulkDeleteView(generic.BulkDeleteView):
     queryset = Certificate.objects.all()
     filterset = CertificateFilterSet
-    table = CertificateTable
+    table = CertificateExpiryTable
 
 @register_model_view(Certificate, "radar", detail=False)
 class CertificateExpiryView(generic.ObjectListView):
