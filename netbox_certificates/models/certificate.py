@@ -247,17 +247,18 @@ class Certificate(NetBoxModel):
         certs = Certificate.objects.order_by('cn').filter(status="issued")
         for cert in certs:
             try:
-                active_inst = cert.instances.order_by('-expiry_date').filter(status="active").first()
-                latest_inst = cert.instances.order_by('-expiry_date').first()
+                cert_to_update = Certificate,objects.get(cn=cert.cn)
+                active_inst = cert_to_update.instances.order_by('-expiry_date').filter(status="active").first()
+                latest_inst = cert_to_update.instances.order_by('-expiry_date').first()
 
-                cert.update(active=active_inst, latest=latest_inst)
+                cert_to_update.update(active=active_inst, latest=latest_inst)
 
                 # certs.objects.filter(cn=cert.cn).annotate(
                 #     active=active.expiry_date,
                 #     latest=latest.expiry_date
                 # )
 
-                if cert.active.ca_reference == cert.latest.ca_reference:
+                if cert_to_update.active.ca_reference == cert_to_update.latest.ca_reference:
                     certs = certs.exclude(cn=cert.cn)
 
             except AttributeError:
