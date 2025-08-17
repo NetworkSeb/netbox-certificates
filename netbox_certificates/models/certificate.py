@@ -262,8 +262,8 @@ class Certificate(NetBoxModel):
                     certs = certs.exclude(cn=cert.cn)
                 else:
                     certs.objects.filter(cn=cert.cn).annotate(
-                        active=active,
-                        latest=latest
+                        active=active.expiry_date,
+                        latest=latest.expiry_date
                     )
             except AttributeError:
                 pass
