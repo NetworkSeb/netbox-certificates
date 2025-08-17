@@ -293,6 +293,7 @@ class Certificate(NetBoxModel):
         """override"""
         self.active = self.get_active()
         self.latest = self.get_latest()
+        
         return reverse("plugins:netbox_certificates:certificate", args=[self.pk])
 
     def generate_csr(self):
