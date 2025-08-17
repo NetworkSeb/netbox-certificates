@@ -258,13 +258,14 @@ class Certificate(NetBoxModel):
                 active = cert.instances.order_by('-expiry_date').filter(status="active").first()
                 latest = cert.instances.order_by('-expiry_date').first()
 
+                certs.objects.filter(cn=cert.cn).annotate(
+                    active=active.expiry_date,
+                    latest=latest.expiry_date
+                )
+
                 if active.ca_reference == latest.ca_reference:
                     certs = certs.exclude(cn=cert.cn)
-                else:
-                    certs.objects.filter(cn=cert.cn).annotate(
-                        active=active.expiry_date,
-                        latest=latest.expiry_date
-                    )
+
             except AttributeError:
                 pass
         return certs
