@@ -245,21 +245,21 @@ class Certificate(NetBoxModel):
         now = timezone.now()
 
         certs = Certificate.objects.order_by('cn').filter(status="issued")
-        # for cert in certs:
-        #     try:
-        #         active = cert.instances.order_by('-expiry_date').filter(status="active").first()
-        #         latest = cert.instances.order_by('-expiry_date').first()
+        for cert in certs:
+            try:
+                cert.active = cert.instances.order_by('-expiry_date').filter(status="active").first()
+                cert.latest = cert.instances.order_by('-expiry_date').first()
 
-        #         certs.objects.filter(cn=cert.cn).annotate(
-        #             active=active.expiry_date,
-        #             latest=latest.expiry_date
-        #         )
+                # certs.objects.filter(cn=cert.cn).annotate(
+                #     active=active.expiry_date,
+                #     latest=latest.expiry_date
+                # )
 
-        #         if active.ca_reference == latest.ca_reference:
-        #             certs = certs.exclude(cn=cert.cn)
+                if cert.active.ca_reference == cert.latest.ca_reference:
+                    certs = certs.exclude(cn=cert.cn)
 
-        #     except AttributeError:
-        #         pass
+            except AttributeError:
+                pass
         return certs
     
     # Colour methods
@@ -281,19 +281,8 @@ class Certificate(NetBoxModel):
     def __str__(self):
         return str(self.cn)
     
-    @classmethod
-    def get_active(self):
-        return self.instances.order_by('-expiry_date').filter(status="active").first()
-    
-    @classmethod
-    def get_latest(self):
-        return self.instances.order_by('-expiry_date').first()
-
     def get_absolute_url(self):
         """override"""
-        self.active = self.get_active()
-        self.latest = self.get_latest()
-
         return reverse("plugins:netbox_certificates:certificate", args=[self.pk])
 
     def generate_csr(self):
