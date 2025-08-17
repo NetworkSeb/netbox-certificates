@@ -129,6 +129,13 @@ class CertificateInstance(NetBoxModel):
     def get_status_color(self):
         return CertificateInstanceStatusChoices.colors.get(self.status)
     
+    @classmethod
+    def update_instances(self):
+        for cert in Certificate.objects.order_by('cn').filter(status="issued"):
+            instances = CertificateInstance.objects.order_by('-expiry_date').filter(certificate__cn=cert.cn)
+            cert.update(active = instances.filter(status='active'))
+            cert.update(latest = instances.first())
+    
     class Meta:
         """Meta class"""
 
@@ -139,4 +146,6 @@ class CertificateInstance(NetBoxModel):
     
     def get_absolute_url(self):
         """override"""
+
+        self.update_instances(self)
         return reverse("plugins:netbox_certificates:certificateinstance", args=[self.pk])
