@@ -260,7 +260,8 @@ class Certificate(NetBoxModel):
 
                 if active.ca_reference == latest.ca_reference:
                     certs = certs.exclude(cn=cert.cn)
-                    cert.annotate(
+                else:
+                    certs.objects.filter(cn=cert.cn).annotate(
                         active=active,
                         latest=latest
                     )
