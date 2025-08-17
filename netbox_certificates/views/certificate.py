@@ -68,7 +68,7 @@ class CertificateBulkEditView(generic.BulkEditView):
 class CertificateBulkDeleteView(generic.BulkDeleteView):
     queryset = Certificate.objects.all()
     filterset = CertificateFilterSet
-    table = CertificateExpiryTable
+    table = CertificateTable
 
 @register_model_view(Certificate, "radar", detail=False)
 class CertificateExpiryView(generic.ObjectListView):
@@ -77,6 +77,6 @@ class CertificateExpiryView(generic.ObjectListView):
     """
     queryset = Certificate.get_oustanding_certificates()
     
-    table = CertificateTable
+    table = CertificateExpiryTable
     filterset=CertificateFilterSet
     filterset_form = CertificateFilterForm
