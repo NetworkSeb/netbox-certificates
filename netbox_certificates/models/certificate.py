@@ -250,6 +250,8 @@ class Certificate(NetBoxModel):
                 cert.active = cert.instances.order_by('-expiry_date').filter(status="active").first()
                 cert.latest = cert.instances.order_by('-expiry_date').first()
 
+                cert.save()
+
                 # certs.objects.filter(cn=cert.cn).annotate(
                 #     active=active.expiry_date,
                 #     latest=latest.expiry_date
