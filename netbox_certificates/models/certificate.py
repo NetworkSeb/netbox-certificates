@@ -281,20 +281,18 @@ class Certificate(NetBoxModel):
     def __str__(self):
         return str(self.cn)
     
-    @property
-    def get_active(self):
+    @classmethod
+    def get_active():
         return self.instances.order_by('-expiry_date').filter(status="active").first()
     
-    @property
-    def get_latest(self):
+    @classmethod
+    def get_latest():
         return self.instances.order_by('-expiry_date').first()
 
     def get_absolute_url(self):
         """override"""
-        if self.get_active(self):
-            self.active = self.get_active(self)
-        if self.get_latest(self):
-            self.latest = self.get_latest(self)
+        self.active = self.get_active()
+        self.latest = self.get_latest()
         return reverse("plugins:netbox_certificates:certificate", args=[self.pk])
 
     def generate_csr(self):
