@@ -133,7 +133,7 @@ class CertificateInstance(NetBoxModel):
     def update_instances(self):
         for cert in Certificate.objects.order_by('cn').filter(status="issued"):
             instances = CertificateInstance.objects.order_by('-expiry_date').filter(certificate__cn=cert.cn)
-            cert.active = instances.filter(status='active')
+            cert.active = instances.filter(status='active').first()
             cert.latest = instances.first()
             cert.save()
     
