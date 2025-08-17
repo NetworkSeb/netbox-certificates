@@ -14,6 +14,7 @@ __all__ = (
     "CertificateDeleteView",
     "CertificateBulkImportView",
     "CertificateBulkDeleteView",
+    "CertificateExpiryView",
 )
 
 @register_model_view(Certificate)

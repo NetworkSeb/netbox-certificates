@@ -89,20 +89,6 @@ class Certificate(NetBoxModel):
         help_text='Certificate validity period (days)'
     )
 
-    # active = models.CharField(
-    #     max_length=100,
-    #     null=True,
-    #     blank=True,
-    #     verbose_name='The certificate instance ID in operation',
-    # )
-
-    # latest = models.CharField(
-    #     max_length=100,
-    #     null=True,
-    #     blank=True,
-    #     verbose_name='The latest certificate instance for this certificate',
-    # )
-
     device = models.ManyToManyField(
         to='dcim.Device',
         blank=True,
