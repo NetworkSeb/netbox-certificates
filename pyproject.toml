@@ -5,7 +5,7 @@ description = "NetBox certificatesis a NetBox plugin for managing certificates"
 authors = [
     {name="Seb Harrington", email="seb+netbox@cdal.co.uk"},
 ]
-license = {file="LICENCE"}
+license = {file="LICENSE"}
 readme = "README.md"
 keywords = ["netbox", "netbox-plugin", "certificates"]
 classifiers = [
