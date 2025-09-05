@@ -16,7 +16,9 @@ class CertificateInstanceStatusChoices(ChoiceSet):
         ("active", "Active", "green"),
         ("planned", "Planned", "blue"),
         ("issued", "Issued", "orange"),
-        ("expired", "Expired", "red")
+        ("expired", "Expired", "red"),
+        ("revoked", "Revoked", "black"),
+
     ]
 
 class CertificateInstance(NetBoxModel):
@@ -57,7 +59,6 @@ class CertificateInstance(NetBoxModel):
     )
     certificate = models.ForeignKey(
         to=Certificate,
-#        to_field="cn",
         on_delete=models.CASCADE,
         related_name='instances',
         null=True
