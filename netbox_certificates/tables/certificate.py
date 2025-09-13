@@ -23,11 +23,13 @@ class CertificateTable(NetBoxTable):
     latest = tables.Column(
         linkify=True
     )
-    latest__expiry_date = tables.Column(
-        verbose_name = "Latest Expiry"
+    latest__expiry_date = tables.DateTimeColumn(
+        verbose_name = "Latest Expiry",
+        format='d/m/Y'
     )
-    active__expiry_date = tables.Column(
-        verbose_name = "Active Expiry"
+    active__expiry_date = tables.DateTimeColumn(
+        verbose_name = "Active Expiry",
+        format='d/m/Y'
     )
     instance_count = tables.Column()
 
