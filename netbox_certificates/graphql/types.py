@@ -29,6 +29,8 @@ class NetBoxCertificateType(NetBoxObjectType):
     status: str
     type: str
     term: str
+    active: Annotated["NetBoxCertificateInstanceType", strawberry.lazy("netbox_certificates.graphql.types")]
+    latest: Annotated["NetBoxCertificateInstanceType", strawberry.lazy("netbox_certificates.graphql.types")]
     content: str
     vault_url: str
     fs_cert_location: str
@@ -36,6 +38,7 @@ class NetBoxCertificateType(NetBoxObjectType):
     install_type: str
     service_commands: str
     service_check: str
+    monitor: str
     service_lb: bool
     automated: bool
     technical_owner: Annotated["ContactType", strawberry.lazy("tenancy.graphql.types")] | None

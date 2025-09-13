@@ -26,6 +26,16 @@ class CertificateForm(NetBoxModelForm):
         required=False
     )
 
+    active = DynamicModelChoiceField(
+        queryset=CertificateInstance.objects.all(),
+        required=False
+    )
+
+    latest = DynamicModelChoiceField(
+        queryset=CertificateInstance.objects.all(),
+        required=False
+    )
+
     comments = CommentField()
 
     class Meta:
@@ -38,12 +48,15 @@ class CertificateForm(NetBoxModelForm):
             'status', 
             'type',
             'term',
-            'install_type', 
+            'install_type',
+            'active',
+            'latest', 
             'fs_cert_location', 
             'fs_key_location', 
             'vault_url',
             'service_commands',
             'service_check',
+            'monitor',
             'service_lb',
             'automated',
             'technical_owner',
@@ -87,6 +100,10 @@ class CertificateFilterForm(NetBoxModelFilterSetForm):
 
     install_type = forms.MultipleChoiceField(
         choices=CertificateInstallChoices,
+        required=False
+    )
+
+    monitor = forms.BooleanField(
         required=False
     )
 
@@ -184,6 +201,16 @@ class CertificateBulkEditForm(NetBoxModelBulkEditForm):
 
     type = forms.MultipleChoiceField(
         choices=CertificateTypeChoices,
+        required=False
+    )
+
+    active = forms.ModelChoiceField(
+        queryset=CertificateInstance.objects.all(),
+        required=False
+    )
+
+    latest = forms.ModelChoiceField(
+        queryset=CertificateInstance.objects.all(),
         required=False
     )
 

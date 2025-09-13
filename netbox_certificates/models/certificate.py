@@ -71,6 +71,18 @@ class Certificate(NetBoxModel):
         unique=True,
         help_text="Unique Common Name"
     )
+    active = models.OneToOneField(
+        'CertificateInstance',
+        on_delete=models.CASCADE,
+        related_name="active_cert",
+        null=True
+    )
+    latest = models.OneToOneField(
+        'CertificateInstance',
+        on_delete=models.CASCADE,
+        related_name="latest_cert",
+        null=True
+    )
     # Could this point to a DNS record?
     san = models.CharField(
         max_length=512,
@@ -155,6 +167,11 @@ class Certificate(NetBoxModel):
         blank=True,
         verbose_name="Service Check Command",
         help_text=("This is the command the monitoring will run to pull a certificate from a device for this service.")
+    )
+    monitor = models.BooleanField(
+        verbose_name="Monitor this certificate?",
+        default=True,
+        help_text=("Do you want this certificate monitored using the default service check or if defined the service check above?")
     )
     service_lb = models.BooleanField(
         verbose_name="via Loadbalancer?",

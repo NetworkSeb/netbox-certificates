@@ -18,7 +18,6 @@ class CertificateInstanceStatusChoices(ChoiceSet):
         ("issued", "Issued", "orange"),
         ("expired", "Expired", "red"),
         ("revoked", "Revoked", "black"),
-
     ]
 
 class CertificateInstance(NetBoxModel):
@@ -114,6 +113,19 @@ class CertificateInstance(NetBoxModel):
         ('serial_number', 100),
         ('comments', 5000),
     )
+
+    # Override save so we can update active and latest when a new instance gets created
+    def save(self, *args, **kwargs):
+        self.update_instances()
+        return super().save(*args, **kwargs)
+
+    def update_instances(self):
+        cert = self.certificate
+        cert_instances = cert.instances.all().order_by('-expiry_date')
+
+        cert.latest = cert_instances.first()
+        cert.active = cert_instances.filter(status="active").first()
+        cert.save()
 
     # Colour choices
     def get_status_color(self):
