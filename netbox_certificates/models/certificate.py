@@ -55,10 +55,10 @@ class CertificateTermChoices(ChoiceSet):
     DEFAULT_VALUE = 365
 
     CHOICES = [
-        (47, "47 Days"),
-        (100, "100 Days"),
-        (200, "200 Days"),
-        (365, "365 Days")
+        (47, "47 Days", "green"),
+        (100, "100 Days", "yellow"),
+        (200, "200 Days", "orange"),
+        (365, "365 Days", "red")
     ]
 
 class Certificate(NetBoxModel):
@@ -237,7 +237,15 @@ class Certificate(NetBoxModel):
     )
     # Need a field here for Service when it becomes available
 
-    
+    def update_instances(self):
+        cert_instances = self.instances.all().order_by('-expiry_date')
+
+        self.latest = cert_instances.first()
+        self.active = cert_instances.filter(status="active").first()
+
+        # Certificate is responsible for saving itself after updating its instances.
+        self.save()
+
     # Colour methods
 
     def get_status_color(self):

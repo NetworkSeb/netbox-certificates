@@ -1,6 +1,5 @@
 from django.db import models
 from netbox.models import NetBoxModel
-from netbox.models.features import ContactsMixin
 from utilities.choices import ChoiceSet
 from django.urls import reverse
 
@@ -116,16 +115,11 @@ class CertificateInstance(NetBoxModel):
 
     # Override save so we can update active and latest when a new instance gets created
     def save(self, *args, **kwargs):
-        self.update_instances()
-        return super().save(*args, **kwargs)
+        # Save the cert instance
+        super().save(*args, **kwargs)
+        # And then update the certificate active and latest instances (which is responsible for saving itself!)
+        self.certificate.update_instances()
 
-    def update_instances(self):
-        cert = self.certificate
-        cert_instances = cert.instances.all().order_by('-expiry_date')
-
-        cert.latest = cert_instances.first()
-        cert.active = cert_instances.filter(status="active").first()
-        cert.save()
 
     # Colour choices
     def get_status_color(self):
