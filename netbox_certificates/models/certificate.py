@@ -75,12 +75,14 @@ class Certificate(NetBoxModel):
         'CertificateInstance',
         on_delete=models.CASCADE,
         related_name="active_cert",
+        blank=True,
         null=True
     )
     latest = models.OneToOneField(
         'CertificateInstance',
         on_delete=models.CASCADE,
         related_name="latest_cert",
+        blank=True,
         null=True
     )
     # Could this point to a DNS record?
