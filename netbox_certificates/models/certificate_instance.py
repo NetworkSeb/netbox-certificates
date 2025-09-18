@@ -1,6 +1,5 @@
 from django.db import models
 from netbox.models import NetBoxModel
-from netbox.models.features import ContactsMixin
 from utilities.choices import ChoiceSet
 from django.urls import reverse
 
@@ -16,7 +15,8 @@ class CertificateInstanceStatusChoices(ChoiceSet):
         ("active", "Active", "green"),
         ("planned", "Planned", "blue"),
         ("issued", "Issued", "orange"),
-        ("expired", "Expired", "red")
+        ("expired", "Expired", "red"),
+        ("revoked", "Revoked", "black"),
     ]
 
 class CertificateInstance(NetBoxModel):
@@ -57,7 +57,6 @@ class CertificateInstance(NetBoxModel):
     )
     certificate = models.ForeignKey(
         to=Certificate,
-#        to_field="cn",
         on_delete=models.CASCADE,
         related_name='instances',
         null=True
@@ -113,6 +112,14 @@ class CertificateInstance(NetBoxModel):
         ('serial_number', 100),
         ('comments', 5000),
     )
+
+    # Override save so we can update active and latest when a new instance gets created
+    def save(self, *args, **kwargs):
+        # Save the cert instance
+        super().save(*args, **kwargs)
+        # And then update the certificate active and latest instances (which is responsible for saving itself!)
+        self.certificate.update_instances()
+
 
     # Colour choices
     def get_status_color(self):

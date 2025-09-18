@@ -1,5 +1,5 @@
 from netbox.views import generic
-from django.db.models import Count
+from django.db.models import Count, F
 from utilities.views import register_model_view
 
 from netbox_certificates.models import Certificate
@@ -69,3 +69,39 @@ class CertificateBulkDeleteView(generic.BulkDeleteView):
     queryset = Certificate.objects.all()
     filterset = CertificateFilterSet
     table = CertificateTable
+
+@register_model_view(Certificate, "radar", detail=False, path='radar')
+class CertificateExpiryView(generic.ObjectListView):
+    """
+    Render a view of all Certificates requiring attention.
+    """
+    # start = timezone.now() - timezone.timedelta(7)
+    # end = timezone.now() + timezone.timedelta(31)
+    # now = timezone.now()
+
+    # Get all certs that either expire in the next 31 days or the previous 7 days OR if the cert instance is active and already expired
+    # queryset = CertificateInstance.objects.order_by('expiry_date').filter(
+    #     (Q(certificate__status="issued") & Q(expiry_date__range=(start,end))) 
+    #     | Q(status="active", expiry_date__lte=now)
+    #     )
+
+    # latest_instance = CertificateInstance.objects.filter(
+    #     certificate=OuterRef("pk")
+    # ).order_by("-expiry_date")
+
+    # # active instance, take the latest
+    # active_instance = CertificateInstance.objects.filter(
+    #     certificate=OuterRef("pk"), status="active"
+    # ).order_by("-expiry_date")
+
+    queryset = (
+        Certificate.objects.filter(status="issued")
+        .annotate(
+            instance_count = Count('instances'),
+        )
+        .exclude(latest=F("active"))
+    )
+    
+    table = CertificateTable
+    filterset=CertificateFilterSet
+    filterset_form = CertificateFilterForm

@@ -2,13 +2,13 @@ from netbox.views import generic
 from django.views.generic.base import TemplateView
 from django.utils import timezone
 from django.shortcuts import render
-from django.db.models import Q
+from django.db.models import  F, Count
 from utilities.views import register_model_view
 
-from netbox_certificates.models import CertificateInstance
-from netbox_certificates.forms import CertificateInstanceForm, CertificateInstanceFilterForm, CertificateInstanceImportFrom, CertificateInstanceBulkEditForm
-from netbox_certificates.tables import CertificateInstanceTable
-from netbox_certificates.filtersets import CertificateInstanceFilterSet
+from netbox_certificates.models import CertificateInstance, Certificate
+from netbox_certificates.forms import CertificateInstanceForm, CertificateInstanceFilterForm, CertificateInstanceImportFrom, CertificateInstanceBulkEditForm, CertificateFilterForm
+from netbox_certificates.tables import CertificateInstanceTable, CertificateTable
+from netbox_certificates.filtersets import CertificateInstanceFilterSet, CertificateFilterSet
 
 __all__ = (
     "CertificateInstanceView",
@@ -62,24 +62,41 @@ class CertificateInstanceBulkDeleteView(generic.BulkDeleteView):
     table = CertificateInstanceTable
 
 
-@register_model_view(CertificateInstance, "radar", detail=False)
-class CertificateInstanceExpiryView(generic.ObjectListView):
-    """
-    Render a view of all Certificate Instances expiring over the last 7 days and the next month.
-    """
-    start = timezone.now() - timezone.timedelta(7)
-    end = timezone.now() + timezone.timedelta(31)
-    now = timezone.now()
+# @register_model_view(CertificateInstance, "radar", detail=False)
+# class CertificateInstanceExpiryView(generic.ObjectListView):
+#     """
+#     Render a view of all Certificate Instances expiring over the last 7 days and the next month.
+#     """
+#     start = timezone.now() - timezone.timedelta(7)
+#     end = timezone.now() + timezone.timedelta(31)
+#     now = timezone.now()
 
     # Get all certs that either expire in the next 31 days or the previous 7 days OR if the cert instance is active and already expired
-    queryset = CertificateInstance.objects.order_by('expiry_date').filter(
-        (Q(certificate__status="issued") & Q(expiry_date__range=(start,end))) 
-        | Q(status="active", expiry_date__lte=now)
-        )
+    # queryset = CertificateInstance.objects.order_by('expiry_date').filter(
+    #     (Q(certificate__status="issued") & Q(expiry_date__range=(start,end))) 
+    #     | Q(status="active", expiry_date__lte=now)
+    #     )
+
+    # latest_instance = CertificateInstance.objects.filter(
+    #     certificate=OuterRef("pk")
+    # ).order_by("-expiry_date")
+
+    # # active instance, take the latest
+    # active_instance = CertificateInstance.objects.filter(
+    #     certificate=OuterRef("pk"), status="active"
+    # ).order_by("-expiry_date")
+
+    # queryset = (
+    #     Certificate.objects.filter(status="issued")
+    #     .annotate(
+    #         instance_count = Count('instances'),
+    #     )
+    #     .exclude(latest=F("active"))
+    # )
     
-    table = CertificateInstanceTable
-    filterset=CertificateInstanceFilterSet
-    filterset_form = CertificateInstanceFilterForm
+    # table = CertificateTable
+    # filterset=CertificateFilterSet
+    # filterset_form = CertificateFilterForm
 
 @register_model_view(CertificateInstance, name="calendar", detail=False)
 class CertificateInstanceCalendarView(TemplateView):

@@ -28,7 +28,15 @@
             <tr>
               <th scope="row">Term</th>
               <td>{{ object.term}}</td>
-          </tr>
+            </tr>
+            <tr>
+              <th scope="row">Active Instance</th>
+              <td><a href="{{ object.active.get_absolute_url }}">{{ object.active}}</a></td>
+            </tr>
+            <tr>
+              <th scope="row">Latest Instance</th>
+              <td><a href="{{ object.latest.get_absolute_url }}">{{ object.latest}}</a></td>
+            </tr>
           </table>
         </div>
       </div>
@@ -130,6 +138,10 @@
             <tr>
                 <th scope="row">Service Check</th>
                 <td>{{ object.service_check}}</td>
+            </tr>
+            <tr>
+                <th scope="row">Certificate Monitored?</th>
+                <td>{{ object.monitor}}</td>
             </tr>
             <tr>
                 <th scope="row">Service Loadbalanced?</th>

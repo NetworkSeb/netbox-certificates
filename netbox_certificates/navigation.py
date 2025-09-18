@@ -39,7 +39,7 @@ certificate_instance_buttons = [
 menu = PluginMenu(
     label='Certificates',
     groups=(
-        ('Certificates',
+        ('Certificate Data',
             (
                 PluginMenuItem(
                     link='plugins:netbox_certificates:certificate_list',
@@ -56,12 +56,23 @@ menu = PluginMenu(
                     link_text='Certificate Instances',
                     buttons=certificate_instance_buttons
                 ),
-                PluginMenuItem(
-                    link='plugins:netbox_certificates:certificateinstance_radar',
-                    link_text='Certificate Radar',
-                ),
             ),
         ),
+        ('Certificate Operations',
+            (
+                PluginMenuItem(
+                    link='plugins:netbox_certificates:certificate_radar',
+                    link_text='Certificate Radar',
+                    buttons=None,
+                ),
+                PluginMenuItem(
+                    link='plugins:netbox_certificates:certificateinstance_calendar',
+                    link_text='Certificate Calendar',
+                    buttons=None,
+                ),
+            )
+
+        )
     ),
     icon_class="mdi mdi-certificate-outline",
 )

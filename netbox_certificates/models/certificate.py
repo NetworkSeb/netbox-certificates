@@ -7,7 +7,7 @@ from django.urls import reverse
 # Choices - extendable by key in configuration
 class CertificateStatusChoices(ChoiceSet):
     """Certificate Statuses"""
-    key = 'Certificate.status'
+    key = "Certificate.status"
 
     DEFAULT_VALUE = "planned"
 
@@ -20,7 +20,7 @@ class CertificateStatusChoices(ChoiceSet):
 
 class CertificateTypeChoices(ChoiceSet):
     """Certificate Type"""
-    key = 'Certificate.type'
+    key = "Certificate.type"
 
     DEFAULT_VALUE = "ev"
 
@@ -36,7 +36,7 @@ class CertificateTypeChoices(ChoiceSet):
 # e.g. single pem, pem with certs, jks, etc.
 class CertificateInstallChoices(ChoiceSet):
     """Certificate Installation Type"""
-    key = 'Certificate.install_type'
+    key = "Certificate.install_type"
 
     DEFAULT_VALUE = "pem"
 
@@ -50,13 +50,13 @@ class CertificateInstallChoices(ChoiceSet):
 # A 'choice' to represent the term all certificate instances from this cert should have
 class CertificateTermChoices(ChoiceSet):
     """Certificate Term"""
-    key = 'Certificate.term'
+    key = "Certificate.term"
 
     DEFAULT_VALUE = 365
 
     CHOICES = [
         (47, "47 Days", "green"),
-        (100, "100 Days", "blue"),
+        (100, "100 Days", "yellow"),
         (200, "200 Days", "orange"),
         (365, "365 Days", "red")
     ]
@@ -71,6 +71,20 @@ class Certificate(NetBoxModel):
         unique=True,
         help_text="Unique Common Name"
     )
+    active = models.OneToOneField(
+        'CertificateInstance',
+        on_delete=models.CASCADE,
+        related_name="active_cert",
+        blank=True,
+        null=True
+    )
+    latest = models.OneToOneField(
+        'CertificateInstance',
+        on_delete=models.CASCADE,
+        related_name="latest_cert",
+        blank=True,
+        null=True
+    )
     # Could this point to a DNS record?
     san = models.CharField(
         max_length=512,
@@ -79,9 +93,8 @@ class Certificate(NetBoxModel):
         verbose_name="Subject Alternative Names",
         help_text="Comma separated list of FQDN(s) to add into the CSR",
     )
-    term = models.CharField(
+    term = models.IntegerField(
         choices=CertificateTermChoices,
-        max_length=32,
         default=CertificateTermChoices.DEFAULT_VALUE,
         blank=False,
         verbose_name='Certificate Term (days)',
@@ -157,6 +170,11 @@ class Certificate(NetBoxModel):
         verbose_name="Service Check Command",
         help_text=("This is the command the monitoring will run to pull a certificate from a device for this service.")
     )
+    monitor = models.BooleanField(
+        verbose_name="Monitor this certificate?",
+        default=True,
+        help_text=("Do you want this certificate monitored using the default service check or if defined the service check above?")
+    )
     service_lb = models.BooleanField(
         verbose_name="via Loadbalancer?",
         default=False,
@@ -221,7 +239,15 @@ class Certificate(NetBoxModel):
     )
     # Need a field here for Service when it becomes available
 
-    
+    def update_instances(self):
+        cert_instances = self.instances.all().order_by('-expiry_date')
+
+        self.latest = cert_instances.first()
+        self.active = cert_instances.filter(status="active").first()
+
+        # Certificate is responsible for saving itself after updating its instances.
+        self.save()
+
     # Colour methods
 
     def get_status_color(self):

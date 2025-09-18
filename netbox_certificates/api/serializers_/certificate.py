@@ -31,6 +31,8 @@ class CertificateSerializer(NetBoxModelSerializer):
         infrastructure_group = ContactGroupSerializer(nested=True, allow_null=True)
         
         instance = NestedCertificateInstanceSerializer()
+        active = NestedCertificateInstanceSerializer()
+        latest = NestedCertificateInstanceSerializer()
 
         fields = (
             'id',
@@ -42,7 +44,9 @@ class CertificateSerializer(NetBoxModelSerializer):
             'san',
             'device',
             'vm',
-            'status', 
+            'status',
+            'active',
+            'latest',
             'type',
             'term',
             'install_type', 
@@ -51,6 +55,7 @@ class CertificateSerializer(NetBoxModelSerializer):
             'vault_url',
             'service_commands',
             'service_check',
+            'monitor',
             'service_lb',
             'automated',
             'technical_owner',

@@ -17,6 +17,20 @@ class CertificateTable(NetBoxTable):
     ca_id = tables.Column(
         linkify=True
     )
+    active = tables.Column(
+        linkify=True
+    )
+    latest = tables.Column(
+        linkify=True
+    )
+    latest__expiry_date = tables.DateTimeColumn(
+        verbose_name = "Latest Expiry",
+        format='d/m/Y'
+    )
+    active__expiry_date = tables.DateTimeColumn(
+        verbose_name = "Active Expiry",
+        format='d/m/Y'
+    )
     instance_count = tables.Column()
 
     class Meta(NetBoxTable.Meta):
@@ -39,6 +53,7 @@ class CertificateTable(NetBoxTable):
             'vault_url',
             'service_commands',
             'service_check',
+            'monitor',
             'service_lb',
             'automated',
             'technical_owner',
@@ -47,7 +62,12 @@ class CertificateTable(NetBoxTable):
             'business_group',
             'infrastructure_contact',
             'infrastructure_group',
-            'actions'
+            'actions',
+            'latest',
+            'active',
+            'latest__expiry_date',
+            'active__expiry_date',
+            'latest__infrastructure_installer'
         )
         default_columns = (
             'cn',
@@ -59,5 +79,7 @@ class CertificateTable(NetBoxTable):
             'term',
             'install_type',
             'automated',
-            'service_lb'
+            'service_lb',
+            'latest',
+            'active'
         )
