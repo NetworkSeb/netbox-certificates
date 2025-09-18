@@ -12,9 +12,9 @@ class CertificateStatusChoices(ChoiceSet):
     DEFAULT_VALUE = "planned"
 
     CHOICES = [
-        ("active", "Active", "green"),
+        ("issued", "Issued", "green"),
         ("planned", "Planned", "blue"),
-        ("issued", "Issued", "orange"),
+        ("third-party", "Third-Party", "black"),
         ("retired", "Retired", "red")
     ]
 
