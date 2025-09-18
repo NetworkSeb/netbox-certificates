@@ -7,7 +7,7 @@ from django.urls import reverse
 # Choices - extendable by key in configuration
 class CertificateStatusChoices(ChoiceSet):
     """Certificate Statuses"""
-    key = 'Certificate.status'
+    key = "Certificate.status"
 
     DEFAULT_VALUE = "planned"
 
@@ -20,7 +20,7 @@ class CertificateStatusChoices(ChoiceSet):
 
 class CertificateTypeChoices(ChoiceSet):
     """Certificate Type"""
-    key = 'Certificate.type'
+    key = "Certificate.type"
 
     DEFAULT_VALUE = "ev"
 
@@ -36,7 +36,7 @@ class CertificateTypeChoices(ChoiceSet):
 # e.g. single pem, pem with certs, jks, etc.
 class CertificateInstallChoices(ChoiceSet):
     """Certificate Installation Type"""
-    key = 'Certificate.install_type'
+    key = "Certificate.install_type"
 
     DEFAULT_VALUE = "pem"
 
@@ -50,7 +50,7 @@ class CertificateInstallChoices(ChoiceSet):
 # A 'choice' to represent the term all certificate instances from this cert should have
 class CertificateTermChoices(ChoiceSet):
     """Certificate Term"""
-    key = 'Certificate.term'
+    key = "Certificate.term"
 
     DEFAULT_VALUE = 365
 

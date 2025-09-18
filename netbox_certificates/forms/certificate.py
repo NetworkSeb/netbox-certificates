@@ -194,12 +194,12 @@ class CertificateBulkEditForm(NetBoxModelBulkEditForm):
         required=False
     )
 
-    status = forms.MultipleChoiceField(
+    status = forms.ChoiceField(
         choices=CertificateStatusChoices,
         required=False
     )
 
-    type = forms.MultipleChoiceField(
+    type = forms.ChoiceField(
         choices=CertificateTypeChoices,
         required=False
     )
@@ -214,12 +214,12 @@ class CertificateBulkEditForm(NetBoxModelBulkEditForm):
         required=False
     )
 
-    term = forms.MultipleChoiceField(
+    term = forms.ChoiceField(
         choices=CertificateTermChoices,
         required=False
     )
 
-    install_type = forms.MultipleChoiceField(
+    install_type = forms.ChoiceField(
         choices=CertificateInstallChoices,
         required=False
     )
