@@ -129,7 +129,7 @@ class CertificateInstanceBulkEditForm(NetBoxModelBulkEditForm):
         widget=DateTimePicker()
     )
 
-    status = forms.MultipleChoiceField(
+    status = forms.ChoiceField(
         choices=CertificateInstanceStatusChoices,
         required=False
     )
