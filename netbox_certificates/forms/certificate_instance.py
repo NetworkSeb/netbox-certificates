@@ -2,6 +2,7 @@ from netbox.forms import NetBoxModelForm, NetBoxModelFilterSetForm, NetBoxModelI
 from tenancy.models import Contact
 from utilities.forms.fields import CommentField
 from utilities.forms.widgets import DateTimePicker
+from utilities.forms import BOOLEAN_WITH_BLANK_CHOICES
 
 from django import forms
 
@@ -22,6 +23,7 @@ class CertificateInstanceForm(NetBoxModelForm):
             'issue_date',
             'expiry_date',
             'status',
+            'surpassed',
             'csr',
             'key',
             'pem',
@@ -68,6 +70,11 @@ class CertificateInstanceFilterForm(NetBoxModelFilterSetForm):
         required=False
     )
 
+    surpassed = forms.BooleanField(
+        required=False,
+        widget=forms.Select(choices=BOOLEAN_WITH_BLANK_CHOICES)
+    )
+
     infrastructure_installer = forms.ModelMultipleChoiceField(
         queryset=Contact.objects.all(),
         required=False
@@ -88,6 +95,7 @@ class CertificateInstanceImportFrom(NetBoxModelImportForm):
             'issue_date',
             'expiry_date',
             'status',
+            'surpassed',
             'csr',
             'key',
             'pem',
@@ -132,6 +140,10 @@ class CertificateInstanceBulkEditForm(NetBoxModelBulkEditForm):
     status = forms.ChoiceField(
         choices=CertificateInstanceStatusChoices,
         required=False
+    )
+
+    surpassed = forms.BooleanField(
+        required=False,
     )
 
     infrastructure_installer = forms.ModelMultipleChoiceField(

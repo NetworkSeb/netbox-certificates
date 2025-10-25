@@ -1,4 +1,6 @@
 import django_tables2 as tables
+from django.forms.widgets import NullBooleanSelect
+from django.forms import BooleanField
 
 from netbox.tables import NetBoxTable, ChoiceFieldColumn
 from netbox_certificates.models import CertificateInstance
@@ -15,6 +17,20 @@ class CertificateInstanceTable(NetBoxTable):
     )
     status = ChoiceFieldColumn()
 
+    issue_date = tables.DateTimeColumn(
+        format='Y-m-d'
+    )
+
+    expiry_date = tables.DateTimeColumn(
+        format='Y-m-d'
+    )
+
+    certificate__active__expiry_date = tables.DateTimeColumn(
+        verbose_name = "Active Expiry",
+        format='Y-m-d'
+    )
+
+
     #TODO: Update below so we can see infrastructure_installer in table view.
     class Meta(NetBoxTable.Meta):
         model = CertificateInstance
@@ -27,6 +43,8 @@ class CertificateInstanceTable(NetBoxTable):
             'issue_date',
             'expiry_date',
             'status',
+            'surpassed',
+            'certificate__active__expiry_date',
             'csr',
             'key',
             'pem',
@@ -36,13 +54,15 @@ class CertificateInstanceTable(NetBoxTable):
             'pubkey_sha1',
             'infrastructure_installer',
             'term',
-            'actions'
+            'tags'
         )
         default_columns = (
             'ca_reference',
             'certificate',
             'serial_number',
             'status',
-            'issue_date',
-            'expiry_date'
+            'surpassed',
+            'certificate__active__expiry_date',
+            'expiry_date',
+            'infrastructure_installer',
         )

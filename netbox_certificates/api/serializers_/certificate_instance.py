@@ -33,6 +33,7 @@ class CertificateInstanceSerializer(NetBoxModelSerializer):
             'issue_date',
             'expiry_date',
             'status',
+            'surpassed',
             'csr',
             'key',
             'pem',
