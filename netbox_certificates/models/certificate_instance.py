@@ -16,6 +16,7 @@ class CertificateInstanceStatusChoices(ChoiceSet):
         ("planned", "Planned", "blue"),
         ("issued", "Issued", "orange"),
         ("expired", "Expired", "red"),
+        ("retired", "Retired", "grey"),
         ("revoked", "Revoked", "black"),
     ]
 

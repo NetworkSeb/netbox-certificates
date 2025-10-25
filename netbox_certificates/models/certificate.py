@@ -236,6 +236,17 @@ class Certificate(NetBoxModel):
     comments = models.TextField(
         blank=True
     )
+
+    # Override save so we can update active and latest when a new instance gets created
+    def save(self, *args, **kwargs):
+
+        # Save the cert
+        super().save(*args, **kwargs)
+
+        if self.status == "retired":
+            self.instances.all().update(status="retired")
+
+
     # Need a field here for Service when it becomes available
 
     def update_instances(self):
