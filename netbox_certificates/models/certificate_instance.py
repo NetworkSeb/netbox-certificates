@@ -74,9 +74,13 @@ class CertificateInstance(NetBoxModel):
     status = models.CharField(
         max_length=32,
         default=CertificateInstanceStatusChoices.DEFAULT_VALUE,
-        blank=False,
         verbose_name="Installation Status",
         choices=CertificateInstanceStatusChoices
+    )
+    surpassed = models.BooleanField(
+        verbose_name="Surpassed?",
+        default=False,
+        help_text=("This certificate has been surpassed as an installation candidate")
     )
     csr = models.TextField (
         max_length=32000,
@@ -115,8 +119,22 @@ class CertificateInstance(NetBoxModel):
 
     # Override save so we can update active and latest when a new instance gets created
     def save(self, *args, **kwargs):
+
         # Save the cert instance
         super().save(*args, **kwargs)
+
+        if not self.surpassed:
+            if not self.status == "active":
+                if self.certificate.active:
+                    if self.expiry_date <= self.certificate.active.expiry_date:
+                        self.surpassed = True
+                        
+                if self.certificate.status == "retired" or self.certificate.status == "third-party" or self.status == "revoked":
+                    self.surpassed = True
+
+        # Save the cert instance
+        super().save(*args, **kwargs)
+
         # And then update the certificate active and latest instances (which is responsible for saving itself!)
         self.certificate.update_instances()
 
