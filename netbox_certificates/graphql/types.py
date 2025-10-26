@@ -40,6 +40,7 @@ class NetBoxCertificateType(NetBoxObjectType):
     service_check: str
     monitor: str
     service_lb: bool
+    host_consistent: bool
     automated: bool
     technical_owner: Annotated["ContactType", strawberry.lazy("tenancy.graphql.types")] | None
     technical_group: Annotated["ContactGroupType", strawberry.lazy("tenancy.graphql.types")] | None
@@ -62,6 +63,7 @@ class NetBoxCertificateInstanceType(NetBoxObjectType):
     issue_date: str
     expiry_date: str
     status: str
+    surpassed: bool
     csr: str
     key: str
     pem: str
