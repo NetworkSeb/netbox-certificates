@@ -55,6 +55,7 @@ class CertificateTable(NetBoxTable):
             'service_check',
             'monitor',
             'service_lb',
+            'host_consistent',
             'automated',
             'technical_owner',
             'technical_group',
@@ -80,6 +81,7 @@ class CertificateTable(NetBoxTable):
             'install_type',
             'automated',
             'service_lb',
+            'host_consistent',
             'latest',
             'active'
         )

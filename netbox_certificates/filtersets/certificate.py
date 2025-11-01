@@ -26,6 +26,7 @@ class CertificateFilterSet(NetBoxModelFilterSet):
             'service_commands',
             'service_check',
             'service_lb',
+            'host_consistent',
             'automated',
             'technical_owner',
             'technical_group',

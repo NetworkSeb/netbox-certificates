@@ -4,9 +4,13 @@ PRODID:Netbox Certificates - https://github.com/NetworkSeb/netbox-certificates/
 {% for cert in certificates %}
 BEGIN:VEVENT
 UID:{{ cert.ca_reference }}
+SEQUENCE: {% now "U" %}
+DTSTAMP: {% now "U" %}
+METHOD:REQUEST
+ORGANIZER;CN=Certificates Name:mailto:certificates@sussex.ac.uk
 DTSTART;VALUE=DATE:{{ cert.expiry_date|date:"Ymd" }}
-SUMMARY:{{ cert.certificate.cn }} expires
-DESCRIPTION:Certificate {{ cert.certificate.cn }} expires on {{ cert.expiry_date|date:"Ymd" }}
+SUMMARY: {{ cert.certificate.cn }} - [{{cert.status }}]{% if cert.surpassed %} - [surpassed]{% endif %}
+DESCRIPTION:Certificate {{ cert.certificate.cn }} expires on {{ cert.expiry_date|date:"Ymd" }}. Instance status: {{cert.status }} 
 END:VEVENT
 {% endfor %}
 END:VCALENDAR

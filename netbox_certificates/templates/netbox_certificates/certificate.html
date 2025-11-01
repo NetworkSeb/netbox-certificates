@@ -147,6 +147,12 @@
                 <th scope="row">Service Loadbalanced?</th>
                 <td>{{ object.service_lb}}</td>
             </tr>
+            {% if object.service_lb %}
+            <tr>
+                <th scope="row">Host Consistent?</th>
+                <td>{{ object.host_consistent}}</td>
+            </tr>
+            {% endif %}
             <tr>
               <th scope="row">Install Automated?</th>
               <td>{{ object.automated}}</td>
