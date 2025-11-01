@@ -178,7 +178,11 @@ class Certificate(NetBoxModel):
         verbose_name="via Loadbalancer?",
         default=False,
         help_text=("Is this certificate installed on multiple hosts behind a loadbalancer?")
-
+    )
+    host_consistent = models.BooleanField(
+        verbose_name="Host consistent?",
+        null=True,
+        help_text=("Is the installation of this certificate consistent across all hosts it's installed on?")
     )
     automated = models.BooleanField(
         verbose_name="Automated?",

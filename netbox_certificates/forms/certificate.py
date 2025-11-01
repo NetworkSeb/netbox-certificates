@@ -58,6 +58,7 @@ class CertificateForm(NetBoxModelForm):
             'service_check',
             'monitor',
             'service_lb',
+            'host_consistent',
             'automated',
             'technical_owner',
             'technical_group',
@@ -108,6 +109,11 @@ class CertificateFilterForm(NetBoxModelFilterSetForm):
     )
 
     service_lb = forms.NullBooleanField(
+        required=False,
+        widget=forms.Select(choices=BOOLEAN_WITH_BLANK_CHOICES)
+    )
+
+    host_consistent = forms.NullBooleanField(
         required=False,
         widget=forms.Select(choices=BOOLEAN_WITH_BLANK_CHOICES)
     )

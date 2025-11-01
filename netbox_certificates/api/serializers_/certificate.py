@@ -57,6 +57,7 @@ class CertificateSerializer(NetBoxModelSerializer):
             'service_check',
             'monitor',
             'service_lb',
+            'host_consistent',
             'automated',
             'technical_owner',
             'technical_group',

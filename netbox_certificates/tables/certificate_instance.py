@@ -30,6 +30,10 @@ class CertificateInstanceTable(NetBoxTable):
         format='Y-m-d'
     )
 
+    certificate__host_consistent = tables.BooleanColumn(
+        verbose_name = "Host Consistent?"
+    )
+
 
     #TODO: Update below so we can see infrastructure_installer in table view.
     class Meta(NetBoxTable.Meta):
@@ -44,6 +48,7 @@ class CertificateInstanceTable(NetBoxTable):
             'expiry_date',
             'status',
             'surpassed',
+            'certificate__host_consistent',
             'certificate__active__expiry_date',
             'csr',
             'key',
@@ -62,6 +67,7 @@ class CertificateInstanceTable(NetBoxTable):
             'serial_number',
             'status',
             'surpassed',
+            'certificate__host_consistent',
             'certificate__active__expiry_date',
             'expiry_date',
             'infrastructure_installer',
