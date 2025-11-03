@@ -122,7 +122,7 @@ class CertificateInstance(NetBoxModel):
     def save(self, *args, **kwargs):
 
         # Save the cert instance
-        super().save(*args, **kwargs)
+        #super().save(*args, **kwargs)
 
         if not self.surpassed:
             if not self.status == "active":
