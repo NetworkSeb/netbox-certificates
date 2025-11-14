@@ -182,6 +182,7 @@ class Certificate(NetBoxModel):
     host_consistent = models.BooleanField(
         verbose_name="Host consistent?",
         null=True,
+        default=False,
         help_text=("Is the installation of this certificate consistent across all hosts it's installed on?")
     )
     automated = models.BooleanField(
