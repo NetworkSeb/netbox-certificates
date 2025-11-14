@@ -71,8 +71,10 @@ class NetBoxCertificateInstanceType(NetBoxObjectType):
 
 @strawberry_django.type(CertificateAuthority, fields="__all__", filters=NetBoxCertificateAuthorityFilter)
 class NetBoxCertificateAuthorityType(NetBoxObjectType):
-    name = str
-    acme_url = str
-    admin_url = str
-    status = str
-    
+    name: str
+    acme_url: str
+    admin_url: str
+    status: str
+    cert_profile_ev_id: int
+    cert_profile_ov_id: int
+    cert_profile_wildcard_id: int

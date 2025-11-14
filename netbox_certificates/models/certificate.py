@@ -26,6 +26,7 @@ class CertificateTypeChoices(ChoiceSet):
     CHOICES = [
         ("ev", "Extended Validation", "green"),
         ("ov", "Organisation Validated", "blue"),
+        ("wildcard", "Wildcard Organisation Validated", "orange"),
         ("evanchor", "EV Anchor", "purple"),
         ("other", "Other", "red")
     ]
