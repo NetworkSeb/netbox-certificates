@@ -19,6 +19,7 @@ class CertificateAuthorityForm(NetBoxModelForm):
             'org_id',
             'cert_profile_ev_id',
             'cert_profile_ov_id',
+            'cert_profile_wildcard_id',
             'acme_url',
             'admin_url',
             'status',

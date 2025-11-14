@@ -43,6 +43,12 @@ class CertificateAuthority(NetBoxModel):
         verbose_name="Certificate Profile ID (OV)",
         help_text="The CA certificate profile ID for OV certificates"
     )
+    cert_profile_wildcard_id = models.IntegerField(
+        blank=True,
+        null=True,
+        verbose_name="Certificate Profile ID (Wildcard OV)",
+        help_text="The CA certificate profile ID for Wildcard OV certificates"
+    )
     acme_url = models.URLField(
         max_length=256,
         null=True,
