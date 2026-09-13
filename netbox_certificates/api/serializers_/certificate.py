@@ -10,6 +10,8 @@ from netbox_certificates.api.nested_serializers import NestedCertificateAuthorit
 
 class CertificateSerializer(NetBoxModelSerializer):
 
+    display = serializers.SerializerMethodField(read_only=True)
+
     url = serializers.HyperlinkedIdentityField(
         view_name='plugins-api:netbox_certificates-api:certificate-detail'
     )
@@ -81,3 +83,6 @@ class CertificateSerializer(NetBoxModelSerializer):
             'vm',
             'device'
         )
+
+    def get_display(self, obj):
+        return obj.name

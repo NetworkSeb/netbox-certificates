@@ -7,7 +7,7 @@
       <table class="table table-hover align-middle">
         <thead>
           <tr>
-            <th>IP Address / Host</th>
+            <th>Endpoint (FQDN / IP)</th>
             <th>Port</th>
             <th>Certificate</th>
             <th>Status</th>
@@ -19,11 +19,13 @@
             <tr>
               <td>
                 <a href="{{ assignment.ip_address.get_absolute_url }}">
-                  {{ assignment.ip_address.address }}
+                  {% if assignment.ip_address.dns_name %}
+                    <strong>{{ assignment.ip_address.dns_name }}</strong>
+                    <br><small class="text-muted">{{ assignment.ip_address.address }}</small>
+                  {% else %}
+                    <code>{{ assignment.ip_address.address }}</code>
+                  {% endif %}
                 </a>
-                {% if assignment.ip_address.dns_name %}
-                  <br><small class="text-muted">{{ assignment.ip_address.dns_name }}</small>
-                {% endif %}
               </td>
               <td><code>{{ assignment.port }}</code></td>
               <td>

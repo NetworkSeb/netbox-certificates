@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from netbox.api.serializers import NetBoxModelSerializer
 from ipam.api.serializers import IPAddressSerializer
-from ..models import CertificateAssignment, Certificate
+from netbox_certificates.models import Certificate, CertificateAssignment
 
 class CertificateAssignmentSerializer(NetBoxModelSerializer):
     certificate = serializers.PrimaryKeyRelatedField(
