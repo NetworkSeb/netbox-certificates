@@ -3,9 +3,11 @@ from django.db import models
 import django_filters
 from django import forms
 from taggit.managers import TaggableManager
+from utilities.filtersets import register_filterset
 
 from netbox_certificates.models import CertificateInstance
 
+@register_filterset
 class CertificateInstanceFilterSet(NetBoxModelFilterSet):
 
     class Meta:
