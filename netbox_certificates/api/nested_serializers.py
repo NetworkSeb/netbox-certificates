@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from netbox.api.serializers import WritableNestedSerializer
 
-from netbox_certificates.models import Certificate, CertificateAuthority, CertificateInstance
+from netbox_certificates.models import Certificate, CertificateAuthority, CertificateInstance, CertificateAssignment
 
 
 __all__ = (
@@ -47,3 +47,8 @@ class NestedCertificateInstanceSerializer(WritableNestedSerializer):
             'certificate',
             'ca'
         )
+
+class CertificateAssignmentSerializer(WritableNestedSerializer):
+    url = serializers.HyperlinkedIdentityField(
+        view_name='plugins-api:netbox_certificates-api:certificateassignment-detail'
+    )

@@ -1,6 +1,6 @@
 from netbox.api.routers import NetBoxRouter
 
-from netbox_certificates.api.views import CertificateViewSet, CertificateInstanceViewSet, CertificateAuthorityViewSet 
+from netbox_certificates.api.views import CertificateViewSet, CertificateInstanceViewSet, CertificateAuthorityViewSet, CertificateAssignmentViewSet
 
 app_name = 'netbox_certificates'
 
@@ -8,5 +8,6 @@ router = NetBoxRouter()
 router.register('certificates', CertificateViewSet)
 router.register('certificateinstance', CertificateInstanceViewSet)
 router.register('certificateauthority', CertificateAuthorityViewSet)
+router.register('certificateassignments', CertificateAssignmentViewSet)
 
 urlpatterns=router.urls

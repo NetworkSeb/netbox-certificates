@@ -1,0 +1,54 @@
+{% load helpers %}
+
+<div class="card">
+  <h5 class="card-header">Installed TLS Certificates</h5>
+  <div class="card-body">
+    {% if assignments %}
+      <table class="table table-hover align-middle">
+        <thead>
+          <tr>
+            <th>IP Address / Host</th>
+            <th>Port</th>
+            <th>Certificate</th>
+            <th>Status</th>
+            <th>Last Verified</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for assignment in assignments %}
+            <tr>
+              <td>
+                <a href="{{ assignment.ip_address.get_absolute_url }}">
+                  {{ assignment.ip_address.address }}
+                </a>
+                {% if assignment.ip_address.dns_name %}
+                  <br><small class="text-muted">{{ assignment.ip_address.dns_name }}</small>
+                {% endif %}
+              </td>
+              <td><code>{{ assignment.port }}</code></td>
+              <td>
+                <a href="{{ assignment.certificate.get_absolute_url }}">
+                  {{ assignment.certificate.name }}
+                </a>
+              </td>
+              <td>
+                <span class="badge bg-{% if assignment.status == 'active' %}success{% elif assignment.status == 'pending' %}warning{% else %}danger{% endif %}">
+                  {{ assignment.get_status_display }}
+                </span>
+              </td>
+              <td>
+                {% if assignment.last_verified %}
+                  {{ assignment.last_verified|date:"Y-m-d H:i" }}
+                {% else %}
+                  <span class="text-muted">Never</span>
+                {% endif %}
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <span class="text-muted">No TLS certificates assigned to interfaces on this host.</span>
+    {% endif %}
+  </div>
+</div>
