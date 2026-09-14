@@ -1,9 +1,9 @@
 from netbox.api.viewsets import NetBoxModelViewSet
 from django.db.models import Count
 
-from netbox_certificates.filtersets import CertificateFilterSet, CertificateInstanceFilterSet, CertificateAuthorityFilterSet
-from netbox_certificates.models import Certificate, CertificateAuthority, CertificateInstance
-from netbox_certificates.api.serializers_ import CertificateSerializer, CertificateAuthoritySerializer, CertificateInstanceSerializer
+from netbox_certificates.filtersets import CertificateFilterSet, CertificateInstanceFilterSet, CertificateAuthorityFilterSet, CertificateAssignmentFilterSet
+from netbox_certificates.models import Certificate, CertificateAuthority, CertificateInstance, CertificateAssignment
+from netbox_certificates.api.serializers_ import CertificateSerializer, CertificateAuthoritySerializer, CertificateInstanceSerializer, CertificateAssignmentSerializer
 
 
 class CertificateViewSet(NetBoxModelViewSet):
@@ -24,3 +24,8 @@ class CertificateAuthorityViewSet(NetBoxModelViewSet):
     )
     serializer_class = CertificateAuthoritySerializer
     filterset_class = CertificateAuthorityFilterSet
+
+class CertificateAssignmentViewSet(NetBoxModelViewSet):
+    queryset = CertificateAssignment.objects.all()
+    serializer_class = CertificateAssignmentSerializer
+    filterset_class = CertificateAssignmentFilterSet

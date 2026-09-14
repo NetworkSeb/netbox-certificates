@@ -36,6 +36,14 @@ certificate_instance_buttons = [
     ),
 ]
 
+certificate_assignment_buttons=[ 
+            PluginMenuButton(
+                link='plugins:netbox_certificates:certificateassignment_add',
+                title='Add Assignment',
+                icon_class='mdi mdi-plus-thick',
+            ),
+]
+
 menu = PluginMenu(
     label='Certificates',
     groups=(
@@ -55,6 +63,11 @@ menu = PluginMenu(
                     link='plugins:netbox_certificates:certificateinstance_list',
                     link_text='Certificate Instances',
                     buttons=certificate_instance_buttons
+                ),
+                PluginMenuItem(
+                    link='plugins:netbox_certificates:certificateassignment_list',
+                    link_text='Assignments',
+                    buttons=certificate_assignment_buttons
                 ),
             ),
         ),

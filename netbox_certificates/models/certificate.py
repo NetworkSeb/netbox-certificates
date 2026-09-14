@@ -290,3 +290,9 @@ class Certificate(NetBoxModel):
     def generate_csr(self):
         # Logic to generate CSR
         pass
+
+    def get_api_url(self):
+        return reverse('plugins-api:netbox_certificates-api:certificate-detail', kwargs={'pk': self.pk})
+
+    def get_display(self, obj):
+            return obj.cn
