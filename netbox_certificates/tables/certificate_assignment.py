@@ -16,6 +16,7 @@ class CertificateAssignmentTable(NetBoxTable):
         ''',
         verbose_name='IP / FQDN'
     )
+    service = tables.Column(linkify=True, verbose_name='Service')
     certificate = tables.Column(
         linkify=True,
         verbose_name='Certificate'
@@ -28,7 +29,7 @@ class CertificateAssignmentTable(NetBoxTable):
     class Meta(NetBoxTable.Meta):
         model = CertificateAssignment
         fields = (
-            'pk', 'id', 'ip_address', 'certificate', 'port', 
+            'pk', 'id', 'ip_address', 'service', 'certificate', 'port', 
             'status', 'installed_serial', 'last_verified', 'actions'
         )
-        default_columns = ('pk', 'ip_address', 'certificate', 'port', 'status', 'last_verified')
+        default_columns = ('pk', 'ip_address', 'service', 'certificate', 'port', 'status', 'last_verified')

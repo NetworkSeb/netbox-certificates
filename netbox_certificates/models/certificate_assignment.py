@@ -17,6 +17,15 @@ class CertificateAssignment(NetBoxModel):
         on_delete=models.CASCADE,
         related_name='certificate_assignments'
     )
+    # New Link: Foreign Key to NetBox Core Service
+    service = models.ForeignKey(
+        to='ipam.Service',
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
+        related_name='certificate_assignments',
+        help_text='Associated application service'
+    )
     port = models.PositiveIntegerField(
         default=443,
         help_text="TCP port where the certificate is served"
@@ -42,9 +51,16 @@ class CertificateAssignment(NetBoxModel):
         ordering = ('ip_address', 'port')
         unique_together = ('certificate', 'ip_address', 'port')
 
+    def save(self, *args, **kwargs):
+        # Optional: Auto-populate port from selected Service if port is default/blank
+        if self.service and self.service.ports:
+            # Take the primary port from the service definition
+            self.port = self.service.ports[0]
+        super().save(*args, **kwargs)
+
     def __str__(self):
         target = self.ip_address.dns_name or str(self.ip_address.address.ip)
-        return f"{self.certificate.name} -> {target}:{self.port}"
+        return f"{self.certificate.cn} -> {target}:{self.port}"
 
     def get_compliance_status(self):
         """

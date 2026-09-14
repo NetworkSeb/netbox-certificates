@@ -7,7 +7,8 @@ from netbox_certificates.models import Certificate, CertificateAuthority, Certif
 __all__ = (
     "NestedCertificateAuthoritySerializer",
     "NestedCertificateInstanceSerializer",
-    "NestedCertificateSerializer"
+    "NestedCertificateSerializer",
+    "NestedCertificateAssignmentSerializer"
 )
 
 class NestedCertificateAuthoritySerializer(WritableNestedSerializer):
@@ -48,7 +49,7 @@ class NestedCertificateInstanceSerializer(WritableNestedSerializer):
             'ca'
         )
 
-class CertificateAssignmentSerializer(WritableNestedSerializer):
+class NestedCertificateAssignmentSerializer(WritableNestedSerializer):
     url = serializers.HyperlinkedIdentityField(
         view_name='plugins-api:netbox_certificates-api:certificateassignment-detail'
     )

@@ -75,7 +75,9 @@ class CertificateSerializer(NetBoxModelSerializer):
         )
         
         brief_fields = (
+            'id',
             'cn',
+            'display',
             'san',
             'status',
             'type',
@@ -85,4 +87,4 @@ class CertificateSerializer(NetBoxModelSerializer):
         )
 
     def get_display(self, obj):
-        return obj.name
+        return obj.cn
