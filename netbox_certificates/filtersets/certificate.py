@@ -4,9 +4,11 @@ import django_filters
 from django import forms
 from django.contrib.postgres.fields import ArrayField
 from taggit.managers import TaggableManager
+from utilities.filtersets import register_filterset
 
 from netbox_certificates.models import Certificate
 
+@register_filterset
 class CertificateFilterSet(NetBoxModelFilterSet):
 
     class Meta:

@@ -52,12 +52,12 @@ class CertificateTermChoices(ChoiceSet):
     """Certificate Term"""
     key = "Certificate.term"
 
-    DEFAULT_VALUE = 365
+    DEFAULT_VALUE = 199
 
     CHOICES = [
         (47, "47 Days", "green"),
         (100, "100 Days", "yellow"),
-        (200, "200 Days", "orange"),
+        (199, "199 Days", "orange"),
         (365, "365 Days", "red")
     ]
 
@@ -290,3 +290,9 @@ class Certificate(NetBoxModel):
     def generate_csr(self):
         # Logic to generate CSR
         pass
+
+    def get_api_url(self):
+        return reverse('plugins-api:netbox_certificates-api:certificate-detail', kwargs={'pk': self.pk})
+
+    def get_display(self, obj):
+            return obj.cn
