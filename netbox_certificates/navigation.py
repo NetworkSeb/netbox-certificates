@@ -39,8 +39,13 @@ certificate_instance_buttons = [
 certificate_assignment_buttons=[ 
             PluginMenuButton(
                 link='plugins:netbox_certificates:certificateassignment_add',
-                title='Add Assignment',
+                title='Add Deployment',
                 icon_class='mdi mdi-plus-thick',
+            ),
+            PluginMenuButton(
+                link='plugins:netbox_certificates:certificateassignment_bulk_import',
+                title='Import Deployments',
+                icon_class='mdi mdi-upload',
             ),
 ]
 
@@ -66,7 +71,7 @@ menu = PluginMenu(
                 ),
                 PluginMenuItem(
                     link='plugins:netbox_certificates:certificateassignment_list',
-                    link_text='Assignments',
+                    link_text='Certificate Deployments',
                     buttons=certificate_assignment_buttons
                 ),
             ),

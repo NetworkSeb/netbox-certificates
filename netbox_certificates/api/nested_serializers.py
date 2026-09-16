@@ -35,6 +35,8 @@ class NestedCertificateSerializer(WritableNestedSerializer):
             'cn',
             'san'
         )
+    def get_display(self, obj):
+            return obj.cn
 
 class NestedCertificateInstanceSerializer(WritableNestedSerializer):
     url = serializers.HyperlinkedIdentityField(
