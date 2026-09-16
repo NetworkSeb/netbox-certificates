@@ -1,7 +1,10 @@
 from netbox.plugins import PluginTemplateExtension
 from django.contrib.contenttypes.models import ContentType
+from django_tables2 import RequestConfig
 from ipam.models import IPAddress
 from .models import CertificateAssignment
+from .tables import CertificateAssignmentTable
+
 
 class DeviceCertificateAssignmentsExtension(PluginTemplateExtension):
     models = ['dcim.device', 'virtualization.virtualmachine']
@@ -34,3 +37,28 @@ class DeviceCertificateAssignmentsExtension(PluginTemplateExtension):
         })
 
 template_extensions = [DeviceCertificateAssignmentsExtension]
+
+class IPAddressCertificateAssignments(PluginTemplateExtension):
+    model = 'ipam.ipaddress'
+
+    def right_page(self):
+        # Retrieve all certificate assignments for this IPAddress object
+        assignments = CertificateAssignment.objects.filter(ip_address=self.context['object'])
+        
+        if not assignments.exists():
+            return ''
+
+        # Render table excluding redundant IP Address and PK columns
+        table = CertificateAssignmentTable(
+            assignments,
+            exclude=('ip_address', 'pk')
+        )
+        RequestConfig(self.context['request'], paginate={'per_page': 5}).configure(table)
+
+        return self.render('netbox_certificates/inc/ipaddress_certificates.html', extra_context={
+            'certificate_assignments_table': table,
+            'assignments_count': assignments.count(),
+        })
+
+
+template_extensions = [IPAddressCertificateAssignments]
