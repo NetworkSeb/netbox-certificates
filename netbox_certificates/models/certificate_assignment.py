@@ -79,6 +79,68 @@ class CertificateAssignment(NetBoxModel):
     )
     last_verified = models.DateTimeField(null=True, blank=True)
 
+    # netbox_certificates/models/certificate_assignment.py
+
+    def update_target_config_context(self, target=None):
+        """
+        Pushes certificate deployment metadata into the parent Device or VM's
+        local_context_data dictionary under the 'certs' key.
+        """
+        # 1. Resolve parent Device or VirtualMachine from assigned_object
+        if not target and self.ip_address and self.ip_address.assigned_object:
+            assigned = self.ip_address.assigned_object
+            target = getattr(assigned, 'device', None) or getattr(assigned, 'virtual_machine', None)
+
+        if not target:
+            return
+
+        # 2. Safely resolve host interfaces (DCIM Interface vs Virtualization VMInterface)
+        interfaces_rel = getattr(target, 'interfaces', None)
+        if interfaces_rel is None:
+            return
+
+        interface_list = interfaces_rel.all() if hasattr(interfaces_rel, 'all') else interfaces_rel
+
+        # 3. Collect all distinct assignments across host interfaces
+        host_assignments = set()
+        for iface in interface_list:
+            if hasattr(iface, 'ip_addresses'):
+                ip_qs = iface.ip_addresses.all() if hasattr(iface.ip_addresses, 'all') else iface.ip_addresses()
+                for ip in ip_qs:
+                    # Access reverse relation manager directly (do NOT call it)
+                    if hasattr(ip, 'certificate_assignments'):
+                        host_assignments.update(ip.certificate_assignments.all())
+
+        # 4. Construct the "certs" data structure using Certificate.service_commands
+        certs_list = []
+        for assign in host_assignments:
+            cert = assign.certificate
+            raw_commands = getattr(cert, 'service_commands', '') or ''
+
+            # Parse string or list into JSON array
+            if isinstance(raw_commands, str):
+                commands = [cmd.strip() for cmd in raw_commands.splitlines() if cmd.strip()]
+            elif isinstance(raw_commands, list):
+                commands = raw_commands
+            else:
+                commands = []
+
+            certs_list.append({
+                "cn": cert.cn,
+                "commands": commands
+            })
+
+        # 5. Atomic update of local_context_data on Device / VM
+        context = dict(target.local_context_data or {})
+        
+        if certs_list:
+            context['certs'] = certs_list
+        else:
+            context.pop('certs', None)
+
+        target.local_context_data = context
+        target.save(update_fields=['local_context_data'])
+
     class Meta:
         ordering = ('ip_address', 'port')
         unique_together = ('certificate', 'ip_address', 'port')
@@ -98,6 +160,7 @@ class CertificateAssignment(NetBoxModel):
                 old_cert = original.certificate
 
         super().save(*args, **kwargs)
+        self.update_target_config_context()
         
         # Recalculate consistency on the associated certificate
         if self.certificate:
@@ -113,10 +176,20 @@ class CertificateAssignment(NetBoxModel):
 
     def delete(self, *args, **kwargs):
         cert = self.certificate
+
+        target = None
+        if self.ip_address and self.ip_address.assigned_object:
+            assigned = self.ip_address.assigned_object
+            target = getattr(assigned, 'device', None) or getattr(assigned, 'virtual_machine', None)
+
         super().delete(*args, **kwargs)
+
         # Recalculate consistency after removing this assignment
         if cert:
             cert.update_host_consistency()
+
+        if target:
+            self.update_target_config_context(target=target)
 
     def __str__(self):
         target = self.ip_address.dns_name or str(self.ip_address.address.ip)
