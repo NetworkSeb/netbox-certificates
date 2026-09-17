@@ -38,13 +38,14 @@ class CertificateAssignmentFilterSet(NetBoxModelFilterSet):
     def search(self, queryset, name, value):
         if not value.strip():
             return queryset
+
         return queryset.filter(
             Q(certificate__cn__icontains=value) |
-            Q(certificate__name__icontains=value) |
             Q(ip_address__address__icontains=value) |
             Q(ip_address__dns_name__icontains=value) |
+            Q(service__name__icontains=value) |
             Q(installed_serial__icontains=value)
-        )
+        ).distinct()
 
     def filter_device(self, queryset, name, value):
         ct = ContentType.objects.get_for_model(Device)
