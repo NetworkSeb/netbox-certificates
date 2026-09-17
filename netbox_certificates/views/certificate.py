@@ -45,8 +45,8 @@ class CertificateView(generic.ObjectView):
 @register_model_view(Certificate, "list", path="", detail=False)
 class CertificateListView(generic.ObjectListView):
     queryset = Certificate.objects.annotate(
-        instance_count = Count('instances'),
-        deployment_count = Count('assignments')
+        instance_count = Count('instances',distinct=True),
+        deployment_count = Count('assignments',distinct=True)
     )
     table = CertificateTable
     filterset=CertificateFilterSet
@@ -54,7 +54,6 @@ class CertificateListView(generic.ObjectListView):
 
 @register_model_view(Certificate, "add", detail=False)
 @register_model_view(Certificate, "edit")
-
 class CertificateEditView(generic.ObjectEditView):
     queryset = Certificate.objects.all()
     form = CertificateForm
