@@ -24,6 +24,18 @@
               <td>{{ object.get_status_display }}</td>
             </tr>
             <tr>
+              <th scope="row">SANs</th>
+              <td>
+                {{ object.san }}
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">Certificate Type (EV/OV/Wildcard)</th>
+              <td>
+                {{ object.type }}
+              </td>
+            </tr>
+            <tr>
               <th scope="row">Surpassed</th>
               <td>{{ object.surpassed }}</td>
             </tr>

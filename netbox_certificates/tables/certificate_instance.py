@@ -15,6 +15,8 @@ class CertificateInstanceTable(NetBoxTable):
     certificate = tables.Column(
         linkify=True
     )
+    san = tables.Column(verbose_name='SANs')
+    type = tables.Column(verbose_name='Certificate Type')
     status = ChoiceFieldColumn()
 
     issue_date = tables.DateTimeColumn(
@@ -41,6 +43,8 @@ class CertificateInstanceTable(NetBoxTable):
         fields = (
             'pk',
             'certificate',
+            'san',
+            'type',
             'ca',
             'ca_reference',
             'serial_number',

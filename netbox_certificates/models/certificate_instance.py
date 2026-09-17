@@ -62,10 +62,24 @@ class CertificateInstance(NetBoxModel):
         related_name='instances',
         null=True
     )
+    san = models.CharField(
+        max_length=512,
+        null=True,
+        blank=True,
+        verbose_name="Subject Alternative Names",
+        help_text="Comma separated list of FQDN(s) copied from Certificate at issue time",
+    )
+    type = models.CharField(
+        max_length=64,
+        null=True,
+        blank=True,
+        verbose_name="Certificate Type",
+        help_text="Type of certificate at issuance",
+    )
     serial_number = models.CharField(
         max_length=100,
         unique=True
-        )
+    )
     issue_date = models.DateTimeField(
         blank=True, null=True, verbose_name="Not valid before"
     )
@@ -132,6 +146,15 @@ class CertificateInstance(NetBoxModel):
                         
                 if self.certificate.status == "retired" or self.certificate.status == "third-party" or self.status == "revoked":
                     self.surpassed = True
+
+        # On creation, copy SAN string if not explicitly set
+        if not self.pk and self.certificate:
+            if not self.san:
+                self.san = self.certificate.san
+
+            # Also snapshot the type at time of creation for reference.
+            if not self.type:
+                self.type = self.certificate.get_type_display()
 
         # Save the cert instance
         super().save(*args, **kwargs)
