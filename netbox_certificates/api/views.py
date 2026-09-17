@@ -8,7 +8,9 @@ from netbox_certificates.api.serializers_ import CertificateSerializer, Certific
 
 class CertificateViewSet(NetBoxModelViewSet):
     queryset = Certificate.objects.all().annotate(
-        instance_count=Count('instances')
+        instance_count=Count('instances'),
+        deployment_count=Count('assignments')
+
     )
     serializer_class = CertificateSerializer
     filterset_class = CertificateFilterSet

@@ -38,4 +38,5 @@ class CertificateAssignmentTable(NetBoxTable):
             'pk', 'id', 'ip_address', 'service', 'certificate', 'port', 
             'status', 'installation_method', 'installed_serial', 'last_verified', 'actions'
         )
-        default_columns = ('pk', 'ip_address', 'service', 'certificate', 'port', 'status', 'installation_method' 'last_verified')
+        default_columns = ('pk', 'ip_address', 'service', 'certificate', 'port', 'status', 'installation_method', 'last_verified', 'actions')
+        order_by = ('ip_address', 'port')
