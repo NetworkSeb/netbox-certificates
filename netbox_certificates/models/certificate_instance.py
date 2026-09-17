@@ -127,7 +127,7 @@ class CertificateInstance(NetBoxModel):
         if not self.surpassed:
             if not self.status == "active":
                 if self.certificate.active:
-                    if self.expiry_date <= self.certificate.active.expiry_date:
+                    if self.expiry_date < self.certificate.active.expiry_date:
                         self.surpassed = True
                         
                 if self.certificate.status == "retired" or self.certificate.status == "third-party" or self.status == "revoked":

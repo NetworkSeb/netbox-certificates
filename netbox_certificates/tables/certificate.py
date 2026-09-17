@@ -32,6 +32,11 @@ class CertificateTable(NetBoxTable):
         format='d/m/Y'
     )
     instance_count = tables.Column()
+    deployment_count = tables.Column(
+        verbose_name='Deployments',
+        empty_values=(),
+        orderable=True
+    )
 
     class Meta(NetBoxTable.Meta):
         model = Certificate
@@ -56,6 +61,8 @@ class CertificateTable(NetBoxTable):
             'monitor',
             'service_lb',
             'host_consistent',
+            'instance_count',
+            'deployment_count',
             'automated',
             'technical_owner',
             'technical_group',
@@ -79,6 +86,8 @@ class CertificateTable(NetBoxTable):
             'type',
             'term',
             'install_type',
+            'instance_count',
+            'deployment_count',
             'automated',
             'service_lb',
             'host_consistent',

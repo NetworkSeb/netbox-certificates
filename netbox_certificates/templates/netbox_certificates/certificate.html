@@ -147,12 +147,16 @@
                 <th scope="row">Service Loadbalanced?</th>
                 <td>{{ object.service_lb}}</td>
             </tr>
-            {% if object.service_lb %}
             <tr>
-                <th scope="row">Host Consistent?</th>
-                <td>{{ object.host_consistent}}</td>
+              <th scope="row">Host Consistent</th>
+                <td>
+                  {% if object.host_consistent %}
+                    <span class="badge bg-success">Yes</span>
+                  {% else %}
+                    <span class="badge bg-danger">No</span>
+                  {% endif %}
+                </td>
             </tr>
-            {% endif %}
             <tr>
               <th scope="row">Install Automated?</th>
               <td>{{ object.automated}}</td>
@@ -166,6 +170,20 @@
       {% include 'inc/panels/comments.html' %}
     </div>
   </div>
+  <!-- Deployments List Section -->
+<div class="row">
+  <div class="col col-md-12">
+    <div class="card">
+      <h5 class="card-header d-flex justify-content-between align-items-center">
+        <span>Deployments</span>
+        <span class="badge bg-secondary">{{ deployments_count }}</span>
+      </h5>
+      <div class="card-body table-responsive">
+        {% render_table deployments_table %}
+      </div>
+    </div>
+  </div>
+</div>
   <div class="row">
     <div class="col col-md-12">
       <div class="card">
