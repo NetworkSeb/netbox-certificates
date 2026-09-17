@@ -2,6 +2,8 @@ from netbox.plugins import PluginTemplateExtension
 from django.contrib.contenttypes.models import ContentType
 from django_tables2 import RequestConfig
 from ipam.models import IPAddress
+from dcim.models import Device
+from virtualization.models import VirtualMachine
 from .models import CertificateAssignment
 from .tables import CertificateAssignmentTable
 
@@ -42,13 +44,19 @@ class IPAddressCertificateAssignments(PluginTemplateExtension):
     model = 'ipam.ipaddress'
 
     def right_page(self):
-        # Retrieve all certificate assignments for this IPAddress object
-        assignments = CertificateAssignment.objects.filter(ip_address=self.context['object'])
+        obj = self.context.get('object')
+
+        # Safety check: ensure object exists and is explicitly an IPAddress
+        if not isinstance(obj, IPAddress):
+            return ''
+
+        # Retrieve assignments bound to this specific IP Address
+        assignments = CertificateAssignment.objects.filter(ip_address=obj)
         
         if not assignments.exists():
             return ''
 
-        # Render table excluding redundant IP Address and PK columns
+        # Instantiate table excluding redundant 'ip_address' and 'pk' columns
         table = CertificateAssignmentTable(
             assignments,
             exclude=('ip_address', 'pk')
@@ -62,3 +70,43 @@ class IPAddressCertificateAssignments(PluginTemplateExtension):
 
 
 template_extensions = [IPAddressCertificateAssignments]
+
+class HostCertificateAssignments(PluginTemplateExtension):
+    model = 'ipam.ipaddress'
+
+    def right_page(self):
+        obj = self.context.get('object')
+
+        # 1. Direct IPAddress page
+        if isinstance(obj, IPAddress):
+            assignments = CertificateAssignment.objects.filter(ip_address=obj)
+
+        # 2. Device or VirtualMachine page
+        elif isinstance(obj, (Device, VirtualMachine)):
+            # Gather assignments across all IPs assigned to this host's interfaces
+            interfaces = getattr(obj, 'interfaces', None)
+            if not interfaces:
+                return ''
+            
+            assignments = CertificateAssignment.objects.filter(
+                ip_address__assigned_object_id__in=interfaces.values_list('id', flat=True)
+            )
+        else:
+            return ''
+
+        if not assignments.exists():
+            return ''
+
+        table = CertificateAssignmentTable(
+            assignments,
+            exclude=('pk',)
+        )
+        RequestConfig(self.context['request'], paginate={'per_page': 5}).configure(table)
+
+        return self.render('netbox_certificates/inc/ipaddress_certificates.html', extra_context={
+            'certificate_assignments_table': table,
+            'assignments_count': assignments.count(),
+        })
+
+
+template_extensions = [HostCertificateAssignments]
