@@ -31,12 +31,12 @@ urlpatterns = (
         'certificateauthority/<int:pk>/', include(get_model_urls("netbox_certificates", "certificateauthority"))
     ),
 
-    # CertificateAssignment UI Routes
-    path('assignments/', CertificateAssignmentListView.as_view(), name='certificateassignment_list'),
-    path('assignments/add/', CertificateAssignmentEditView.as_view(), name='certificateassignment_add'),
-    path('assignments/<int:pk>/', CertificateAssignmentView.as_view(), name='certificateassignment'),
-    path('assignments/<int:pk>/edit/', CertificateAssignmentEditView.as_view(), name='certificateassignment_edit'),
-    path('assignments/<int:pk>/delete/', CertificateAssignmentDeleteView.as_view(), name='certificateassignment_delete'),
-    path('assignments/<int:pk>/changelog/', ObjectChangeLogView.as_view(), name='certificateassignment_changelog', kwargs={'model': CertificateAssignment}),
+    # Certificate Assignments (Standardized using get_model_urls)
+    path(
+        'assignments/', include(get_model_urls("netbox_certificates", "certificateassignment", detail=False))
+    ),
+    path(
+        'assignments/<int:pk>/', include(get_model_urls("netbox_certificates", "certificateassignment"))
+    ),
 
 )

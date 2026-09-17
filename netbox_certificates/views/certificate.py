@@ -1,10 +1,11 @@
 from netbox.views import generic
 from django.db.models import Count, F
+from django_tables2 import RequestConfig
 from utilities.views import register_model_view
 
-from netbox_certificates.models import Certificate
+from netbox_certificates.models import Certificate, CertificateAssignment
 from netbox_certificates.forms import CertificateForm, CertificateFilterForm, CertificateImportFrom, CertificateBulkEditForm
-from netbox_certificates.tables import CertificateTable, CertificateInstanceTable
+from netbox_certificates.tables import CertificateTable, CertificateInstanceTable, CertificateAssignmentTable
 from netbox_certificates.filtersets import CertificateFilterSet
 
 __all__ = (
@@ -24,14 +25,28 @@ class CertificateView(generic.ObjectView):
         table = CertificateInstanceTable(instance.instances.all())
         table.configure(request)
 
+        # Fetch all deployments bound to this specific certificate
+        deployments = CertificateAssignment.objects.filter(certificate=instance)
+        
+        # Instantiate the deployment table without bulk selection checkboxes
+        deployments_table = CertificateAssignmentTable(
+            deployments,
+            exclude=('certificate', 'pk')  # Hide 'certificate' column since we are already on its view
+        )
+        RequestConfig(request, paginate={'per_page': 10}).configure(deployments_table)
+        deployments_table.configure(request)
+
         return {
+            'deployments_table': deployments_table,
+            'deployments_count': deployments.count(),
             'instances_table': table
         }
 
 @register_model_view(Certificate, "list", path="", detail=False)
 class CertificateListView(generic.ObjectListView):
     queryset = Certificate.objects.annotate(
-        instance_count = Count('instances')
+        instance_count = Count('instances'),
+        deployment_count = Count('assignments')
     )
     table = CertificateTable
     filterset=CertificateFilterSet
@@ -39,6 +54,7 @@ class CertificateListView(generic.ObjectListView):
 
 @register_model_view(Certificate, "add", detail=False)
 @register_model_view(Certificate, "edit")
+
 class CertificateEditView(generic.ObjectEditView):
     queryset = Certificate.objects.all()
     form = CertificateForm

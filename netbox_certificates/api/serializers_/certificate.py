@@ -17,6 +17,10 @@ class CertificateSerializer(NetBoxModelSerializer):
     )
 
     instance_count = serializers.IntegerField(read_only=True)
+    deployment_count = serializers.IntegerField(
+        source='assignments.count', 
+        read_only=True
+    )
 
     class Meta:
         model = Certificate
@@ -42,6 +46,7 @@ class CertificateSerializer(NetBoxModelSerializer):
             'custom_fields',
             'cn',
             'instance_count',
+            'deployment_count',
             'url',
             'san',
             'device',
@@ -83,7 +88,11 @@ class CertificateSerializer(NetBoxModelSerializer):
             'type',
             'term',
             'vm',
-            'device'
+            'device',
+            'active',
+            'latest'
+            'instance_count',
+            'deployment_count'
         )
 
     def get_display(self, obj):

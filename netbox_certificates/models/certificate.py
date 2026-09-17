@@ -2,6 +2,7 @@ from django.db import models
 from netbox.models import NetBoxModel
 from utilities.choices import ChoiceSet
 from django.urls import reverse
+from .certificate_assignment import CertificateAssignmentStatusChoices
 
 # Choices - extendable by key in configuration
 class CertificateStatusChoices(ChoiceSet):
@@ -296,3 +297,23 @@ class Certificate(NetBoxModel):
 
     def get_display(self, obj):
             return obj.cn
+
+    def update_host_consistency(self):
+        """
+        Recalculates host_consistent:
+        True IF there is at least one assignment AND ALL assignments are 'active'.
+        False IF no assignments exist OR any assignment is NOT 'active'.
+        """
+        assignments = self.assignments.all()
+        if not assignments.exists():
+            new_status = False
+        else:
+            # Check if all assignments have status 'active'
+            new_status = all(
+                a.status == CertificateAssignmentStatusChoices.STATUS_ACTIVE 
+                for a in assignments
+            )
+
+        if self.host_consistent != new_status:
+            self.host_consistent = new_status
+            self.save(update_fields=['host_consistent'])
