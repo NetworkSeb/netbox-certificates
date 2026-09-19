@@ -79,8 +79,6 @@ class CertificateAssignment(NetBoxModel):
     )
     last_verified = models.DateTimeField(null=True, blank=True)
 
-    # netbox_certificates/models/certificate_assignment.py
-
     def update_target_config_context(self, target=None):
         """
         Pushes certificate deployment metadata into the parent Device or VM's
