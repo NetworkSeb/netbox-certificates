@@ -96,8 +96,8 @@ class CertificateAssignmentBulkEditForm(NetBoxModelBulkEditForm):
 class CertificateAssignmentCSVForm(NetBoxModelImportForm):
     certificate = forms.ModelChoiceField(
         queryset=Certificate.objects.all(),
-        to_field_name='name',
-        help_text='Certificate Name'
+        to_field_name='cn',
+        help_text='Certificate Common Name (CN), e.g. box.net.sussex.ac.uk'
     )
     ip_address = forms.ModelChoiceField(
         queryset=IPAddress.objects.all(),
