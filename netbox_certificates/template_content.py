@@ -61,7 +61,7 @@ class IPAddressCertificateAssignments(PluginTemplateExtension):
             assignments,
             exclude=('ip_address', 'pk')
         )
-        RequestConfig(self.context['request'], paginate={'per_page': 5}).configure(table)
+        RequestConfig(self.context['request']).configure(table)
 
         return self.render('netbox_certificates/inc/ipaddress_certificates.html', extra_context={
             'certificate_assignments_table': table,
@@ -101,7 +101,7 @@ class HostCertificateAssignments(PluginTemplateExtension):
             assignments,
             exclude=('pk',)
         )
-        RequestConfig(self.context['request'], paginate={'per_page': 5}).configure(table)
+        RequestConfig(self.context['request']).configure(table)
 
         return self.render('netbox_certificates/inc/ipaddress_certificates.html', extra_context={
             'certificate_assignments_table': table,
