@@ -101,8 +101,8 @@ class CertificateAssignmentCSVForm(NetBoxModelImportForm):
     )
     ip_address = forms.ModelChoiceField(
         queryset=IPAddress.objects.all(),
-        to_field_name='address',
-        help_text='IP Address (e.g. 192.168.1.10/24)'
+        to_field_name='dns_name',
+        help_text='FQDN of host e.g. www.sussex.ac.uk '
     )
     service = forms.ModelChoiceField(
         queryset=Service.objects.all(),
