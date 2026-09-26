@@ -3,8 +3,6 @@ from django.urls import reverse
 from netbox.models import NetBoxModel
 from utilities.choices import ChoiceSet
 
-# Existing Certificate, CertificateInstance, etc., remain in place...
-
 class CertificateAssignmentStatusChoices(ChoiceSet):
     """Certificate Assignment Installation Type"""
     key = "CertificateAssignment.status"
@@ -34,6 +32,21 @@ class CertificateInstallationMethodChoices(ChoiceSet):
         ('third-party', 'Third Party', 'purple'),
     ]
 
+
+class CertificateInstallationApplicationChoices(ChoiceSet):
+    key = 'CertificateAssignment.installation_application'
+
+    DEFAULT_VALUE = 'apache'
+
+    CHOICES = [
+        ('apache', 'Apache', 'green'),
+        ('nginx', 'NGINX', 'green'),
+        ('iis', 'Internet Information Services (IIS)', 'green'),
+        ('exchange', 'Microsoft Exchange', 'green'),
+        ('custom', 'Custom Application', 'orange'),
+        ('other', 'Other', 'red'),
+        ('third-party', 'Third Party', 'purple'),
+    ]
 class CertificateAssignment(NetBoxModel):
     """
     Junction model mapping a logical Certificate to an IPAddress endpoint.
@@ -63,20 +76,40 @@ class CertificateAssignment(NetBoxModel):
         default=CertificateInstallationMethodChoices.DEFAULT_VALUE,
         help_text='Method used to deploy/install the certificate on the target'
     )
+
+    installation_type = models.CharField(
+        max_length=32,
+        choices=CertificateInstallationMethodChoices,
+        blank=True,
+        null=True,
+        verbose_name="Installation Type",
+        help_text="Installation mechanism for this assignment (defaults to parent Certificate's installation type if blank)."
+    )
+
+    installation_application = models.CharField(
+        max_length=50,
+        choices=CertificateInstallationMethodChoices,
+        default=CertificateInstallationMethodChoices.DEFAULT_VALUE,
+        help_text='Application configured to use the certificat'
+    )
+
     port = models.PositiveIntegerField(
         default=443,
         help_text="TCP port where the certificate is served"
     )
+
     status = models.CharField(
         max_length=50,
         choices=CertificateAssignmentStatusChoices,
         default=CertificateAssignmentStatusChoices.DEFAULT_VALUE
     )
+
     installed_serial = models.CharField(
         max_length=100,
         blank=True,
         help_text="Serial number detected during live SSL probe"
     )
+
     last_verified = models.DateTimeField(null=True, blank=True)
 
     def update_target_config_context(self, target=None):
@@ -156,6 +189,11 @@ class CertificateAssignment(NetBoxModel):
             original = CertificateAssignment.objects.filter(pk=self.pk).first()
             if original and original.certificate_id != self.certificate_id:
                 old_cert = original.certificate
+
+        # Default installation_type from parent Certificate on creation or if left blank
+        if not self.installation_type and self.certificate:
+            if hasattr(self.certificate, 'installation_type'):
+                self.installation_type = self.certificate.installation_type
 
         super().save(*args, **kwargs)
         self.update_target_config_context()
