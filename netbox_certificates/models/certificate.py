@@ -259,7 +259,7 @@ class Certificate(NetBoxModel):
     def update_instances(self):
         cert_instances = self.instances.all().order_by('-expiry_date')
 
-        self.latest = cert_instances.first()
+        self.latest = cert_instances.exclude(status="revoked").first()
         self.active = cert_instances.filter(status="active").first()
 
         # Certificate is responsible for saving itself after updating its instances.
