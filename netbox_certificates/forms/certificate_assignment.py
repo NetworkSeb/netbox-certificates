@@ -66,6 +66,8 @@ class CertificateAssignmentFilterForm(NetBoxModelFilterSetForm):
     )
 
 class CertificateAssignmentBulkEditForm(NetBoxModelBulkEditForm):
+    model = CertificateAssignment
+
     certificate = DynamicModelChoiceField(
         queryset=Certificate.objects.all(),
         required=False,
@@ -86,12 +88,6 @@ class CertificateAssignmentBulkEditForm(NetBoxModelBulkEditForm):
         required=False,
         label='Port'
     )
-
-    model = CertificateAssignment
-    fieldsets = (
-        (None, ('certificate', 'status', 'installation_method', 'port')),
-    )
-    nullable_fields = ('port',)
 
 class CertificateAssignmentCSVForm(NetBoxModelImportForm):
     certificate = forms.ModelChoiceField(
