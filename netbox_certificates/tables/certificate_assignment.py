@@ -3,7 +3,6 @@ from netbox.tables import NetBoxTable, ChoiceFieldColumn, ActionsColumn
 from netbox_certificates.models import CertificateAssignment
 
 class CertificateAssignmentTable(NetBoxTable):
-    pk = tables.CheckBoxColumn(visible=True)
 
     ip_address = tables.TemplateColumn(
         template_code='''
