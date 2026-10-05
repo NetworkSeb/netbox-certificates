@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.contenttypes.fields import GenericRelation
+from tenancy.models import ContactAssignment
 from netbox.models import NetBoxModel
 from utilities.choices import ChoiceSet
 from django.urls import reverse
@@ -192,14 +194,12 @@ class Certificate(NetBoxModel):
         default=False,
         help_text=("Is the installation of this certificate automated?")
     )
-    technical_owner = models.ManyToManyField(
-        to='tenancy.Contact',
-        blank=True,
-        verbose_name='Technical (product) Owner',
-        help_text='Escalation point outside of Infrastructure, within IT Services',
-        related_name="technical_contact"
+    technical_owner = GenericRelation(
+        to=ContactAssignment,
+        content_type_field='object_type',
+        object_id_field='object_id',
+        related_query_name='certificate'
     )
-
     technical_group = models.ManyToManyField(
         to='tenancy.ContactGroup',
         blank=True,
