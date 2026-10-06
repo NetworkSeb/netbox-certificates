@@ -24,14 +24,11 @@ from .filters import (
 class NetBoxCertificateType(NetBoxObjectType):
     cn: str
     san: str
-    device: Annotated["DeviceType", strawberry.lazy("dcim.graphql.types")] | None
-    vm: Annotated["VirtualMachineType", strawberry.lazy("virtualization.graphql.types")] | None
     status: str
     type: str
     term: str
     active: Annotated["NetBoxCertificateInstanceType", strawberry.lazy("netbox_certificates.graphql.types")]
     latest: Annotated["NetBoxCertificateInstanceType", strawberry.lazy("netbox_certificates.graphql.types")]
-    content: str
     vault_url: str
     fs_cert_location: str
     fs_key_location: str

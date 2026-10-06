@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.contenttypes.fields import GenericRelation
 from netbox.models import NetBoxModel
 from utilities.choices import ChoiceSet
 from django.urls import reverse
@@ -101,18 +102,6 @@ class Certificate(NetBoxModel):
         verbose_name='Certificate Term (days)',
         help_text='Certificate validity period (days)'
     )
-    device = models.ManyToManyField(
-        to='dcim.Device',
-        blank=True,
-        verbose_name='Device',
-        help_text='Device(s) with certificate installed'
-    )
-    vm = models.ManyToManyField(
-        to='virtualization.VirtualMachine',
-        blank=True,
-        verbose_name='Virtual Machine',
-        help_text='VM(s) with certificate installed'
-    )
     status = models.CharField(
         max_length=32,
         default=CertificateStatusChoices.DEFAULT_VALUE,
@@ -127,25 +116,19 @@ class Certificate(NetBoxModel):
         verbose_name="Certificate Type",
         choices=CertificateTypeChoices
     )
-    content = models.TextField (
-        max_length=32000,
-        null=True,
-        blank=True,
-        verbose_name="PEM Certificate"
-    )
     vault_url = models.URLField(
         max_length=256,
         null=True,
         blank=True,
         verbose_name="URL to corresponding vault",
     )
-    fs_cert_location = models.TextField (
+    fs_cert_location = models.CharField (
         max_length=300,
         null=True,
         blank=True,
         verbose_name="Location of cert Server Filesystem",
     )
-    fs_key_location = models.TextField (
+    fs_key_location = models.CharField (
         max_length=300,
         null=True,
         blank=True,
