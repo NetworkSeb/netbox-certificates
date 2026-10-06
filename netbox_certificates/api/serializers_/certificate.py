@@ -24,9 +24,6 @@ class CertificateSerializer(NetBoxModelSerializer):
 
     class Meta:
         model = Certificate
-
-        device = DeviceSerializer(nested=True, allow_null=True)
-        vm = VirtualMachineSerializer(nested=True, allow_null=True)
         
         technical_owner = ContactSerializer(nested=True, allow_null=True)
         business_contact = ContactSerializer(nested=True, allow_null=True)
@@ -49,8 +46,6 @@ class CertificateSerializer(NetBoxModelSerializer):
             'deployment_count',
             'url',
             'san',
-            'device',
-            'vm',
             'status',
             'active',
             'latest',
@@ -72,7 +67,6 @@ class CertificateSerializer(NetBoxModelSerializer):
             'business_group',
             'infrastructure_contact',
             'infrastructure_group',
-            'content',
             'created',
             'last_updated',
             'comments',
@@ -87,8 +81,6 @@ class CertificateSerializer(NetBoxModelSerializer):
             'status',
             'type',
             'term',
-            'vm',
-            'device',
             'active',
             'latest'
             'instance_count',

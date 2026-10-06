@@ -47,6 +47,10 @@ class CertificateListView(generic.ObjectListView):
     queryset = Certificate.objects.annotate(
         instance_count = Count('instances',distinct=True),
         deployment_count = Count('assignments',distinct=True)
+    ).prefetch_related(
+        'assignments__service',
+        'assignments__ip_address',
+        'assignments__ip_address__assigned_object',  # Stops safely at the GFK boundary
     )
     table = CertificateTable
     filterset=CertificateFilterSet

@@ -11,16 +11,6 @@ from netbox_certificates.models import Certificate, CertificateAuthority, Certif
 
 class CertificateForm(NetBoxModelForm):
 
-    device = DynamicModelMultipleChoiceField(
-        queryset=Device.objects.all(),
-        required=False
-    )
-
-    vm = DynamicModelMultipleChoiceField(
-        queryset=VirtualMachine.objects.all(),
-        required=False
-    )
-
     instances = DynamicModelChoiceField(
         queryset=CertificateInstance.objects.all(),
         required=False
@@ -43,8 +33,6 @@ class CertificateForm(NetBoxModelForm):
         fields = (
             'cn', 
             'san',
-            'device',
-            'vm',
             'status', 
             'type',
             'term',
@@ -66,7 +54,6 @@ class CertificateForm(NetBoxModelForm):
             'business_group',
             'infrastructure_contact',
             'infrastructure_group',
-            'content',
             'comments',
             'tags'    
         )
@@ -76,11 +63,6 @@ class CertificateFilterForm(NetBoxModelFilterSetForm):
 
     certificates = forms.ModelMultipleChoiceField(
         queryset=Certificate.objects.all(),
-        required=False
-    )
-
-    device = forms.ModelMultipleChoiceField(
-        queryset=Device.objects.all(),
         required=False
     )
 
@@ -163,8 +145,6 @@ class CertificateImportFrom(NetBoxModelImportForm):
         fields = (
             'cn', 
             'san',
-            'device',
-            'vm',
             'status', 
             'type',
             'term',
@@ -182,7 +162,6 @@ class CertificateImportFrom(NetBoxModelImportForm):
             'business_group',
             'infrastructure_contact',
             'infrastructure_group',
-            'content',
             'comments',
             'tags'    
         )
@@ -192,11 +171,6 @@ class CertificateBulkEditForm(NetBoxModelBulkEditForm):
 
     certificates = forms.ModelMultipleChoiceField(
         queryset=Certificate.objects.all(),
-        required=False
-    )
-
-    device = forms.ModelMultipleChoiceField(
-        queryset=Device.objects.all(),
         required=False
     )
 

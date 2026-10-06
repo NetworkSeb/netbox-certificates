@@ -37,6 +37,28 @@ class CertificateTable(NetBoxTable):
         empty_values=(),
         orderable=True
     )
+    deployments = tables.TemplateColumn(
+        template_code="""
+        {% for assignment in record.assignments.all %}
+          <div class="mb-1">
+            {% if assignment.ip_address.assigned_object.parent_object %}
+                <a href="{{ assignment.ip_address.assigned_object.parent_object.get_absolute_url }}">
+                    {{ assignment.ip_address.assigned_object.parent_object }}
+                </a>
+            {% elif assignment.ip_address.address %}
+                {# IP Address link and port #}
+                <a href="{{ assignment.ip_address.get_absolute_url }}">
+                <span class="">{{ assignment.ip_address.address }}</span>
+                </a>
+            {% endif %}
+          </div>
+        {% empty %}
+          <span class="text-muted">—</span>
+        {% endfor %}
+        """,
+        verbose_name='Deployed on',
+        orderable=False
+    )
 
     class Meta(NetBoxTable.Meta):
         model = Certificate
@@ -44,10 +66,9 @@ class CertificateTable(NetBoxTable):
             'pk',
             'id', 
             'cn', 
-            'san', 
+            'san',
+            'deployments',
             'status',
-            'device',
-            'vm',
             'type',
             'term',
             'install_type', 
@@ -80,9 +101,8 @@ class CertificateTable(NetBoxTable):
         default_columns = (
             'cn',
             'san',
+            'deployments',
             'status',
-            'device',
-            'vm',
             'type',
             'term',
             'install_type',

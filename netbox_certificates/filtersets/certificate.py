@@ -16,8 +16,6 @@ class CertificateFilterSet(NetBoxModelFilterSet):
         fields = (
             'cn', 
             'san',
-            'device',
-            'vm',
             'status', 
             'type',
             'term',
@@ -36,7 +34,6 @@ class CertificateFilterSet(NetBoxModelFilterSet):
             'business_group',
             'infrastructure_contact',
             'infrastructure_group',
-            'content',
             'comments',
             'tags'
         )
